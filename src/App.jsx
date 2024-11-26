@@ -2,6 +2,8 @@ import { useState,useEffect } from 'react'
 import { useGoogleLogin,googleLogout ,GoogleLogin} from '@react-oauth/google';
 
 import axios from 'axios'
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
 
 
 function App() {
@@ -55,7 +57,8 @@ const handlegooglelogin=()=>{
 console.log(profile);
 
     return (
-        <div>
+      <>
+        {/* <div>
             <h2>React Google Login</h2>
             <br />
             <br />
@@ -73,7 +76,14 @@ console.log(profile);
                 // <button onClick={() => login()}>Sign in with Google 🚀 </button>
                 <GoogleLogin onSuccess={handleloginsuccess} onError={handlegooglelogin}/>
             )}
-        </div>
+        </div> */}
+
+        <Routes>
+          <Route path='/home' element={<Home/>}></Route>
+          </Routes>
+        </>
+
+
   )
 }
 
