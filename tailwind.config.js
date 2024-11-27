@@ -1,4 +1,6 @@
+
 const withMT = require("@material-tailwind/react/utils/withMT");
+
  
 module.exports = withMT({
   content: [
@@ -10,6 +12,7 @@ module.exports = withMT({
   theme: {
     extend: {
       backgroundImage:{
+        imaged:"url('./public/assets/images/image.jpg')",
         "banner1":"url('https://www.pixelstalk.net/wp-content/uploads/images7/Turkey-Wide-Screen-Wallpaper.jpg')"
       }
     },

@@ -1,10 +1,11 @@
-import React from "react";
-import image from "../assets/images/home_con.png";
+import React, { useState } from "react";
+// import image from "../../pu";
 import { Button } from "@material-tailwind/react";
+import Menu from "./header/Menu";
 
 function Header() {
   const data = [
-    { name: "Goviagoo", icon: image },
+    { name: "Goviagoo", icon: "/assets/images/home_con.png" },
     { name: "home", icon: "" },
     { name: "Road trip", icon: "" },
     { name: "Destination", icon: "" },
@@ -30,10 +31,13 @@ function Header() {
       ),
     },
   ];
+
+  const [menu, setMenu] = useState(false);
   return (
     <>
-      <div className="flex justify-around items-center w-full   ">
-        <div className=" w-[25%] ">
+      <div>{menu && <Menu setMenu={setMenu} />}</div>
+      <div className="flex justify-around sm:justify-between items-center w-full     ">
+        <div className=" lg:w-25% ">
           {data.splice(0, 1).map((item) => {
             return (
               <div className=" flex w-full justify-start items-center">
@@ -45,25 +49,32 @@ function Header() {
             );
           })}
         </div>
-        <div className="flex w-full justify-between ml-5    ">
+        <div className="  lg:flex w-[120vh] justify-around  md:block hidden ">
           {data.splice(1, 6).map((item) => {
             return (
-              <div className="">
+              <div className=" ">
                 <h1 className="">{item.name}</h1>
               </div>
             );
           })}
         </div>
-        <div className="w-[25%]">
+        <div className="  lg:w-25%   ">
           {data.splice(1, 1).map((item) => {
             return (
-              <div className="flex justify-end items-center w-full">
-                {/* <h1> {item.icon}</h1> */}
-                <Button className="mr-4">{item.name}</Button>
+              <div className="flex justify-center items-center  w-full ">
+                {/* <h1>{item.icon}</h1> */}
+                <Button className="lg:mr-4">{item.name}</Button>
               </div>
             );
           })}
         </div>
+        <i
+          class="fa-solid fa-bars fa-2xl lg:hidden"
+          style={{ color: "#232323" }}
+          onClick={() => {
+            menu ? setMenu(false) : setMenu(true);
+          }}
+        ></i>
       </div>
     </>
   );

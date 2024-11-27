@@ -8,7 +8,7 @@ function Footer() {
           <h1>Don't know which destination to choose?</h1>
           <h1>Call Us (858) 577-3477</h1>
         </div>
-        <div className=" w-full bg-red-500 h-[30vh] flex justify-around items-center">
+        <div className=" w-full bg-red-500 h-full lg:p-10 flex flex-col text-center  lg:flex-row justify-around items-center">
           <div className="" >
             <h1>Travel Agency </h1>
             <h1>

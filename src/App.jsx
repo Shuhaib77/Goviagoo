@@ -4,6 +4,8 @@ import { useGoogleLogin,googleLogout ,GoogleLogin} from '@react-oauth/google';
 import axios from 'axios'
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
+import Destinations from './pages/Destinations';
+import Destinationdetail from './pages/Destinationdetail';
 
 
 function App() {
@@ -80,6 +82,8 @@ console.log(profile);
 
         <Routes>
           <Route path='/home' element={<Home/>}></Route>
+          <Route path='/destination' element={<Destinations/>}></Route>
+          <Route path='/destinationdtil' element={<Destinationdetail/>}></Route>
           </Routes>
         </>
 
