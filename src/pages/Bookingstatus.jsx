@@ -1,10 +1,11 @@
 import React from 'react'
+import Statusview from '../components/Booking/Statusview'
 
 function Bookingstatus() {
   return (
-    <div>
-        <h1>Bookingstatus</h1>
-    </div>
+    <>
+     <Statusview/>
+    </>
   )
 }
 

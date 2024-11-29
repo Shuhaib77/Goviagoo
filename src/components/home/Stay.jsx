@@ -1,14 +1,15 @@
 import React from "react";
-import Card3 from "../Card3";
+import Card3 from "../cards/Card3";
+
 // import images from "../../assets/images/image.jpg";
 function Stay() {
   return (
     <>
       <div>
-        <div className="text-center mt-20">
+        <div className="text-center mt-16">
           <h1 className="font-bold text-2xl ">Bdget friendly Acommadations</h1>
         </div>
-        <div className="grid grid-flow-col overflow-x-scroll gap-x-5 w-100% ml-16 mr-16 mt-10 mb-20 ">
+        <div className="grid grid-flow-col overflow-x-scroll gap-x-5 w-100% ml-16 mr-16 mt-16 mb-20 ">
           <div className="w-[300px] h-full border rounded-md   ">
             <img
               src="/assets/images/image.jpg"

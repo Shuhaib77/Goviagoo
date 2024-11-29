@@ -3,7 +3,7 @@ import React from "react";
 function Footer() {
   return (
     <>
-      <div className="w-full h-full">
+      <div className="w-full h-full mt-10">
         <div className="w-full h-[100px] text-white text-center grid place-content-center  bg-black">
           <h1>Don't know which destination to choose?</h1>
           <h1>Call Us (858) 577-3477</h1>

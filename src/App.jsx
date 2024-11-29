@@ -6,6 +6,13 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Destinations from './pages/Destinations';
 import Destinationdetail from './pages/Destinationdetail';
+import Roadmap from './pages/Roadmap';
+import Accommadation from './pages/Accommadation';
+import Bookingstatus from './pages/Bookingstatus';
+import Foodspot from './pages/Foodspot';
+import Livemap from './pages/Livemap';
+import Mapselector from './pages/Mapselector';
+import Reviews from './pages/Reviews';
 
 
 function App() {
@@ -84,6 +91,13 @@ console.log(profile);
           <Route path='/home' element={<Home/>}></Route>
           <Route path='/destination' element={<Destinations/>}></Route>
           <Route path='/destinationdtil' element={<Destinationdetail/>}></Route>
+          <Route path='/roadmap' element={<Roadmap/>}></Route>
+          <Route path='/stay' element={<Accommadation/>}></Route>
+          <Route path='/status' element={<Bookingstatus/>}></Route>
+          <Route path='/food' element={<Foodspot/>}></Route>
+          <Route path='/live' element={<Livemap/>}></Route>
+          <Route path='/mapselect' element={<Mapselector/>}></Route>
+          <Route path='/review' element={<Reviews/>}></Route>
           </Routes>
         </>
 

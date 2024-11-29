@@ -7,7 +7,7 @@ function Card3() {
       <div className="text-center  mb-10">
             <h1 className="font-bold text-2xl">Explore Food</h1>
         </div>
-        <div className="flex flex-col gap-y-5 w-100% lg:flex-row justify-around gap-x-2  lg:ml-16 lg:mr-16  ">
+        <div className="flex flex-col gap-y-5 w-100% lg:flex-row justify-around gap-x-2  lg:ml-16 lg:mr-16 mt-16  ">
           <img
             src="/assets/images/Food.avif"
             alt=""
