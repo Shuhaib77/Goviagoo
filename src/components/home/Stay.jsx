@@ -1,8 +1,11 @@
 import React from "react";
 import Card3 from "../cards/Card3";
+import { Button, button } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
 
 // import images from "../../assets/images/image.jpg";
-function Stay() {
+function Stay({button}) {
+  const navigate=useNavigate()
   return (
     <>
       <div>
@@ -39,6 +42,11 @@ function Stay() {
                 class="fa-solid fa-star fa-lg"
                 style={{ color: "#f5ec00" }}
               ></i>{" "}
+                {
+                button && <Button className="p-2 w-16 float-end mb-2" onClick={()=>{
+                  navigate('/status')
+                }}>{button}</Button>
+              }
             </h1>
           </div>
           <div className="w-[300px] h-full border rounded-md   ">
@@ -132,12 +140,14 @@ function Stay() {
                 class="fa-solid fa-star fa-lg"
                 style={{ color: "#f5ec00" }}
               ></i>{" "}
+            
             </h1>
           </div>
         </div>
 
         <Card3 />
       </div>
+      
     </>
   );
 }

@@ -11,8 +11,8 @@ function Topreviews() {
           <h1 className="text-2xl font-bold">Top Reviews</h1>
         </div>
 
-        <Carousel className="Carousel bg-green-200 ppt-5 pb-5">
-          <div className="grid grid-cols-1 place-items-center  w-100% ml-14 mr-14  text-center  p-3 ">
+        <Carousel className="Carousel ppt-5 pb-5">
+          <div className="grid grid-cols-1 place-items-center  w-100% ml-14 mr-14  text-center  p-16 ">
             <h1 className="mb-5 font-bold text-xl">cfwcwevv</h1>
             <img
               src="/assets/images/image.jpg"
@@ -21,9 +21,11 @@ function Topreviews() {
             />
             <h1 className="mt-3 font-semibold">dcewfcfv</h1>
             <p className="font-medium mb-5">
-              3edcwrcfveerffgtgyvhy5hbyhjujujjynjuyjnyunjujyunjyujyjjnjjyjyju
-              <br /> khbkbcewcjuju6jyujyunjujujujjherjceg feriu
-              gfriffwrjkfghwelifwfwef
+              is simply dummy text of the printing and typesetting industry.
+              Lorem Ipsum has been the industry's standard dummy text ever since
+              the 1500s, when an unknown printer took a galley of type and
+              scrambled it to make a type specimen book. It has survived not
+              only five centuries, but also the
               <br />
               cwececfrfrfjbkrjbhfiuugbfkferfyfgefk,bekfgek
             </p>

@@ -1,7 +1,10 @@
 import { Button } from "@material-tailwind/react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Card6() {
+
+    const navigate=useNavigate()
   return (
     <>
       <div className=" w-100%  lg:ml-16 lg:mr-16 sm:mb-20  ">
@@ -47,14 +50,18 @@ function Card6() {
             </p>
             <div></div>
             <div className=" p-3">
-              <h1 className="border border-blue-200 font-medium text-sm p-2 ">
+              <h1 className="border border-blue-200 font-medium text-sm p-2  " onClick={()=>{
+                navigate('/stay')
+              }}>
                 <i
                   class="fa-solid fa-star fa-lg"
                   style={{ color: "#f5ec00" }}
                 ></i>
                 Add Accommadation
               </h1>
-              <h1 className="border border-blue-200 p-2  mt-2 font-medium text-sm">
+              <h1 className="border border-blue-200 p-2  mt-2 font-medium text-sm" onClick={()=>{
+                navigate('/food')
+              }}>
                 {" "}
                 <i
                   class="fa-solid fa-star fa-lg"
@@ -62,7 +69,9 @@ function Card6() {
                 ></i>
                 Add Foodspots
               </h1>
-              <Button className="p-2 w-40 mt-5">View details</Button>
+              <Button className="p-2 w-40 mt-5" onClick={()=>{
+                navigate('/destinationdtil')
+              }} >View details</Button>
             </div>
           </div>
           {/* ------ */}

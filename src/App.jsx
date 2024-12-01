@@ -88,7 +88,7 @@ console.log(profile);
         </div> */}
 
         <Routes>
-          <Route path='/home' element={<Home/>}></Route>
+          <Route path='/:url' element={<Home/>}></Route>
           <Route path='/destination' element={<Destinations/>}></Route>
           <Route path='/destinationdtil' element={<Destinationdetail/>}></Route>
           <Route path='/roadmap' element={<Roadmap/>}></Route>

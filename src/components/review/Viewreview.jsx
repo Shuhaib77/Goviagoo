@@ -6,14 +6,14 @@ function Viewreview() {
       <div className="w-100% ml-36 mr-36">
       <div className="">
       <div className=" flex justify-center w-full h-full mb-5">
-          <div className="w-1/3 h-[30vh] ">
+          <div className="w-1/2 h-[30vh] ">
             <img
               src="assets/images/images-8.jpeg"
               alt=""
               className="w-full h-full object-cover"
             />
           </div>
-          <div className=" w-1/2 h-[30vh] p-5 grid place-content-center">
+          <div className=" w-full h-[30vh] p-5 grid place-content-center">
           <span>Kathmandu, Nepal</span>
           <h1 className="font-bond text-2xl mt-2 mb-2 ">11 Best Places to visit in Nepal</h1>
             <p className="mb-2">
@@ -47,15 +47,15 @@ function Viewreview() {
         </div>
         {/* --- */}
 
-        <div className=" flex justify-center w-full h-full">
-          <div className="bg-blue-500 w-1/3 h-[30vh] ">
+        <div className=" flex justify-center w-full h-full mb-5">
+          <div className="w-1/2 h-[30vh] ">
             <img
               src="assets/images/images-8.jpeg"
               alt=""
               className="w-full h-full object-cover"
             />
           </div>
-          <div className="w-1/2 h-[30vh] p-5 grid place-content-center">
+          <div className=" w-full h-[30vh] p-5 grid place-content-center">
           <span>Kathmandu, Nepal</span>
           <h1 className="font-bond text-2xl mt-2 mb-2 ">11 Best Places to visit in Nepal</h1>
             <p className="mb-2">

@@ -13,7 +13,7 @@ function Destinations() {
           <Header/>
         </div>
         <div>
-          <Banner image={"assets/images/banner-2.jpg"}
+          <Banner image={"https://t4.ftcdn.net/jpg/05/92/47/71/360_F_592477175_aTKBiDv9cllHHsnSqTuRNfz1SXQnf2NM.jpg"}
           searchbar={{input:<Input label='search' className='grid place-content-end bg-white '></Input> ,icon: <i
             class="fa-solid fa-magnifying-glass"
             style={{ color: "#000000" }}

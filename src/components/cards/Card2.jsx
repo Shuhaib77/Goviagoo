@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Card2() {
+  const navigate=useNavigate()
   return (
     <>
       <div className="w-100%   ml-16 mr-16">
@@ -19,7 +21,9 @@ function Card2() {
           <div className="w-[290px] h-[350px] bg-green-600  "></div>
         </div>
         <div className=" mt-10 text-center ">
-          <h5 className="font-bold text-medium ">
+          <h5 className="font-bold text-medium " onClick={()=>{
+            navigate('/mapselect')
+          }}>
             create RoadMap{" "}
             <i
               class="fa-solid fa-arrow-right-long fa-xl ml-3"

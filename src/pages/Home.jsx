@@ -36,6 +36,7 @@ function Home() {
                 style={{ color: "#000000" }}
               ></i>
             ),
+        
           }}
         />
       </div>

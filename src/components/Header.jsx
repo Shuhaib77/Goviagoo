@@ -2,25 +2,28 @@ import React, { useState } from "react";
 // import image from "../../pu";
 import { Button } from "@material-tailwind/react";
 import Menu from "./header/Menu";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Header() {
+  const [menu, setMenu] = useState(false);
+  const navigate=useNavigate()
+  const {url}=useParams()
+  console.log(url);
+  
   const data = [
-    { name: "Goviagoo", icon: "/assets/images/home_con.png" },
-    { name: "home", icon: "" },
-    { name: "Road trip", icon: "" },
-    { name: "Destination", icon: "" },
-    { name: "Dashboard", icon: "" },
-    { name: "Go to map", icon: "" },
-    { name: "Aboutus", icon: "" },
+    { name: "Goviagoo", icon: "/assets/images/home_con.png",url:"home" },
+    { name: "home", icon: "" ,url:"home"},
+    { name: "Road trip", icon: "",url:"roadmap" },
+    { name: "Destination", icon: "",url:"destination" },
+    { name: "Dashboard", icon: "" ,url:"Dashboarde"},
+    { name: "Go to map", icon: "",url:"mapselect" },
+    { name: "Aboutus", icon: "" ,url:"about"},
     {
-      name: (
-        <i
-          class="fa-solid fa-magnifying-glass fa-xl"
-          style={{ color: "#000000" }}
-        ></i>
-      ),
+      name: "reviews",
       icon: "",
+      url:"review"
     },
+    
     {
       name: "signin",
       icon: (
@@ -29,10 +32,12 @@ function Header() {
           style={{ color: "#000000" }}
         ></i>
       ),
+      url:"login"
     },
   ];
 
-  const [menu, setMenu] = useState(false);
+  
+
   return (
     <>
       <div>{menu && <Menu setMenu={setMenu} />}</div>
@@ -42,7 +47,9 @@ function Header() {
             return (
               <div className=" flex w-full justify-start items-center">
                 <img src={item.icon} alt="" className="w-[80px] h-[70px] " />
-                <h1 className="text-green-700 text-lg font-extrabold ">
+                <h1 className="text-green-700 text-lg font-extrabold " onClick={()=>{
+                  navigate(`/${item?.url}`)
+                }} >
                   {item.name}
                 </h1>
               </div>
@@ -53,7 +60,9 @@ function Header() {
           {data.splice(1, 6).map((item) => {
             return (
               <div className=" ">
-                <h1 className="">{item.name}</h1>
+                <h1 className=""onClick={()=>{
+                  navigate(`/${item?.url}`)
+                }} >{item.name}</h1>
               </div>
             );
           })}
@@ -63,7 +72,9 @@ function Header() {
             return (
               <div className="flex justify-center items-center  w-full ">
                 {/* <h1>{item.icon}</h1> */}
-                <Button className="lg:mr-4">{item.name}</Button>
+                <Button className="lg:mr-4"  onClick={()=>{
+                  navigate(`/${item?.url}`)
+                }} >{item.name}</Button>
               </div>
             );
           })}

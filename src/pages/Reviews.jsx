@@ -20,6 +20,7 @@ function Reviews() {
           <div>
             <Footer/>
           </div>
+          
         </div>
     </>
   )

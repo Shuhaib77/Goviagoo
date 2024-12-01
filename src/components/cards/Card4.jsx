@@ -1,7 +1,9 @@
 import { Button } from "@material-tailwind/react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Card4({ datas }) {
+  const navigate=useNavigate()
   return (
     <>
       <div className="w-100% ml-16 mr-16">
@@ -63,7 +65,9 @@ function Card4({ datas }) {
                   ></i>{" "}
                 </h1>
                 <div className="text-center">
-                  <Button className="w-[290px] h-10 ">Details</Button>
+                  <Button className="w-[290px] h-10 " onClick={()=>{
+                    navigate('/status')
+                  }} >Book</Button>
                 </div>
               </div>
             );
