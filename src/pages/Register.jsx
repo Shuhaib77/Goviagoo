@@ -5,21 +5,19 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin, googleLogout, GoogleLogin } from "@react-oauth/google";
 
+
+
 function Register() {
   const [otp, setOtp] = useState(false);
   const navigate = useNavigate();
   const [user, setUser] = useState([]);
   const [profile, setProfile] = useState([]);
 
-  //  const login = useGoogleLogin({
-  //         onSuccess: (codeResponse) => setUser(codeResponse),
-  //         onError: (error) => console.log('Login Failed:', error)
-  //     });
 
-  const handleloginsuccess = async (credentialresponse) => {
+const handleloginsuccess = async (credentialresponse) => {
     const { credential } = credentialresponse;
-    await axios.post('')
-    console.log(credential, "iam");
+   const res= await axios.post('http://localhost:3000/api/googlelogin',{idToken:credential})
+    console.log(res, "iam");
   };
   const handlegooglelogin = () => {
     console.log("authantication failed");
@@ -148,23 +146,27 @@ function Register() {
               <div>
                 <div>
             
-                  {profile ? (
+                  {/* {profile ? ( */}
                     <div>
-                      <img src={profile.picture} alt="user image" />
+                      {/* <img src={profile.picture} alt="user image" />
                       <h3>User Logged in</h3>
                       <p>Name: {profile.name}</p>
-                      <p>Email Address: {profile.email}</p>
+                      <p>Email Address: {profile.email}</p> */}
+                      {/* <br />
                       <br />
-                      <br />
-                      <Button onClick={logOut}>Log out</Button>
+                      <Button onClick={logOut}>Log out</Button> */}
                     </div>
-                  ) : (
-                    // <button onClick={() => login()}>Sign in with Google 🚀 </button>
-                    <GoogleLogin
+                  {/* ) : ( */}
+                    {/* // <button onClick={() => login()}>Sign in with Google 🚀 </button> */}
+                   <div className="bg-black text-white rounded-md">
+                   <GoogleLogin 
                       onSuccess={handleloginsuccess}
                       onError={handlegooglelogin}
+               
+                      
                     />
-                  )}
+                   </div>
+                  {/* )} */}
                 </div>
               </div>
             </form>

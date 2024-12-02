@@ -1,4 +1,5 @@
 import React from "react";
+import Toast from "../Toast";
 
 function Mainview() {
   return (
@@ -26,6 +27,9 @@ function Mainview() {
           </h1>
           <h1>travel safe</h1>
           <p>is simply dummy text of the <br /> printing and typesetting industry</p>
+        </div>
+        <div>
+          <Toast/>
         </div>
       </div>
     </>

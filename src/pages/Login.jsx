@@ -2,8 +2,18 @@ import { Button, Input } from "@material-tailwind/react";
 import axios from "axios";
 import { useFormik } from "formik";
 import React, { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import Toast from "../components/Toast";
+
+import { useDispatch, useSelector } from "react-redux";
+import { ToastView } from "../../Redux/ToastSlice";
 
 function Login() {
+  const { show, message, type } = useSelector((state) => state.Toastval);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // -------
   const { handleBlur, handleChange, handleSubmit, values, onSubmit, error } =
     useFormik({
       initialValues: {
@@ -11,11 +21,30 @@ function Login() {
         password: "",
       },
       onSubmit: async (values) => {
-        const res = await axios.post("http://localhost:3000/api/login", {
-          email: values.email,
-          password: values.password,
-        });
-        console.log(res);
+        try {
+          const res = await axios.post("http://localhost:3000/api/login", {
+            email: values.email,
+            password: values.password,
+          });
+          console.log(res);
+          dispatch(
+            ToastView({
+              show: true,
+              message: res.data.message,
+              type: "#27c25a",
+            })
+          );
+
+          navigate("/home");
+        } catch (error) {
+          dispatch(
+            ToastView({
+              show: true,
+              message: error.response?.data?.error_message || "login faild",
+              type: "#a69119",
+            })
+          );
+        }
       },
     });
 
@@ -66,7 +95,19 @@ function Login() {
                   Submit
                 </Button>
               </div>
+              <div>
+                <h1
+                  className="float-start text-white underline cursor-pointer mt-3"
+                  onClick={() => {
+                    navigate("/register");
+                  }}
+                >
+                  {" "}
+                  register?
+                </h1>
+              </div>
             </form>
+            {show && <Toast message={message} type={type} />}
           </div>
         </div>
       </div>
