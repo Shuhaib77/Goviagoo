@@ -13,7 +13,9 @@ module.exports = withMT({
     extend: {
       backgroundImage:{
         imaged:"url('./public/assets/images/image.jpg')",
-        "banner1":"url('https://www.pixelstalk.net/wp-content/uploads/images7/Turkey-Wide-Screen-Wallpaper.jpg')"
+        
+        "login-bg":"url('https://apps.keralatourism.org/images/hri/large/tea_estate_idukki_934.jpg')",
+        "register-bg":"url('https://apps.keralatourism.org/images/hri/large/the_hidden_beauty_of_lakkam_waterfalls_munnar_850.jpg')"
       }
     },
   },

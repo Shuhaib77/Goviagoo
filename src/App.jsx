@@ -13,6 +13,8 @@ import Foodspot from './pages/Foodspot';
 import Livemap from './pages/Livemap';
 import Mapselector from './pages/Mapselector';
 import Reviews from './pages/Reviews';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 
 function App() {
@@ -98,6 +100,8 @@ console.log(profile);
           <Route path='/live' element={<Livemap/>}></Route>
           <Route path='/mapselect' element={<Mapselector/>}></Route>
           <Route path='/review' element={<Reviews/>}></Route>
+          <Route path='/login' element={<Login/>}></Route>
+          <Route path='/register' element={<Register/>}></Route>
           </Routes>
         </>
 
