@@ -4,25 +4,48 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin, googleLogout, GoogleLogin } from "@react-oauth/google";
-
-
-
+import { useSelector, useDispatch } from "react-redux";
+import { ToastView } from "../../Redux/ToastSlice";
+import Toast from "../components/Toast";
+import tryCatch from "../../../goviagoServer/src/middlewares/tryCatch";
+import { registerSchema } from "../utils/registerValidation";
 function Register() {
   const [otp, setOtp] = useState(false);
   const navigate = useNavigate();
   const [user, setUser] = useState([]);
   const [profile, setProfile] = useState([]);
-
-
-const handleloginsuccess = async (credentialresponse) => {
-    const { credential } = credentialresponse;
-   const res= await axios.post('http://localhost:3000/api/googlelogin',{idToken:credential})
-    console.log(res, "iam");
+  const [imagePreview, setImagePreview] = useState(null);
+  const dispatch = useDispatch();
+  const { show, message, type } = useSelector((state) => state.Toastval);
+  const handleloginsuccess = async (credentialresponse) => {
+    try {
+      const { credential } = credentialresponse;
+      const res = await axios.post("http://localhost:3000/api/googlelogin", {
+        idToken: credential,
+      });
+      dispatch(
+        ToastView({
+          show: true,
+          message: "google login successfull",
+          type: "green",
+        })
+      );
+      navigate("/home");
+      console.log(res, "iam");
+    } catch (error) {
+      dispatch(
+        ToastView({
+          show: true,
+          message:
+            error?.response?.data?.error_message || "google login failed",
+          type: "red",
+        })
+      );
+    }
   };
   const handlegooglelogin = () => {
     console.log("authantication failed");
   };
-
   useEffect(() => {
     if (user) {
       axios
@@ -56,15 +79,37 @@ const handleloginsuccess = async (credentialresponse) => {
       name: "",
       email: "",
       password: "",
+      image: "",
     },
+    validationSchema: registerSchema,
     onSubmit: async (values) => {
-      const res = await axios.post("http://localhost:3000/api/register", {
-        name: values.name,
-        email: values.email,
-        password: values.password,
-      });
-      setOtp(true);
-      console.log(res);
+      try {
+        const res = await axios.post("http://localhost:3000/api/register", {
+          name: values.name,
+          email: values.email,
+          password: values.password,
+          image: values.image,
+        });
+        console.log(res);
+
+        dispatch(
+          ToastView({
+            show: true,
+            message: "otp send successfully",
+            type: "green",
+          })
+        );
+        setOtp(true);
+        console.log(res);
+      } catch (error) {
+        dispatch(
+          ToastView({
+            show: true,
+            message: error.response.message || "otp sen d failed",
+            type: "red",
+          })
+        );
+      }
     },
   });
   const formikotp = useFormik({
@@ -72,14 +117,52 @@ const handleloginsuccess = async (credentialresponse) => {
       otp: "",
     },
     onSubmit: async (values) => {
-      const res = await axios.post("http://localhost:3000/api/verifyotp", {
-        email: formikreg.values.email,
-        otp: values.otp,
-      });
-      navigate("/home");
-      console.log(res);
+      try {
+        const formdata = new FormData();
+        formdata.append("otp", values.otp);
+        formdata.append("email", formikreg.values.email);
+        formdata.append("name", formikreg.values.name);
+        formdata.append("password", formikreg.values.password);
+        formdata.append("image", formikreg.values.image);
+        // formdata.append("email",values.email)
+        const res = await axios.post(
+          "http://localhost:3000/api/verifyotp",
+          formdata,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        dispatch(
+          ToastView({
+            show: true,
+            message: "register successfull",
+            type: "#27c25a",
+          })
+        );
+        navigate("/login");
+        console.log(res);
+      } catch (error) {
+        dispatch(
+          ToastView({
+            show: true,
+            message: error.response.data.message || "register successfull",
+            type: "#a69119",
+          })
+        );
+      }
     },
   });
+
+  const handleImage = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      formikreg.setFieldValue("image", file);
+      setImagePreview(URL.createObjectURL(file));
+      console.log(file.name);
+    }
+  };
 
   return (
     <>
@@ -93,7 +176,7 @@ const handleloginsuccess = async (credentialresponse) => {
             /> */}
         </div>
 
-        <div className="z-10 h-[50vh] bg-white rounded-md w-[50vh] mb-10 ml-10">
+        <div className="z-10 h-[50vh] bg-[#f5f8f51e]  rounded-md w-[60vh] mb-10 ml-10">
           {!otp ? (
             <form
               action=""
@@ -105,23 +188,44 @@ const handleloginsuccess = async (credentialresponse) => {
               </h1>
               <div>
                 <Input
+                  label="image"
+                  type="file"
+                  className="bg-white t "
+                  onChange={handleImage}
+                  onBlur={formikreg.handleBlur}
+                  // value={formikreg.values.name}
+                  name="image"
+                ></Input>
+              </div>
+              <div className="mt-5">
+                <Input
                   label="name"
-                  className="bg-white"
+                  className="bg-white  "
                   onChange={formikreg.handleChange}
                   onBlur={formikreg.handleBlur}
                   value={formikreg.values.name}
                   name="name"
                 ></Input>
+                {formikreg.errors.name && (
+                  <span className="text-red-200 text-xs">
+                    {formikreg.errors.name}
+                  </span>
+                )}
               </div>
               <div className="mt-5 mb-5">
                 <Input
                   label="email"
-                  className="bg-white"
+                  className="bg-white "
                   onChange={formikreg.handleChange}
                   onBlur={formikreg.handleBlur}
                   value={formikreg.values.email}
                   name="email"
                 ></Input>
+                {formikreg.errors.email && (
+                  <span className="text-red-200 text-xs">
+                    {formikreg.errors.email}
+                  </span>
+                )}
               </div>
               <div>
                 <Input
@@ -132,7 +236,13 @@ const handleloginsuccess = async (credentialresponse) => {
                   value={formikreg.values.password}
                   name="password"
                 ></Input>
+                {formikreg.errors.password && (
+                  <span className="text-red-200 text-xs">
+                    {formikreg.errors.password}
+                  </span>
+                )}
               </div>
+
               <div className="text-center mt-5 mb-5">
                 <Button
                   type="submit"
@@ -144,30 +254,25 @@ const handleloginsuccess = async (credentialresponse) => {
                 {console.log(formikreg.values)}
               </div>
               <div>
+                {/* {profile ? ( */}
                 <div>
-            
-                  {/* {profile ? ( */}
-                    <div>
-                      {/* <img src={profile.picture} alt="user image" />
+                  {/* <img src={profile.picture} alt="user image" />
                       <h3>User Logged in</h3>
                       <p>Name: {profile.name}</p>
                       <p>Email Address: {profile.email}</p> */}
-                      {/* <br />
+                  {/* <br />
                       <br />
                       <Button onClick={logOut}>Log out</Button> */}
-                    </div>
-                  {/* ) : ( */}
-                    {/* // <button onClick={() => login()}>Sign in with Google 🚀 </button> */}
-                   <div className="bg-black text-white rounded-md">
-                   <GoogleLogin 
-                      onSuccess={handleloginsuccess}
-                      onError={handlegooglelogin}
-               
-                      
-                    />
-                   </div>
-                  {/* )} */}
                 </div>
+                {/* ) : ( */}
+                {/* // <button onClick={() => login()}>Sign in with Google 🚀 </button> */}
+                <div className=" text-white  rounded-md">
+                  <GoogleLogin
+                    onSuccess={handleloginsuccess}
+                    onError={handlegooglelogin}
+                  />
+                </div>
+                {/* )} */}
               </div>
             </form>
           ) : (
@@ -198,23 +303,12 @@ const handleloginsuccess = async (credentialresponse) => {
               </div>
             </form>
           )}
+
+          {show && <Toast message={message} type={type} />}
         </div>
+        <div></div>
       </div>
     </>
   );
 }
 export default Register;
-// export default Register: useFormik({
-//   initialValues: {
-//     otp: "",
-
-//   },
-//   onSubmit: async(values) => {
-//     const res = await axios.post("http://localhost:3000/api/verifyotp", {
-//       otp: values.otp,
-
-//     });
-//     console.log(res);
-
-//   },
-// })

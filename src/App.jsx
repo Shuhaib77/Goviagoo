@@ -15,6 +15,7 @@ import Mapselector from './pages/Mapselector';
 import Reviews from './pages/Reviews';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
 
 
 function App() {
@@ -102,6 +103,8 @@ console.log(profile);
           <Route path='/review' element={<Reviews/>}></Route>
           <Route path='/login' element={<Login/>}></Route>
           <Route path='/register' element={<Register/>}></Route>
+          <Route path='/dashboard' element={<Dashboard/>}></Route>
+          
           </Routes>
         </>
 

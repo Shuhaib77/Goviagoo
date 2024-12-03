@@ -1,25 +1,78 @@
 import { Button, Input } from "@material-tailwind/react";
 import axios from "axios";
 import { useFormik } from "formik";
-import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Toast from "../components/Toast";
-
 import { useDispatch, useSelector } from "react-redux";
 import { ToastView } from "../../Redux/ToastSlice";
+import { GoogleLogin, googleLogout } from "@react-oauth/google";
+import { loginschema } from "../utils/loginValidation";
 
 function Login() {
   const { show, message, type } = useSelector((state) => state.Toastval);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  //-----
+  const [user, setUser] = useState([]);
+  const [profile, setProfile] = useState([]);
+  const handleloginsuccess = async (credentialresponse) => {
+    try {
+      const { credential } = credentialresponse;
+      const res = await axios.post("http://localhost:3000/api/googlelogin", {
+        idToken: credential,
+      });
+      dispatch(
+        ToastView({
+          show: true,
+          message: "google login successfull",
+          type: "green",
+        })
+      );
+      navigate("/home");
+      console.log(res, "iam");
+    } catch (error) {
+      dispatch(
+        ToastView({
+          show: true,
+          message:
+            error?.response?.data?.error_message || "google login failed",
+          type: "red",
+        })
+      );
+    }
+  };
+  const handlegooglelogin = () => {
+    console.log("authantication failed");
+  };
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          // console.log(res,"grvcgrv");
 
+          setProfile(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user]);
   // -------
-  const { handleBlur, handleChange, handleSubmit, values, onSubmit, error } =
+  const { handleBlur, handleChange, handleSubmit, values, onSubmit,errors } =
     useFormik({
       initialValues: {
         email: "",
         password: "",
       },
+      validationSchema:loginschema,
       onSubmit: async (values) => {
         try {
           const res = await axios.post("http://localhost:3000/api/login", {
@@ -31,17 +84,16 @@ function Login() {
             ToastView({
               show: true,
               message: res.data.message,
-              type: "#27c25a",
+              type: "#6bc29c",
             })
           );
-
           navigate("/home");
         } catch (error) {
           dispatch(
             ToastView({
               show: true,
               message: error.response?.data?.error_message || "login faild",
-              type: "#a69119",
+              type: "#57A647",
             })
           );
         }
@@ -79,6 +131,9 @@ function Login() {
                   value={values.email}
                   name="email"
                 ></Input>
+                {errors.email && (
+                  <span className="text-red-200 text-xs">{errors.email}</span>
+                )}
               </div>
               <div className=" mt-5 mb-5 w-92">
                 <Input
@@ -89,11 +144,35 @@ function Login() {
                   value={values.password}
                   name="password"
                 ></Input>
+                {errors.password && (
+                  <span className="text-red-200 text-xs">{errors.password}</span>
+                )}
               </div>
               <div className="text-center ">
                 <Button type="submit" className=" bg-blue-300 cursor-pointer ">
                   Submit
                 </Button>
+              </div>
+              <div>
+                {/* {profile ? ( */}
+                <div>
+                  {/* <img src={profile.picture} alt="user image" />
+                      <h3>User Logged in</h3>
+                      <p>Name: {profile.name}</p>
+                      <p>Email Address: {profile.email}</p> */}
+                  {/* <br />
+                      <br />
+                      <Button onClick={logOut}>Log out</Button> */}
+                </div>
+                {/* ) : ( */}
+                {/* // <button onClick={() => login()}>Sign in with Google 🚀 </button> */}
+                <div className="bg-black text-white mt-5  rounded-md">
+                  <GoogleLogin
+                    onSuccess={handleloginsuccess}
+                    onError={handlegooglelogin}
+                  />
+                </div>
+                {/* )} */}
               </div>
               <div>
                 <h1
@@ -106,6 +185,7 @@ function Login() {
                   register?
                 </h1>
               </div>
+           
             </form>
             {show && <Toast message={message} type={type} />}
           </div>
