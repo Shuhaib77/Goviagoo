@@ -59,7 +59,6 @@ function Login() {
         )
         .then((res) => {
           // console.log(res,"grvcgrv");
-
           setProfile(res.data);
         })
         .catch((err) => console.log(err));

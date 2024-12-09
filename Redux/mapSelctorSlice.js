@@ -12,25 +12,52 @@ export const dataInfo = createAsyncThunk(
   }
 );
 
-export const dataImages = createAsyncThunk("map/images",async () => {
-    const response = await axios.get(`https://api.unsplash.com/search/photos`, {
-      params: {
-        query: location,
-        per_page: 3, // Get 3 images
-      },
-      headers: {
-        Authorization: `Client-ID ${import.meta.env.VITE_UNSPLASH_ACCESS_KEY}`, // Replace with your Unsplash Access Key
-      },
-    });
-    return response.data
-  })  
+export const dataImages = createAsyncThunk("map/images", async (location) => {
+  const response = await axios.get(`https://api.unsplash.com/search/photos`, {
+    params: {
+      query: location,
+      per_page: 3, // Get 3 images
+    },
+    headers: {
+      Authorization: `Client-ID ${import.meta.env.VITE_UNSPLASH_ACCESS_KEY}`, // Replace with your Unsplash Access Key
+    },
+  });
+  const images = response.data.results.map((img) => img.urls.small);
+  return images;
+});
+
+// export const destinationDescription = createAsyncThunk(
+//   "location/description",
+//   async (location) => {
+//     try {
+//       const res = await axios.get(
+//         `https://api.foursquare.com/v3/places/search`,
+//         {
+//           params: {
+//             query: location,
+//             limit: 5,
+//           },
+//           headers: {
+//             Authorization: `Bearer ${import.meta.env.VITE_apiKey}`,
+//           },
+//         }
+//       );
+//       console.log(res.data.results);
+
+//       return res.data.results;
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+// );
 
 const initialState = {
   markers: [],
   loading: false,
   reject: "",
   locationDetails: null,
-  image:[]
+  image: [],
+  discription: [],
 };
 const mapSelectSlice = createSlice({
   name: "mapintagration",
@@ -52,10 +79,20 @@ const mapSelectSlice = createSlice({
       state.reject = "errorrr";
       state.loading = false;
     });
-    builder.addCase(dataImages.pending,(state,)=>{
-        state
-
-    })
+    builder.addCase(dataImages.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(dataImages.fulfilled, (state, action) => {
+      state.image = action.payload;
+    });
+    // builder.addCase(destinationDescription.pending, (state, action) => {
+    //   state.loading = true;
+    // });
+    // builder.addCase(destinationDescription.fulfilled, (state, action) => {
+    //   console.error("Error fetching description:", action.error.message);
+    //   state.discription = action.payload;
+    //   state.loading = false;
+    // });
   },
 });
 
