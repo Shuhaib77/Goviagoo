@@ -32,7 +32,7 @@ function Header() {
           style={{ color: "#000000" }}
         ></i>
       ),
-      url: "login",
+      url: "",
     },
   ];
 
@@ -46,7 +46,7 @@ function Header() {
               <div className=" flex w-full justify-start items-center">
                 <img src={item.icon} alt="" className="w-[80px] h-[70px] " />
                 <h1
-                  className="text-green-700 text-lg font-extrabold "
+                  className="text-green-700 text-lg cursor-pointer font-extrabold "
                   onClick={() => {
                     navigate(`/${item?.url}`);
                   }}
@@ -57,12 +57,12 @@ function Header() {
             );
           })}
         </div>
-        <div className="  lg:flex w-[120vh] justify-around  md:block hidden ">
+        <div className="  lg:flex w-[120vh] h-5 justify-around   md:block hidden ">
           {data.splice(1, 6).map((item) => {
             return (
               <div className=" ">
                 <h1
-                  className=""
+                  className="hover:border-b-2 w-fit h-fit cursor-pointer border-green-400 "
                   onClick={() => {
                     navigate(`/${item?.url}`);
                   }}
@@ -79,7 +79,7 @@ function Header() {
               <div className="flex justify-center items-center  w-full ">
                 {/* <h1>{item.icon}</h1> */}
                 <Button
-                  className="lg:mr-4"
+                  className="lg:mr-4 "
                   onClick={() => {
                     navigate(`/${item?.url}`);
                   }}

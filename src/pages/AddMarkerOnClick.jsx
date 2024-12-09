@@ -1,46 +1,47 @@
-import React, { useRef, useState } from "react";
-import Mapsidebar from "../components/Map/Mapsidebar";
-import Header from "../components/Header";
+import React, { useEffect, useState } from "react";
 import {
   MapContainer,
-  Marker,
-  Popup,
   TileLayer,
+  Marker,
   useMapEvents,
+  Popup,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import L from "leaflet";
 import axios from "axios";
+import { useSelector,useDispatch } from "react-redux";
 import { addMarkers, dataInfo } from "../../Redux/mapSelctorSlice";
-import { useDispatch, useSelector } from "react-redux";
 
-function Mapselector() {
-  const mapRef = useRef(null);
-  const latitude = 10.1632;
-  const longitude = 76.6413;
-  const { markers, locationDetails } = useSelector(
-    (state) => state.mapSelector
-  );
-  const dispatch = useDispatch();
+// Fix Leaflet's default icon issue in React
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+  iconRetinaUrl:
+    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+});
+
+const AddMarkerOnClick = () => {
+  // const [markers, setMarkers] = useState([]);
+  // const [locationDetails, setLocationDetails] = useState(null);
+  const [dimages, setImages] = useState(null);
+  const {markers,locationDetails}=useSelector((state)=>state.mapSelector)
+  const dispatch=useDispatch()
   console.log(markers);
   console.log(locationDetails);
-
-  delete L.Icon.Default.prototype._getIconUrl;
-  L.Icon.Default.mergeOptions({
-    iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-    iconRetinaUrl:
-      "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-    shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-  });
+  
+  
 
   const MapClickHandler = () => {
     useMapEvents({
       click: async (e) => {
         const { lat, lng } = e.latlng;
         console.log(lat, lng);
-        dispatch(addMarkers({ lat, lng }));
-        dispatch(dataInfo({ lat, lng }));
+        dispatch(addMarkers({lat,lng}))
+        dispatch(dataInfo({lat,lng}))
 
         try {
+         
           // const response = await axios.get(
           //   `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
           // );
@@ -70,18 +71,21 @@ function Mapselector() {
               },
             }
           );
+
+          
+
           const images = unsplashResponse.data.results.map(
             (img) => img.urls.small
           );
-          setImages(images);
+          setImages(images)
           console.log("Images:", images);
         } catch (error) {
           console.error("Error fetching location details:", error);
         }
         // useEffect(()=>{
-
+          
         // },[locationDetails])
-
+   
         // setMarkers((prevMarkers) => [...prevMarkers, { lat, lng }]);
         // const mm=markers.map((item)=>{
         //     return {lat:item.lat,im:item.lng}
@@ -96,44 +100,33 @@ function Mapselector() {
   };
 
   return (
-    <div className="relative h-screen w-full">
-      <div className="">
-        <Header />
-      </div>
-      <div className="h-full w-full">
-        <div className="absolute top-0 left-0 h-full w-64 bg-gray-100 shadow-lg">
-          <Mapsidebar />
-        </div>
-        <MapContainer
-          center={[latitude, longitude]}
-          zoom={13}
-          ref={mapRef}
-          style={{
-            height: "100%",
-            width: "75%",
-            position: "absolute",
-            right: 0,
-          }}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <MapClickHandler />
-          {/* Render markers */}
-          {markers.map((marker, index) => (
-            <Marker key={index} position={[marker.lat, marker.lng]}>
-              <Popup>
-                Marker at:
-                <br />
-                Lat: {marker.lat.toFixed(4)}
-                <br />
-                Lng: {marker.lng.toFixed(4)}
-              </Popup>
-            </Marker>
-          ))}
-        </MapContainer>
-      </div>
+    <>
+      <MapContainer
+        center={[51.505, -0.09]}
+        zoom={13}
+        style={{ height: "500px", width: "100%" }}
+      >
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution="© OpenStreetMap contributors"
+        />
+        {/* Custom component to handle map clicks */}
+        <MapClickHandler />
+        {/* Render markers */}
+        {markers.map((marker, index) => (
+          <Marker key={index} position={[marker?.lat, marker?.lng]}>
+            <Popup>
+              Marker at:
+              <br />
+              Lat: {marker?.lat?.toFixed(4)}
+              <br />
+              Lng: {marker?.lng?.toFixed(4)}
+            </Popup>
+          </Marker>
+        ))}
+      </MapContainer>
+      {/* {console.log(locationDetails)} */}
+
       <div>
         {locationDetails && (
           <div
@@ -156,12 +149,24 @@ function Mapselector() {
             <p>
               <strong>Longitude:</strong> {locationDetails.address.city}
             </p>
-            {/* <p> <h1>API URL: {import.meta.env.VITE_unplash_Secret_Key}</h1></p> */}
           </div>
         )}
-      </div>
-    </div>
-  );
-}
+        {
+          dimages?.map((item)=>{
+            return(
+              <div>
+                <img src={item} alt="" />
 
-export default Mapselector;
+              </div>
+
+            )
+
+          })
+
+}
+      </div>
+    </>
+  );
+};
+
+export default AddMarkerOnClick;

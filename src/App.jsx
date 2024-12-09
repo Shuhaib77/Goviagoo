@@ -16,6 +16,9 @@ import Reviews from './pages/Reviews';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import AddMarkerOnClick from './pages/AddMarkerOnClick';
+import ReverseGeocodingMap from './pages/ReverseGeocodingMap';
+import MapWithImages from './pages/MapWithImages';
 
 
 function App() {
@@ -101,9 +104,12 @@ console.log(profile);
           <Route path='/live' element={<Livemap/>}></Route>
           <Route path='/mapselect' element={<Mapselector/>}></Route>
           <Route path='/review' element={<Reviews/>}></Route>
-          <Route path='/login' element={<Login/>}></Route>
+          <Route path='/' element={<Login/>}></Route>
           <Route path='/register' element={<Register/>}></Route>
           <Route path='/dashboard' element={<Dashboard/>}></Route>
+          <Route path='/mop' element={<AddMarkerOnClick/>}></Route>
+          <Route path='/reverse' element={<ReverseGeocodingMap/>}></Route>
+          <Route path='/miiiii' element={<MapWithImages/>}></Route>
           
           </Routes>
         </>
