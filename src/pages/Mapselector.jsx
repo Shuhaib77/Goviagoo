@@ -10,7 +10,7 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import axios from "axios";
-import { addMarkers, dataImages, dataInfo, } from "../../Redux/mapSelctorSlice";
+import { addMarkers, dataImages, dataInfo } from "../../Redux/mapSelctorSlice";
 import { useDispatch, useSelector } from "react-redux";
 // import Destinationdetail from "./Destinationdetail";
 
@@ -22,7 +22,7 @@ function Mapselector() {
     (state) => state.mapSelector
   );
   const dispatch = useDispatch();
-  const [sidebar,setSaidebar]=useState(false)
+  const [sidebar, setSaidebar] = useState(false);
   console.log(markers);
   console.log(locationDetails);
   console.log(image, "JNJXN");
@@ -39,7 +39,7 @@ function Mapselector() {
   const MapClickHandler = () => {
     useMapEvents({
       click: async (e) => {
-        setSaidebar(true)
+        setSaidebar(true);
         const { lat, lng } = e.latlng;
         console.log(lat, lng);
         dispatch(addMarkers({ lat, lng }));
@@ -77,7 +77,7 @@ function Mapselector() {
         // } catch (error) {
         //   console.error("Error fetching location details:", error);
         // }
-      
+
         // useEffect(()=>{
 
         // },[locationDetails])
@@ -91,39 +91,37 @@ function Mapselector() {
         // console.log(rr);
         // console.log(nn);
       },
-    })
+    });
     return null; // No JSX is rendered by this component
   };
   useEffect(() => {
     if (locationDetails?.display_name) {
       dispatch(dataImages(locationDetails.display_name));
       // dispatch(destinationDescription(locationDetails?.display_name))
-
     }
   }, [locationDetails]);
 
-
   return (
-    <div className="relative h-screen w-full">
+    <div className="h-[full] w-full">
       <div className="">
         <Header />
       </div>
+
+      {sidebar && <div className="">
+        <Mapsidebar sidebar={sidebar} />
+      </div>
+}
       <div className="h-full w-full">
-        {sidebar &&
-          <div className="">
-          <Mapsidebar  />
-        </div>
-        }
-      
         <MapContainer
           center={[latitude, longitude]}
           zoom={13}
           ref={mapRef}
           style={{
             height: "100%",
-            width: "75%",
+            width: "100%",
             position: "absolute",
             right: 0,
+            zIndex:-1
           }}
         >
           <TileLayer
@@ -145,7 +143,6 @@ function Mapselector() {
           ))}
         </MapContainer>
       </div>
-     
     </div>
   );
 }

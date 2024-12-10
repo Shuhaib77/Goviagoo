@@ -22,6 +22,7 @@ function Login() {
       const res = await axios.post("http://localhost:3000/api/googlelogin", {
         idToken: credential,
       });
+        localStorage.setItem("id",res.data.user._id)
       dispatch(
         ToastView({
           show: true,
@@ -86,6 +87,7 @@ function Login() {
               type: "#6bc29c",
             })
           );
+          localStorage.setItem("id",res.data.user._id)
           navigate("/home");
         } catch (error) {
           dispatch(
