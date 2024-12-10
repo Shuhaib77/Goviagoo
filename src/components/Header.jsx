@@ -38,8 +38,8 @@ function Header() {
 
   return (
     <>
-      <div>{menu && <Menu setMenu={setMenu} />}</div>
-      <div className="flex justify-around sm:justify-between items-center w-full     ">
+      {/* <div>{menu && <Menu setMenu={setMenu} />}</div> */}
+      <div className="flex justify-around sm:justify-between items-center w-full sticky  bg-white top-0     ">
         <div className=" lg:w-25% ">
           {data.splice(0, 1).map((item) => {
             return (

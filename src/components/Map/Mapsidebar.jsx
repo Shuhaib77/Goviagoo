@@ -1,12 +1,11 @@
-import { Button } from "@material-tailwind/react";
+import { Button, Carousel } from "@material-tailwind/react";
 import axios from "axios";
 import React from "react";
 import { useSelector } from "react-redux";
 
 const Mapsidebar = ({ sidebar }) => {
-  
   const { image, locationDetails } = useSelector((state) => state.mapSelector);
-  const id=localStorage.getItem("id")
+  const id = localStorage.getItem("id");
 
   const addtoMap = () => {
     const res = axios.post(
@@ -21,40 +20,37 @@ const Mapsidebar = ({ sidebar }) => {
         description: locationDetails?.address?.state_district,
         category: locationDetails?.type,
       }
-
     );
-    
   };
 
   return (
     <>
-      <div className="absolute left-0 lg:w-[40vh] w-full lg:h-full h-[45vh] bg-white lg:overflow-hidden overflow-y-scroll p-5 shadow-lg">
+      <div className="absolute left-0 top-16 lg:w-[40vh] w-full lg:h-[93vh] h-[45vh] bg-white lg:overflow-hidden overflow-y-scroll p-5 shadow-lg">
         <h1 className="text-2xl font-bold text-center">Destination</h1>
 
-        {/* images */}
         <div className="flex mt-5">
-          {image?.length > 0 ? (
-            image.map((item, index) => (
-              <div className="h-[200px] flex gap-4 overflow-x-automt-5">
-                <img
-                  key={index}
-                  src={item}
-                  alt="Location"
-                  className="h-full w-full object-cover rounded-md"
-                />
-              </div>
-            ))
-          ) : (
-            <p className="text-center text-gray-500">No images available</p>
-          )}
+          <Carousel>
+            {image?.length > 0 ? (
+              image.map((item, index) => (
+                <div className="h-[200px] flex gap-4 overflow-x-automt-5">
+                  <img
+                    key={index}
+                    src={item}
+                    alt="Location"
+                    className="h-full w-full object-cover rounded-md"
+                  />
+                </div>
+              ))
+            ) : (
+              <p className="text-center text-gray-500">No images available</p>
+            )}
+          </Carousel>
         </div>
 
-        {/* buttons */}
         <div className="flex flex-col lg:flex-row justify-start items-center  gap-4 mt-10 mb-10">
           <Button className="p-2 w-28">ViewDetailss</Button>
         </div>
 
-        {/* location details */}
         <div className="mt-5 font-medium text-l ">
           <p>
             {" "}
@@ -91,7 +87,6 @@ const Mapsidebar = ({ sidebar }) => {
           </p>
         </div>
 
-        {/* Footer */}
         <div className=" mt-10">
           <Button className="p-2 w-28" onClick={addtoMap}>
             Add to RoadMap
