@@ -6,15 +6,20 @@ import Cards5 from "../components/cards/Cards5";
 import Footer from "../components/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { getDestinationData } from "../../Redux/destinationSlice";
+import axios from "axios";
 
 function Destinations() {
   const { data } = useSelector((state) => state.destination);
   const dispatch = useDispatch();
+ 
 
   useEffect(() => {
     dispatch(getDestinationData()) ;
   }, []);
   console.log(data);
+
+
+
 
   return (
     <>

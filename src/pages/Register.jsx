@@ -9,38 +9,36 @@ import { ToastView } from "../../Redux/ToastSlice";
 import Toast from "../components/Toast";
 import tryCatch from "../../../goviagoServer/src/middlewares/tryCatch";
 import { registerSchema } from "../utils/registerValidation";
+import useToast from "../hooks/useToast";
+import { set } from "mongoose";
 function Register() {
   const [otp, setOtp] = useState(false);
   const navigate = useNavigate();
   const [user, setUser] = useState([]);
   const [profile, setProfile] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
-  const dispatch = useDispatch();
+
   const { show, message, type } = useSelector((state) => state.Toastval);
+  const { toast } = useToast();
   const handleloginsuccess = async (credentialresponse) => {
     try {
       const { credential } = credentialresponse;
       const res = await axios.post("http://localhost:3000/api/googlelogin", {
         idToken: credential,
       });
-      dispatch(
-        ToastView({
-          show: true,
-          message: "google login successfull",
-          type: "green",
-        })
-      );
+      toast({
+        show: true,
+        message: "google login successfull",
+        type: "green",
+      });
       navigate("/home");
       console.log(res, "iam");
     } catch (error) {
-      dispatch(
-        ToastView({
-          show: true,
-          message:
-            error?.response?.data?.error_message || "google login failed",
-          type: "red",
-        })
-      );
+      toast({
+        show: true,
+        message: error?.response?.data?.error_message || "google login failed",
+        type: "red",
+      });
     }
   };
   const handlegooglelogin = () => {
@@ -83,32 +81,35 @@ function Register() {
     },
     validationSchema: registerSchema,
     onSubmit: async (values) => {
+      console.log(values);
+      
       try {
         const res = await axios.post("http://localhost:3000/api/register", {
           name: values.name,
           email: values.email,
           password: values.password,
           image: values.image,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+        console.log(res,"nfefehb fhfef");
+        toast({
+          show: true,
+          message: "otp send successfully",
+          type: "green",
         });
-        console.log(res);
-
-        dispatch(
-          ToastView({
-            show: true,
-            message: "otp send successfully",
-            type: "green",
-          })
-        );
         setOtp(true);
         console.log(res);
       } catch (error) {
-        dispatch(
-          ToastView({
-            show: true,
-            message: error.response.message || "otp sen d failed",
-            type: "red",
-          })
-        );
+        toast({
+          show: true,
+          message: error.response.message || "otp sen d failed",
+          type: "red",
+        });
       }
     },
   });
@@ -134,23 +135,20 @@ function Register() {
             },
           }
         );
-        dispatch(
-          ToastView({
-            show: true,
-            message: "register successfull",
-            type: "#27c25a",
-          })
-        );
+        toast({
+          show: true,
+          message: "register successfull",
+          type: "#27c25a",
+        });
+
         navigate("/login");
         console.log(res);
       } catch (error) {
-        dispatch(
-          ToastView({
-            show: true,
-            message: error.response.data.message || "register successfull",
-            type: "#a69119",
-          })
-        );
+        toast({
+          show: true,
+          message: error.response.data.message || "register successfull",
+          type: "#a69119",
+        });
       }
     },
   });

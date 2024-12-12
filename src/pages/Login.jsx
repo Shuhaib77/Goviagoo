@@ -8,11 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { ToastView } from "../../Redux/ToastSlice";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import { loginschema } from "../utils/loginValidation";
+import useToast from "../hooks/useToast";
 
 function Login() {
   const { show, message, type } = useSelector((state) => state.Toastval);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { toast } = useToast();
   //-----
   const [user, setUser] = useState([]);
   const [profile, setProfile] = useState([]);
@@ -22,25 +24,21 @@ function Login() {
       const res = await axios.post("http://localhost:3000/api/googlelogin", {
         idToken: credential,
       });
-        localStorage.setItem("id",res.data.user._id)
-      dispatch(
-        ToastView({
-          show: true,
-          message: "google login successfull",
-          type: "green",
-        })
-      );
+      localStorage.setItem("id", res.data.user._id);
+      toast({
+        show: true,
+        message: "google login successfull",
+        type: "#5da364",
+      });
+
       navigate("/home");
       console.log(res, "iam");
     } catch (error) {
-      dispatch(
-        ToastView({
-          show: true,
-          message:
-            error?.response?.data?.error_message || "google login failed",
-          type: "red",
-        })
-      );
+      toast({
+        show: true,
+        message: error?.response?.data?.error_message || "google login failed",
+        type: "#a6354a",
+      });
     }
   };
   const handlegooglelogin = () => {
@@ -66,13 +64,13 @@ function Login() {
     }
   }, [user]);
   // -------
-  const { handleBlur, handleChange, handleSubmit, values, onSubmit,errors } =
+  const { handleBlur, handleChange, handleSubmit, values, onSubmit, errors } =
     useFormik({
       initialValues: {
         email: "",
         password: "",
       },
-      validationSchema:loginschema,
+      validationSchema: loginschema,
       onSubmit: async (values) => {
         try {
           const res = await axios.post("http://localhost:3000/api/login", {
@@ -80,23 +78,20 @@ function Login() {
             password: values.password,
           });
           console.log(res);
-          dispatch(
-            ToastView({
-              show: true,
-              message: res.data.message,
-              type: "#6bc29c",
-            })
-          );
-          localStorage.setItem("id",res.data.user._id)
+          toast({
+            show: true,
+            message: res.data.message,
+            type: "#5da364",
+          });
+
+          localStorage.setItem("id", res.data.user._id);
           navigate("/home");
         } catch (error) {
-          dispatch(
-            ToastView({
-              show: true,
-              message: error.response?.data?.error_message || "login faild",
-              type: "#57A647",
-            })
-          );
+          toast({
+            show: true,
+            message: error.response?.data?.error_message || "login faild",
+            type: "#a6354a",
+          });
         }
       },
     });
@@ -146,7 +141,9 @@ function Login() {
                   name="password"
                 ></Input>
                 {errors.password && (
-                  <span className="text-red-200 text-xs">{errors.password}</span>
+                  <span className="text-red-200 text-xs">
+                    {errors.password}
+                  </span>
                 )}
               </div>
               <div className="text-center ">
@@ -186,7 +183,6 @@ function Login() {
                   register?
                 </h1>
               </div>
-           
             </form>
             {show && <Toast message={message} type={type} />}
           </div>

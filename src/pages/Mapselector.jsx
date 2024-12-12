@@ -44,7 +44,7 @@ function Mapselector() {
         console.log(lat, lng);
         dispatch(addMarkers({ lat, lng }));
         dispatch(dataInfo({ lat, lng }));
-        // try {
+
         //   // const response = await axios.get(
         //   //   `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
         //   // );
@@ -107,10 +107,11 @@ function Mapselector() {
         <Header />
       </div>
 
-      {sidebar && <div className="">
-        <Mapsidebar sidebar={sidebar} />
-      </div>
-}
+      {sidebar && (
+        <div className="">
+          <Mapsidebar sidebar={sidebar} />
+        </div>
+      )}
       <div className="h-full w-full">
         <MapContainer
           center={[latitude, longitude]}
@@ -121,7 +122,7 @@ function Mapselector() {
             width: "100%",
             position: "absolute",
             right: 0,
-            zIndex:-1
+            zIndex: -1,
           }}
         >
           <TileLayer

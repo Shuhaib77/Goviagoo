@@ -5,6 +5,8 @@ import axios from "axios";
 export const dataInfo = createAsyncThunk(
   "dataa/markers",
   async ({ lat, lng }) => {
+    console.log(lat, lng, "reduxxx");
+
     const response = await axios.get(
       `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
     );
@@ -25,6 +27,30 @@ export const dataImages = createAsyncThunk("map/images", async (location) => {
   const images = response.data.results.map((img) => img.urls.small);
   return images;
 });
+
+// export const roadMapWithMap = createAsyncThunk(
+//   "adddestinattion wit Map",
+//   async ({ image, locationDetails, id }) => {
+//     try {
+//       const res = await axios.post(
+//         `http://localhost:3000/api/destination/post/roadmap/${id}/${locationDetails?.display_name}/map`,
+//         {
+//           image: image,
+//           name: locationDetails?.display_name,
+//           location: {
+//             lat: locationDetails?.lat,
+//             lon: locationDetails?.lon,
+//           },
+//           description: locationDetails?.address?.state_district,
+//           category: locationDetails?.type,
+//         }
+//       );
+//       return res.data
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+// );
 
 // export const destinationDescription = createAsyncThunk(
 //   "location/description",
@@ -58,6 +84,8 @@ const initialState = {
   locationDetails: null,
   image: [],
   discription: [],
+  // roadMapData: [],
+  createRoadMap: false,
 };
 const mapSelectSlice = createSlice({
   name: "mapintagration",
@@ -65,6 +93,9 @@ const mapSelectSlice = createSlice({
   reducers: {
     addMarkers: (state, action) => {
       state.markers = [action.payload];
+    },
+    RoadmapViewd: (state, action) => {
+      state.createRoadMap = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -85,6 +116,8 @@ const mapSelectSlice = createSlice({
     builder.addCase(dataImages.fulfilled, (state, action) => {
       state.image = action.payload;
     });
+
+    
     // builder.addCase(destinationDescription.pending, (state, action) => {
     //   state.loading = true;
     // });
@@ -96,6 +129,6 @@ const mapSelectSlice = createSlice({
   },
 });
 
-export const { addMarkers } = mapSelectSlice.actions;
+export const { addMarkers, RoadmapViewd } = mapSelectSlice.actions;
 
 export default mapSelectSlice.reducer;

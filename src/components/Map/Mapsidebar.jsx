@@ -1,31 +1,57 @@
 import { Button, Carousel } from "@material-tailwind/react";
 import axios from "axios";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { ToastView } from "../../../Redux/ToastSlice";
+import Toast from "../Toast";
+import useToast from "../../hooks/useToast";
+import { useNavigate } from "react-router-dom";
+// import { roadMapWithMap } from "../../../Redux/mapSelctorSlice";
+
 
 const Mapsidebar = ({ sidebar }) => {
+  const dispatch = useDispatch();
+  const navigate=useNavigate()
   const { image, locationDetails } = useSelector((state) => state.mapSelector);
   const id = localStorage.getItem("id");
+  const { show, message, type } = useSelector((state) => state.Toastval);
+  console.log(locationDetails, "////");
+  console.log(locationDetails?.lon, "++++++++");
+  const { toast } = useToast();
 
-  const addtoMap = () => {
-    const res = axios.post(
-      `http://localhost:3000/api/destination/post/roadmap/${id}/${locationDetails?.display_name}/map`,
-      {
-        image: image,
-        name: locationDetails?.display_name,
-        location: {
-          lat: locationDetails?.lat,
-          lon: locationDetails?.lon,
-        },
-        description: locationDetails?.address?.state_district,
-        category: locationDetails?.type,
-      }
-    );
+  const addtoMap = async () => {
+    try {
+      const res = await axios.post(
+        `http://localhost:3000/api/destination/post/roadmap/${id}/${locationDetails?.display_name}/map`,
+        {
+          image: image,
+          name: locationDetails?.display_name,
+          location: {
+            lat: locationDetails?.lat,
+            lon: locationDetails?.lon,
+          },
+          description: locationDetails?.address?.state_district,
+          category: locationDetails?.type,
+        }
+      );
+      console.log(res.data, "hyhyhyhyhyy");
+      toast({
+        show: true,
+        message: "destination addeddd",
+        type: "#5da364",
+      });
+    } catch (error) {
+      toast({
+        show: true,
+        message: "destination alredy added",
+        type: "#a6354a",
+      });
+    }
   };
 
   return (
     <>
-      <div className="absolute left-0 top-16 lg:w-[40vh] w-full lg:h-[93vh] h-[45vh] bg-white lg:overflow-hidden overflow-y-scroll p-5 shadow-lg">
+      <div className="absolute left-0 top-15 z--2 lg:w-[40vh] w-full lg:h-full h-[45vh] bg-white lg:overflow-hidden overflow-y-scroll p-5 shadow-lg">
         <h1 className="text-2xl font-bold text-center">Destination</h1>
 
         <div className="flex mt-5">
@@ -87,12 +113,18 @@ const Mapsidebar = ({ sidebar }) => {
           </p>
         </div>
 
-        <div className=" mt-10">
-          <Button className="p-2 w-28" onClick={addtoMap}>
+        <div className=" mt-10 flex justify-between">
+          <Button className="p-2 w-44" onClick={addtoMap}>
             Add to RoadMap
+          </Button>
+          <Button className="p-2 w-37" onClick={()=>{
+            navigate("/roadmap")
+          }}>
+           go toTrip
           </Button>
         </div>
       </div>
+      {show && <Toast />}
     </>
   );
 };

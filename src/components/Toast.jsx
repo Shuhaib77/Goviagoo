@@ -1,27 +1,32 @@
-import React, { useEffect, useState } from "react";
-// import { closetoast } from "../redux/ToastSlice";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
 import { closetoast } from "../../Redux/ToastSlice";
+import useToast from "../hooks/useToast";
 
 function Toast() {
-  const { show, message, type } = useSelector((state) => state.Toastval);
-  const dispatch = useDispatch();
+  const { show, message, type,closeToast } = useToast();
+  // const dispatch = useDispatch();
+
   useEffect(() => {
-    setTimeout(() => {
-      dispatch(closetoast());
-    }, 2000);
-  }, [dispatch]);
+    if (show) {
+      const timer = setTimeout(() => {
+        closeToast()
+      }, 2000);
+    
+    }
+  }, [show,closeToast]);
+
+  if (!show) return null
+
   return (
-    <div>
-      <div
-        style={{ backgroundColor: type }}
-        className="h-20px w-20px  pl-10 pr-10 pt-3 pb-3 float-end absolute bottom-5 right-5 rounded"
-        onClick={() => {
-          dispatch(closetoast());
-        }}
-      >
-        <span>{message}</span>
-      </div>
+    <div
+      style={{ backgroundColor: type }}
+      className="fixed top-16 right-5 px-6 py-3 rounded shadow-md text-white z-50 cursor-pointer transition-transform transform hover:scale-105"
+      onClick={() => {
+        closetoast()
+      }}
+    >
+      <span>{message}</span>
     </div>
   );
 }

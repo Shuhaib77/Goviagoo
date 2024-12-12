@@ -2,20 +2,23 @@ import { Button, Input } from "@material-tailwind/react";
 import React from "react";
 
 function Setreview({ setadd }) {
+  const fileChange = () => {};
   return (
     <>
       <div className="w-full h-full absolute top-32  z-10   ">
         <div
-          className="w-full h-[500px] flex justify-center items-start      "
-          onClick={() => {
-            setadd(false);
-          }}
+          className="w-full h-[500px] flex justify-center items-start  bg-white     "
+          // onClick={() => {
+          //   setadd(false);
+          // }}
         >
-          <div className=" w-1/2  bg-white h-[290px] ml-20">
-            <Input type="file" className="h-72"></Input>
+          <div className=" w-1/2  bg-[#96aea552] h-[290px] ml-20">
+            <div className="w-5">
+              <Input type="file" onChange={fileChange} className="w-5"></Input>
+            </div>
           </div>
 
-          <div className="  w-1/2  bg-white h-[350px] p-20 mr-20  flex flex-col items-start justify-between">
+          <div className="  w-1/2  bg-[#16825a52]  h-[350px] p-20 mr-20  flex flex-col items-start justify-between">
             <h1>ewfwfwr</h1>
             <Input className=" "></Input>
 
@@ -28,9 +31,10 @@ function Setreview({ setadd }) {
                 <Input className=""></Input>
               </div>
             </div>
-            <Button type="submit" className=" rounded-md bg-blue-400 float-end"  >Submit</Button>
+            <Button type="submit" className=" rounded-md bg-blue-400 float-end">
+              Submit
+            </Button>
           </div>
-          
         </div>
       </div>
     </>

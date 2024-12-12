@@ -59,6 +59,7 @@ const Livemap = () => {
                 width: "100%",
                 position: "absolute",
                 right: 0,
+                zIndex:1
               }}
               onClick={(e) => {
                 const { lat, lng } = e.latlng;

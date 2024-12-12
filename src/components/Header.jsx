@@ -15,7 +15,7 @@ function Header() {
     { name: "home", icon: "", url: "home" },
     { name: "Road trip", icon: "", url: "roadmap" },
     { name: "Destination", icon: "", url: "destination" },
-    { name: "Dashboard", icon: "", url: "Dashboarde" },
+    { name: "Dashboard", icon: "", url: "dashboard" },
     { name: "Go to map", icon: "", url: "mapselect" },
     { name: "Aboutus", icon: "", url: "about" },
     {
@@ -27,10 +27,7 @@ function Header() {
     {
       name: "signin",
       icon: (
-        <i
-          class="fa-solid fa-magnifying-glass"
-          style={{ color: "#000000" }}
-        ></i>
+       <i class="fa-solid fa-ellipsis-vertical fa-2xl"></i>
       ),
       url: "",
     },
@@ -39,7 +36,7 @@ function Header() {
   return (
     <>
       {/* <div>{menu && <Menu setMenu={setMenu} />}</div> */}
-      <div className="flex justify-around sm:justify-between items-center w-full sticky  bg-white top-0     ">
+      <div className="flex justify-around sm:justify-between items-center w-full   bg-white top-0      ">
         <div className=" lg:w-25% ">
           {data.splice(0, 1).map((item) => {
             return (

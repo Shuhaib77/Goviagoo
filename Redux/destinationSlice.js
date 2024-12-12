@@ -7,7 +7,7 @@ import axios from "axios";
 
 export const getDestinationData = createAsyncThunk("destination/data", async () => {
   const res = await axios.get("http://localhost:3000/api/destination/gets");
-  console.log(res.data);
+  console.log(res.data,"destinationDataa");
   return res.data.destination
 });
 
@@ -16,7 +16,7 @@ export const RoadMapData=createAsyncThunk("roadmapof/User",async(id)=>{
     
     const res=await axios.get(`http://localhost:3000/api/profile/roadmap/${id}`)
 
-    console.log();
+    console.log(res.data.data[0].destinations,"rodmapDataaa");
     return res.data.data[0].destinations
     
 

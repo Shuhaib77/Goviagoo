@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Banner from "../components/Banner";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -9,8 +9,22 @@ import Stay from "../components/home/Stay";
 import Topreviews from "../components/home/Topreviews";
 import Adds from "../components/home/Adds";
 import Newadds from "../components/home/Newadds";
+import { useDispatch, useSelector } from "react-redux";
+import { getDestinationData } from "../../Redux/destinationSlice";
 
 function Home() {
+  const { data } = useSelector((state) => state.destination);
+  const dispatch = useDispatch();
+ 
+
+  useEffect(() => {
+    dispatch(getDestinationData()) ;
+  }, []);
+  console.log(data);
+
+
+
+  
   return (
     <div>
       <div>
@@ -19,7 +33,7 @@ function Home() {
       <div>
         <Banner
           image={
-            "https://www.pixelstalk.net/wp-content/uploads/images7/Turkey-Wide-Screen-Wallpaper.jpg"
+            "https://static.vecteezy.com/system/resources/previews/032/495/870/large_2x/hot-air-balloon-over-the-cappadocia-sky-generative-ai-free-photo.jpg"
           }
         />
       </div>
@@ -38,6 +52,7 @@ function Home() {
             ),
         
           }}
+          image={data}
         />
       </div>
       <div>
