@@ -15,7 +15,7 @@ function DropDown({handler,setProfile}) {
           </MenuHandler>
           <MenuList>
             <MenuItem className="lg:mr-4" onClick={()=>{
-                setProfile(true )
+                setProfile(true)
             }}>Profile</MenuItem>
             <MenuItem  onClick={() => {
                     navigate("/");

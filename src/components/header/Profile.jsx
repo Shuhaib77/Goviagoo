@@ -9,7 +9,7 @@ function Profile({ setProfile }) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(profileUser(id));
-  }, [datas]);
+  }, []);
   console.log(datas);
 
   return (
@@ -28,24 +28,22 @@ function Profile({ setProfile }) {
           </div>
           <h1 className="text-2xl p-5 font-bold">profile</h1>
 
-         {/* {
-            datas?.user  && */}
-
+          {datas?.user && (
             <div className="flex justify-around w-full  gap-5">
-            <div className="w-1/3 p-2 h-[300px]  ">
-              {/* <img
-                src={datas?.user.image}
-                className="w-full object-cover h-full"
-                alt=""
-              /> */}
+              <div className="w-1/3 p-2 h-[300px]  ">
+                <img
+                  src={datas?.user.image}
+                  className="w-full object-cover h-full"
+                  alt=""
+                />
+              </div>
+              <div className="w-[70%] h-[500px] ">
+                <h1>{datas?.user.email}</h1>
+                <h1>{datas?.user.name}</h1>
+                <h1>{datas?.user.savedRoadmaps.length}</h1>
+              </div>
             </div>
-            <div className="w-[70%] h-[500px] ">
-              {/* <h1>{datas?.user.email}</h1>
-              <h1>{datas?.user.name}</h1>
-              <h1>{datas?.user.savedRoadmaps.length}</h1> */}
-            </div>
-          </div>
-         {/* } */}
+          )}
         </div>
       </div>
     </>

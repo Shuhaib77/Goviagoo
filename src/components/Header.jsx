@@ -10,7 +10,7 @@ function Header() {
   const [menu, setMenu] = useState(false);
   const navigate = useNavigate();
   const { url } = useParams();
-  const [profile,setProfile]=useState(false)
+  const [profiles,setProfile]=useState(false)
   console.log(url);
 
   const data = [
@@ -89,7 +89,7 @@ function Header() {
         ></i>
       </div>
       <div >
-  {profile && <Profile setProfile={setProfile}/>   }
+  {profiles && <Profile setProfile={setProfile}/>   }
       </div>
     </>
   );

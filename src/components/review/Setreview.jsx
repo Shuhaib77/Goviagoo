@@ -1,12 +1,21 @@
 import { Button, Input } from "@material-tailwind/react";
 import { useFormik } from "formik";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addreview } from "../../../Redux/userSlice";
+import useToast from "../../hooks/useToast";
+import Toast from "../Toast";
+
 
 function Setreview({ setadd }) {
   const [post, setPost] = useState(null);
+  const dispatch = useDispatch();
+  const id = localStorage.getItem("id");
+  const { toast } = useToast();
+  const {show}=useSelector((state)=>state.Toastval)
 
   const {
-    handlechange,
+    handleChange,
     handleBlur,
     values,
     errors,
@@ -18,15 +27,32 @@ function Setreview({ setadd }) {
       title: "",
       review: "",
       location: "",
-      date: "",
+      date: Date(),
     },
     onSubmit: async (values) => {
-      const formData = new FormData();
-      formData.append("image", values.image);
-      formData.append("title", values.title);
-      formData.append("review", values.review),
-      formData.append("location", values.location);
-      formData.append("date", values.date);
+      try {
+        const formData = new FormData();
+        formData.append("image", values.image);
+        formData.append("title", values.title);
+        formData.append("review", values.review),
+        formData.append("location", values.location);
+        formData.append("date", values.date);
+        console.log(formData);
+
+         const res= await dispatch(addreview({ id, formdata: formData }));
+         toast({
+          show: true,
+          message: "review recorded ",
+          type: "#5da364",
+        });
+        // setadd(false)
+      } catch (error) {
+        toast({
+          show: true,
+          message: "review failed ",
+          type: "#de5269",
+        });
+      }
     },
   });
   const handleImage = (event) => {
@@ -34,8 +60,8 @@ function Setreview({ setadd }) {
     console.log(file);
 
     if (file) {
-      setPost(URL.createObjectURL(file));
       setFieldValue("image", file);
+      setPost(URL.createObjectURL(file));
       console.log(file.name, "ddd");
     }
   };
@@ -44,7 +70,7 @@ function Setreview({ setadd }) {
   return (
     <>
       <div className="fixed  backdrop-blur-md inset-0 bg-red  ">
-        <form action=" ">
+        <form action=" " onSubmit={handleSubmit}>
           <div className=" absolute left-32 right-32  top-40 flex justify-around  h-[60vh] shadow-lg rounded-md  bg-white">
             <div className="float-end p-2 ">
               <Button
@@ -67,7 +93,7 @@ function Setreview({ setadd }) {
                   <Input
                     label="Review title"
                     onBlur={handleBlur}
-                    onChange={handlechange}
+                    onChange={handleChange}
                     name="title"
                     value={values.title}
                   ></Input>
@@ -76,7 +102,7 @@ function Setreview({ setadd }) {
                   <Input
                     label="Your review"
                     onBlur={handleBlur}
-                    onChange={handlechange}
+                    onChange={handleChange}
                     name="review"
                     value={values.review}
                   ></Input>
@@ -86,7 +112,7 @@ function Setreview({ setadd }) {
                     <Input
                       label="location"
                       onBlur={handleBlur}
-                      onChange={handlechange}
+                      onChange={handleChange}
                       name="location"
                       value={values.location}
                     ></Input>
@@ -96,7 +122,7 @@ function Setreview({ setadd }) {
                       label="when yo did travel"
                       type="date"
                       onBlur={handleBlur}
-                      onChange={handlechange}
+                      onChange={handleChange}
                       name="date"
                       value={values.date}
                     ></Input>
@@ -108,6 +134,7 @@ function Setreview({ setadd }) {
           </div>
         </form>
       </div>
+      {show && <Toast/>}
     </>
   );
 }
