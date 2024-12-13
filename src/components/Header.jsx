@@ -3,11 +3,14 @@ import React, { useState } from "react";
 import { Button } from "@material-tailwind/react";
 import Menu from "./header/Menu";
 import { useNavigate, useParams } from "react-router-dom";
+import DropDown from "./header/DropDown";
+import Profile from "./header/Profile";
 
 function Header() {
   const [menu, setMenu] = useState(false);
   const navigate = useNavigate();
   const { url } = useParams();
+  const [profile,setProfile]=useState(false)
   console.log(url);
 
   const data = [
@@ -26,9 +29,7 @@ function Header() {
 
     {
       name: "signin",
-      icon: (
-       <i class="fa-solid fa-ellipsis-vertical fa-2xl"></i>
-      ),
+      icon: <i class="fa-solid fa-ellipsis fa-2xl"></i>,
       url: "",
     },
   ];
@@ -73,16 +74,8 @@ function Header() {
         <div className="  lg:w-25%   ">
           {data.splice(1, 1).map((item) => {
             return (
-              <div className="flex justify-center items-center  w-full ">
-                {/* <h1>{item.icon}</h1> */}
-                <Button
-                  className="lg:mr-4 "
-                  onClick={() => {
-                    navigate(`/${item?.url}`);
-                  }}
-                >
-                  {item.name}
-                </Button>
+              <div className="flex justify-center items-center mr-20  w-full ">
+                <DropDown handler={item.icon} setProfile={setProfile} />
               </div>
             );
           })}
@@ -94,6 +87,9 @@ function Header() {
             menu ? setMenu(false) : setMenu(true);
           }}
         ></i>
+      </div>
+      <div >
+  {profile && <Profile setProfile={setProfile}/>   }
       </div>
     </>
   );

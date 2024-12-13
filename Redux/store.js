@@ -3,12 +3,15 @@
 import ToastSlice from './ToastSlice'
 import mapSelctorSlice from './mapSelctorSlice'
 import destinationSlice from './destinationSlice'
+import useSlice from './userSlice'
 
  const store=configureStore({
     reducer:{
         Toastval:ToastSlice,
         mapSelector:mapSelctorSlice,
-        destination:destinationSlice
+        destination:destinationSlice,
+        userData:useSlice
+
         
     }
  })
