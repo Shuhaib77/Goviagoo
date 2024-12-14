@@ -16,6 +16,7 @@ import Reviews from "./pages/Reviews";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import Savedmaps from "./pages/Savedmaps";
 
 function App() {
   const [user, setUser] = useState([]);
@@ -100,6 +101,7 @@ function App() {
         <Route path="/" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/dashboard" element={<Dashboard />}></Route>
+        <Route path="/savedmap" element={<Savedmaps />}></Route>
       </Routes>
     </>
   );
