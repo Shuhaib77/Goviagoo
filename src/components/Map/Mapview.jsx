@@ -38,8 +38,8 @@ function Mapview() {
   }, []);
 
   const polyCordinates = YourMap.map((item) => [
-    item.location.latitude,
-    item.location.longitude,
+    item?.location.latitude,
+    item?.location.longitude,
   ]);
 
   const distanceCalculate = (cordinates) => {
@@ -65,7 +65,7 @@ function Mapview() {
                 center={[latitude, longitude]}
                 zoom={13}
                 style={{ height: "600px", width: "100%" }}
-                className=" "
+                // className=" "
               >
                 <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -84,7 +84,7 @@ function Mapview() {
                       Latitude: {marker.location.latitude.toFixed(4)},
                       Longitude: {marker.location.longitude.toFixed(4)}
                       {marker.name}
-                      {index > 0 && ` distence to previouse:${dist[index - 1]}`}
+                      {/* {index > 0 && ` distence to previouse:${dist[index - 1]}`} */}
                     </Popup>
                   </Marker>
                 ))}

@@ -179,7 +179,9 @@ function Register() {
             <form
               action=""
               className="flex flex-col w-full h-full  justify-center p-5 "
-              onSubmit={formikreg.handleSubmit}
+              onSubmit={
+                formikreg.handleSubmit
+              }
             >
               <h1 className="text-blue-400 mb-10 text-center font-bold text-4xl">
                 REGISTER

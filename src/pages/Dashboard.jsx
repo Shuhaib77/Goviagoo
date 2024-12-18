@@ -5,8 +5,8 @@ import Sidebar from '../components/dashboard/Sidebar'
 function Dashboard() {
   return (
     <div>
-       <div>
-        <Header/>
+       <div className='bg-n'>
+        <Header />
        </div>
        <div>
         <Sidebar/>
