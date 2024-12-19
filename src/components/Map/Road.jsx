@@ -3,8 +3,9 @@ import React from "react";
 function Road() {
   return (
     <>
-      <div className="w-full h-screen  flex justify-center gap-y-20 items-center ">
-        <div className="bg-gray-700 w-[10vh] rounded-es-full h-[50vh] rounded-se-full">
+      <div className=" m-5 border-t-2 border-red-700">
+       <div className="w-full h-screen  flex justify-center gap-y-20 items-center">
+       <div className="bg-gray-700 w-[10vh] rounded-es-full h-[50vh] rounded-se-full">
           <div className="flex flex-col gap-5 justify-center items-center h-full">
           <h1 className="bg-white h-1/4 w-[10px] flex flex-col justify-around items-center rounded-ss-full">
                   <i
@@ -82,6 +83,7 @@ function Road() {
             </div>
           </div>
         </div>
+       </div>
       </div>
     </>
   );

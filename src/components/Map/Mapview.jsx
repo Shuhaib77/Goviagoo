@@ -13,6 +13,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useSelector, useDispatch } from "react-redux";
 import { RoadMapData } from "../../../Redux/destinationSlice";
+import { addToSave } from "../../../Redux/saveSlice";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -54,6 +55,9 @@ function Mapview() {
     return dist;
   };
   const dist = distanceCalculate(polyCordinates);
+  const rid=YourMap._id
+  console.log(rid,"ttttt");
+  
   return (
     <>
       {createRoadMap && (
@@ -61,6 +65,14 @@ function Mapview() {
           <div className="w-full px-4 lg:px-16">
             <h1 className="text-2xl mb-10 font-bold text-center">Your Map</h1>
             <div className="rounded-lg lg:w-[90vw] h-[70vh] grid place-items-center">
+            <Button
+              className="p-2 w-24 lg:w-32"
+              onClick={()=>{
+                dispatch(addToSave())
+              }}
+            >
+              Save
+            </Button >
               <MapContainer
                 center={[latitude, longitude]}
                 zoom={13}
@@ -100,6 +112,7 @@ function Mapview() {
             >
               Start
             </Button>
+       
           </div>
         </div>
       )}

@@ -92,7 +92,7 @@ function App() {
         <Route path="/destination" element={<Destinations />}></Route>
         <Route path="/destinationdtil" element={<Destinationdetail />}></Route>
         <Route path="/roadmap" element={<Roadmap />}></Route>
-        <Route path="/stay" element={<Accommadation />}></Route>
+        <Route path="/stay/:lat/:lng" element={<Accommadation />}></Route>
         <Route path="/status" element={<Bookingstatus />}></Route>
         <Route path="/food" element={<Foodspot />}></Route>
         <Route path="/live" element={<Livemap />}></Route>

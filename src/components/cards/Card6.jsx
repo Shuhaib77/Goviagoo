@@ -10,8 +10,11 @@ import { RoadmapViewd } from "../../../Redux/mapSelctorSlice";
 import axios from "axios";
 import useToast from "../../hooks/useToast";
 import Toast from "../Toast";
+import { stayData } from "../../../Redux/bookingSlice";
 
 function Card6() {
+  
+  
   const { toast } = useToast();
   const id = localStorage.getItem("id");
   // const [createRoadMap,setcreateRoadMap]=useState(false)
@@ -22,7 +25,13 @@ function Card6() {
   console.log(createRoadMap, "hhhhh");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { locationdata } = useSelector((state) => state.bookingDatas);
 
+  // const lat = YourMap.map((item) => item.location.latitude);
+  // const lng = YourMap.map((item) => item?.location.longitude);
+  console.log(locationdata, "LOLOLOL");
+
+  // console.log(lat,lng,"useparamss");
   useEffect(() => {
     dispatch(RoadMapData(id));
   }, []);
@@ -32,8 +41,8 @@ function Card6() {
       const res = await axios.delete(
         `http://localhost:3000/api//destination/delete/roadmap/${did}/${id}`
       );
-     dispatch(RoadMapData(id));
-     console.log(data);
+      dispatch(RoadMapData(id));
+      console.log(data);
       toast({
         show: true,
         message: "deleted successfull",
@@ -47,6 +56,9 @@ function Card6() {
       });
     }
   };
+
+
+
   return (
     <>
       <div className=" w-100%  lg:ml-16 lg:mr-16 sm:mb-20  ">
@@ -99,13 +111,14 @@ function Card6() {
 
                   <p className="p-2">{item.name}</p>
                   <div></div>
-                  <div className=" p-3">
-                    <h1
-                      className="border border-blue-200 font-medium text-sm p-2  "
-                      onClick={() => {
-                        navigate("/stay");
-                      }}
-                    >
+                  <div
+                    className=" p-3"
+                    onClick={() => {
+                      navigate(`/stay/${item?.location.latitude }/${item?.location.longitude}`)
+                     
+                    }}
+                  >
+                    <h1 className="border border-blue-200 font-medium text-sm p-2  ">
                       <i
                         class="fa-solid fa-star fa-lg"
                         style={{ color: "#f5ec00" }}
