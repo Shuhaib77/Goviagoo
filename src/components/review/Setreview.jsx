@@ -6,13 +6,12 @@ import { addreview } from "../../../Redux/userSlice";
 import useToast from "../../hooks/useToast";
 import Toast from "../Toast";
 
-
 function Setreview({ setadd }) {
   const [post, setPost] = useState(null);
   const dispatch = useDispatch();
   const id = localStorage.getItem("id");
   const { toast } = useToast();
-  const {show}=useSelector((state)=>state.Toastval)
+  const { show } = useSelector((state) => state.Toastval);
 
   const {
     handleChange,
@@ -35,24 +34,26 @@ function Setreview({ setadd }) {
         formData.append("image", values.image);
         formData.append("title", values.title);
         formData.append("review", values.review),
-        formData.append("location", values.location);
+          formData.append("location", values.location);
         formData.append("date", values.date);
         console.log(formData);
 
-         const res= await dispatch(addreview({ id, formdata: formData }));
-         toast({
-          show: true,
-          message: "review recorded ",
-          type: "#5da364",
-        });
-        // setadd(false)
-      } catch (error) {
-        toast({
-          show: true,
-          message: "review failed ",
-          type: "#de5269",
-        });
-      }
+        const res = dispatch(addreview({ id, formdata: formData }));
+        if (res) {
+          toast({
+            show: true,
+            message: "review recorded ",
+            type: "#5da364",
+          });
+          setadd(false);
+        } else {
+          toast({
+            show: true,
+            message: "review failed",
+            type: "#de5269",
+          });
+        }
+      } catch (error) {}
     },
   });
   const handleImage = (event) => {
@@ -134,7 +135,7 @@ function Setreview({ setadd }) {
           </div>
         </form>
       </div>
-      {show && <Toast/>}
+      {show && <Toast />}
     </>
   );
 }

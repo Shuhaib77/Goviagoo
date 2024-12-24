@@ -113,12 +113,12 @@ function Card6() {
                   <div></div>
                   <div
                     className=" p-3"
-                    onClick={() => {
+                    
+                  >
+                    <h1 className="border border-blue-200 font-medium text-sm p-2  " onClick={() => {
                       navigate(`/stay/${item?.location.latitude }/${item?.location.longitude}`)
                      
-                    }}
-                  >
-                    <h1 className="border border-blue-200 font-medium text-sm p-2  ">
+                    }}>
                       <i
                         class="fa-solid fa-star fa-lg"
                         style={{ color: "#f5ec00" }}
@@ -128,7 +128,8 @@ function Card6() {
                     <h1
                       className="border border-blue-200 p-2  mt-2 font-medium text-sm"
                       onClick={() => {
-                        navigate("/food");
+                        navigate(`/food/${item?.location.latitude }/${item?.location.longitude}`)
+                       
                       }}
                     >
                       {" "}
@@ -142,7 +143,7 @@ function Card6() {
                       <Button
                         className="p-2 w-40 mt-5"
                         onClick={() => {
-                          navigate("/destinationdtil");
+                          navigate(`/destinationdtil/${item._id}`);
                         }}
                       >
                         View details

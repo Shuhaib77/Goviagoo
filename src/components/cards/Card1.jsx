@@ -20,7 +20,7 @@ function Card1({ heading, paragraph, icons, image }) {
         </div>
         <div className=" grid lg:grid-cols-3 place-items-center sm:grid-cols-1  mb-10 gap-y-5   w-full  ">
           {image &&
-            image.slice(0, 6).map((item) => {
+            image.slice(0,6).map((item) => {
               return (
                 <div className="rounded-2xl overflow-auto    ">
                   <img

@@ -5,7 +5,7 @@ const Banner = ({ image, searchbar }) => {
     <>
       <div>
         <div
-          style={{ backgroundImage:`url(${image})` }}
+          style={{ backgroundImage: `url(${image})` }}
           className="w-100% h-[55vh] ml-8 mr-8  mt-10 lg:ml-16 lg:mr-16  bg-banner1 bg-center bg-cover bg-no-repeat rounded-2xl   "
         >
           {searchbar && (

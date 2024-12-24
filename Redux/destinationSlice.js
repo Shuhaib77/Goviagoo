@@ -14,6 +14,16 @@ export const getDestinationData = createAsyncThunk(
   }
 );
 
+export const destinationById = createAsyncThunk("", async (id) => {
+  try {
+    const res = await axios.get(`http://localhost:3000/api/destination/gets/${id}`);
+    console.log(res.data, "DAAT BY IDD");
+    return res.data.destination
+  } catch (error) {
+    throw error
+  }
+});
+
 export const RoadMapData = createAsyncThunk("roadmapof/User", async (id) => {
   console.log(id);
 
@@ -27,6 +37,7 @@ export const RoadMapData = createAsyncThunk("roadmapof/User", async (id) => {
 const initialState = {
   data: [],
   YourMap: [],
+  dataById:[]
 };
 
 const DestinationSlice = createSlice({
@@ -43,6 +54,9 @@ const DestinationSlice = createSlice({
     builder.addCase(RoadMapData.fulfilled, (state, action) => {
       state.YourMap = action.payload;
     });
+    builder.addCase(destinationById.fulfilled,(state,action)=>{
+      state.dataById=action.payload
+    })
   },
 });
 
