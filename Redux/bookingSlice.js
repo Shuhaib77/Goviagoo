@@ -62,6 +62,10 @@ export const FoodDataById = createAsyncThunk("foodspotdata/id", async (id) => {
   }
 });
 
+export const pay=createAsyncThunk("pay",(sid,uid)=>{
+
+})
+
 const initialState = {
   locationdata: [],
   stay: [],
