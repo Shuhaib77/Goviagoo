@@ -43,8 +43,7 @@ export const foodSpotData = createAsyncThunk(
         `http://localhost:3000/api/get/foodspot/location/${lat}/${lng}`
       );
       console.log(res.data, "foodspot data");
-
-      return res.data.data;
+       return res.data.data;
     } catch (error) {
       console.log(error);
     }
@@ -62,15 +61,70 @@ export const FoodDataById = createAsyncThunk("foodspotdata/id", async (id) => {
   }
 });
 
-export const pay=createAsyncThunk("pay",(sid,uid)=>{
+export const pay = createAsyncThunk(
+  "pay",
+  async ({ id, uid, days, selectedRoom, rate }) => {
+    console.log(id, "oo", uid, "MMMMMM", days, selectedRoom, rate);
 
-})
+    try {
+      const res = await axios.post(
+        `http://localhost:3000/api/stay/book/${id}/${uid}`,
+        {
+          rate: rate,
+          roomNo: selectedRoom,
+          days: days,
+        }
+      );
+      console.log(res.data, "approovel url");
+
+      const approvalUrl = res.data.data?.approval_url; // Updated to access the URL correctly
+      if (approvalUrl) {
+        window.location.href = approvalUrl; // Redirect to PayPal approval page
+      } else {
+        throw new Error("Approval URL not found in response");
+      }
+      // return approvalUrl
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+);
+
+export const foodBooking = createAsyncThunk(
+  "foddspot booking",
+  async ({ fid, uid, rate, date, type, customer }) => {
+    console.log(fid, uid, rate, date, type, customer, "ldedledlede");
+
+    try {
+      const res = await axios.post(
+        `http://localhost:3000/api/food/book/${fid}/${uid}`,
+        {
+          type: type,
+          customer: customer,
+          rate: rate,
+          date: date,
+        }
+      );
+
+      const approvedUrl = res.data.data?.approval_url;
+      if (approvedUrl) {
+        window.location.href = approvedUrl;
+      } else {
+        throw new Error("Approval URL not found in response");
+      }
+      return;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+);
 
 const initialState = {
   locationdata: [],
   stay: [],
   foodSpot: [],
   spotData: [],
+  payData: [],
 
   loading: false,
 };
@@ -103,6 +157,9 @@ const bookingSlice = createSlice({
     });
     builder.addCase(FoodDataById.fulfilled, (state, action) => {
       state.spotData = action.payload;
+    });
+    builder.addCase(pay.fulfilled, (state, action) => {
+      state.payData = action.payload;
     });
   },
 });

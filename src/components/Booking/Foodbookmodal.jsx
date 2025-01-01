@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FoodDataById } from "../../../Redux/bookingSlice";
-import { Button } from "@material-tailwind/react";
+import { foodBooking, FoodDataById } from "../../../Redux/bookingSlice";
+import { Button, Input } from "@material-tailwind/react";
 
 function Foodbookmodal({ foodid, setBook }) {
   const { spotData } = useSelector((state) => state.bookingDatas);
   const dispatch = useDispatch();
-  const [rate, setRate] = useState("lunch");
-  const [num, setNum] = useState(1);
+  const [type, setType] = useState("lunch");
+  const [customer, setCustomer] = useState(1);
+  // const [rate, setRate] = useState(null);
+  const uid = localStorage.getItem("id");
+  const [date, setDate] = useState(null);
 
   useEffect(() => {
     if (foodid) {
@@ -16,30 +19,39 @@ function Foodbookmodal({ foodid, setBook }) {
   }, [dispatch, foodid]);
 
   const calculateTotal = () => {
-    if (!rate || !spotData?.rate || num <= 0) return 0;
-    switch (rate) {
+    let totalrate = 0;
+    if (!type || !spotData?.rate || customer <= 0) return 0;
+    switch (type) {
       case "lunch":
-        return spotData.rate[0] * num;
+        totalrate = spotData.rate[0] * customer;
+
+        return totalrate;
+
       case "dinner":
-        return spotData.rate[1] * num;
+        totalrate = spotData.rate[1] * customer;
+        return totalrate;
       default:
-        return spotData.rate[2] * num;
+        totalrate = spotData.rate[2] * customer;
+
+        return totalrate;
     }
   };
+  const rate = calculateTotal();
+  const fid = foodid;
+  // console.log(d);
 
   return (
     <div className="inset-0 backdrop-blur-md fixed flex justify-around items-center w-full h-full">
       <div className="bg-white shadow-2xl rounded p-5">
-        <Button
-          className="float-right"
-          onClick={() => setBook(false)}
-        >
+        <Button className="float-right" onClick={() => setBook(false)}>
           Close
         </Button>
 
         <div className="flex flex-wrap w-[70vh] h-[50vh] items-start rounded-2xl">
           <div className="w-1/2 h-full flex flex-col items-center">
-            <h1 className="text-green-400 text-center text-lg font-bold">{spotData?.name || "Loading..."}</h1>
+            <h1 className="text-green-400 text-center text-lg font-bold">
+              {spotData?.name || "Loading..."}
+            </h1>
             <img
               src={spotData?.image || ""}
               alt={spotData?.name || "Food Image"}
@@ -47,14 +59,16 @@ function Foodbookmodal({ foodid, setBook }) {
             />
           </div>
 
-          <div className="flex flex-col w-1/2 p-5 justify-center gap-7">
+          <div className="flex flex-col w-1/2 p-5 justify-center gap-5">
             <h1 className="text-center text-2xl font-bold mb-5">Bookings</h1>
-            
-            <label htmlFor="rooms" className="font-semibold">Meal Type:</label>
+
+            <label htmlFor="rooms" className="font-semibold">
+              Meal Type:
+            </label>
             <select
               id="rooms"
-              value={rate}
-              onChange={(e) => setRate(e.target.value)}
+              value={type}
+              onChange={(e) => setType(e.target.value)}
               className="border border-gray-300 rounded p-2"
             >
               {spotData?.types?.length > 0 ? (
@@ -68,25 +82,46 @@ function Foodbookmodal({ foodid, setBook }) {
               )}
             </select>
 
-            <label htmlFor="quantity" className="font-semibold">Quantity:</label>
+            <label htmlFor="quantity" className="font-semibold">
+              Quantity:
+            </label>
             <select
               id="quantity"
-              value={num}
-              onChange={(e) => setNum(Number(e.target.value))}
+              value={customer}
+              onChange={(e) => setCustomer(Number(e.target.value))}
               className="border border-gray-300 rounded p-2"
             >
               {[...Array(10).keys()].map((item) => (
-                <option key={item + 1} value={item + 1}>
+                <option
+                  key={item + 1}
+                  value={item + 1}
+                  onClick={() => {
+                    calculateTotal();
+                  }}
+                >
                   {item + 1}
                 </option>
               ))}
             </select>
+            <div className="">
+              <Input
+                type="date"
+                onChange={(e) => {
+                  setDate(e.target.value);
+                }}
+              ></Input>
+            </div>
 
             <h1 className="text-center text-lg font-bold">
-              Total Cost: ₹{calculateTotal()}
+              Total Cost: ₹{rate}
             </h1>
-
-            <Button className="bg-blue-900 text-center w-full mt-3">
+            {console.log(customer, date,type, "jfjff")}
+            <Button
+              className="bg-blue-900 text-center w-full "
+              onClick={() => {
+                dispatch(foodBooking({ fid, uid, rate, date, type, customer }));
+              }}
+            >
               Pay
             </Button>
           </div>

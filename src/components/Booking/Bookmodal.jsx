@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Button, Input } from "@material-tailwind/react";
 import { useDispatch, useSelector } from "react-redux";
-import { stayByyId } from "../../../Redux/bookingSlice";
+import { pay, stayByyId } from "../../../Redux/bookingSlice";
 
 function Bookmodal({ id, setOpen }) {
   const { stay, loading, error } = useSelector((state) => state.bookingDatas);
   const dispatch = useDispatch();
   const [days, setDays] = useState(1);
   const [selectedRoom, setSelectedRoom] = useState("");
+  const uid=localStorage.getItem("id")
+const rate=stay.rate
+// const roomNo=selectedRoom
 
   useEffect(() => {
     if (id) {
@@ -108,9 +111,11 @@ function Bookmodal({ id, setOpen }) {
                   {calculateRate()}
                 </span>
               </h3>
+              {console.log(uid,"igg",id,"idssss")
+              }
               <Button
                 className="bg-blue-900 text-white mt-5"
-                onClick={() => alert("Proceed to payment")}
+                onClick={() => dispatch(pay({id,uid,days,selectedRoom,rate}))}
                 aria-label="Proceed to payment"
               >
                 Pay
