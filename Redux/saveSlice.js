@@ -1,9 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const addToSave=createAsyncThunk("addsave",async()=>{
+export const addToSave=createAsyncThunk("addsave",async({rid,uid})=>{
+    console.log(rid,uid,"saveee");
+    
    try {
-    await axios.post(`http://localhost:3000/api/save/roadmap/:rid/:uid`)
+    await axios.post(`http://localhost:3000/api/save/roadmap/${rid}/${uid}`)
 
    } catch (error) {
     throw error

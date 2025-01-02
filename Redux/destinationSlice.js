@@ -31,8 +31,8 @@ export const RoadMapData = createAsyncThunk("roadmapof/User", async (id) => {
     `http://localhost:3000/api/profile/roadmap/${id}`
   );
 
-  console.log(res.data.data[0].destinations, "rodmapDataaa");
-  return res.data.data[0].destinations;
+  console.log(res.data, "rodmapDataaa");
+  return res.data.data;
 });
 const initialState = {
   data: [],

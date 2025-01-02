@@ -28,35 +28,48 @@ function Mapview() {
   const longitude = 76.6413;
   const [markers, setMarkers] = useState([]);
   const dispatch = useDispatch();
-  const id = localStorage.getItem("id");
+  const uid = localStorage.getItem("id");
   const { YourMap } = useSelector((state) => state.destination);
   const { createRoadMap } = useSelector((state) => state.mapSelector);
   const navigate = useNavigate();
-  console.log(YourMap, "viewww");
+  console.log(YourMap?.destinations, "viewww");
 
   useEffect(() => {
-    dispatch(RoadMapData(id));
+    dispatch(RoadMapData(uid));
   }, []);
 
-  const polyCordinates = YourMap.map((item) => [
-    item?.location.latitude,
-    item?.location.longitude,
+  const polyCordinates = YourMap?.destinations?.map((item) => [
+    item?.location?.latitude,
+    item?.location?.longitude,
   ]);
 
-  const distanceCalculate = (cordinates) => {
-    console.log(cordinates, "pppp");
+  const distanceCalculate = () => {
+    console.log(polyCordinates, "pppp");
     const dist = [];
+    if (!Array.isArray(polyCordinates) || polyCordinates.length < 2) {
+      console.warn("Insufficient or invalid coordinates.");
+      return dist;
+    }
+
     for (let i = 0; i < polyCordinates.length - 1; i++) {
-      const point1 = L.latLng(cordinates[i]);
-      const pont2 = L.latLng(cordinates[i + 1]);
-      const distance = point1?.distanceTo(pont2) / 1000;
+      const point1 = L.latLng(polyCordinates[i][0], polyCordinates[i][1]); // Use lat, lng
+      const point2 = L.latLng(
+        polyCordinates[i + 1][0],
+        polyCordinates[i + 1][1]
+      ); // Use lat, lng
+      const distance = point1.distanceTo(point2) / 1000; // Distance in kilometers
       dist.push(distance);
     }
     return dist;
   };
-  const dist = distanceCalculate(polyCordinates);
-  const rid = YourMap._id;
-  console.log(rid, "ttttt");
+
+  // Calculate distances
+  const dist = distanceCalculate();
+
+  console.log(dist, "Distances between coordinates");
+
+  // const rid = YourMap.map((item)=>item._id);
+  // console.log(rid, "ttttt");
 
   return (
     <>
@@ -76,7 +89,7 @@ function Mapview() {
                   attribution="© OpenStreetMap contributors"
                 />
                 {/* <MapClickHandler /> */}
-                {YourMap?.map((marker, index) => (
+                {YourMap?.destinations?.map((marker, index) => (
                   <Marker
                     key={index}
                     position={[
@@ -88,14 +101,13 @@ function Mapview() {
                       Latitude: {marker.location.latitude.toFixed(4)},
                       Longitude: {marker.location.longitude.toFixed(4)}
                       {marker.name}
-                      {/* {index > 0 && ` distence to previouse:${dist[index - 1]}`} */}
+                      {index > 0 && ` distence to previouse:${dist[index - 1]}`}
                     </Popup>
                   </Marker>
                 ))}
                 {/* connectionLine */}
                 <Polygon positions={polyCordinates} color="blue" />
               </MapContainer>
-             
             </div>
           </div>
           <div className="text-center mt-5">
@@ -105,14 +117,21 @@ function Mapview() {
             >
               Start
             </Button>
+            {console.log(YourMap?._id, "kokok")}
+
+            {/* {YourMap.map((item)=>{
+          return( */}
+
             <Button
-                className="p-2 w-24 lg:w-32"
-                onClick={() => {
-                  dispatch(addToSave());
-                }}
-              >
-                Save
-              </Button>
+              className="p-2 w-24 lg:w-32"
+              onClick={() => {
+                dispatch(addToSave({ rid: YourMap._id, uid }));
+              }}
+            >
+              Save
+            </Button>
+            {/* )
+         })} */}
           </div>
         </div>
       )}

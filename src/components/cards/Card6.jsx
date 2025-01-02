@@ -65,7 +65,7 @@ function Card6() {
         <Button className="p-2 w-28">Add more</Button>
         <h1 className="text-xl font-semibold mt-2">Road Map-1</h1>
         <div className=" lg:w-full lg:h-full h-[110vh] grid lg:grid-flow-col sm:grid-flow-row overflow-y-scroll lg:overflow-x-scroll sm:gap-y-5  gap-5 mb-10 shadow-md  ">
-          {YourMap?.map((item) => {
+          {YourMap?.destinations?.map((item) => {
             return (
               <div className="flex">
                 <div className="shadow-md bg-white lg:w-[300px] rounded-l-md  h-full">

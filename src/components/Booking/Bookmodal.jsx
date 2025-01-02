@@ -9,7 +9,7 @@ function Bookmodal({ id, setOpen }) {
   const [days, setDays] = useState(1);
   const [selectedRoom, setSelectedRoom] = useState("");
   const uid=localStorage.getItem("id")
-const rate=stay.rate
+// const rate=stay.rate
 // const roomNo=selectedRoom
 
   useEffect(() => {
@@ -27,9 +27,20 @@ const rate=stay.rate
   };
 
   const calculateRate = () => {
-    if (!stay?.rate || !days) return 0;
-    return stay.rate * days;
+    let total=0
+    if (!stay?.rate || !days){
+      total=0
+    }else{
+      total=stay.rate * days;
+
+    }
+    return total
+  
   };
+    
+  const rate=calculateRate()
+  console.log(rate);
+  
 
   return (
     <>

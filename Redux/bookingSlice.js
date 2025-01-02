@@ -43,7 +43,7 @@ export const foodSpotData = createAsyncThunk(
         `http://localhost:3000/api/get/foodspot/location/${lat}/${lng}`
       );
       console.log(res.data, "foodspot data");
-       return res.data.data;
+      return res.data.data;
     } catch (error) {
       console.log(error);
     }
@@ -64,7 +64,7 @@ export const FoodDataById = createAsyncThunk("foodspotdata/id", async (id) => {
 export const pay = createAsyncThunk(
   "pay",
   async ({ id, uid, days, selectedRoom, rate }) => {
-    console.log(id, "oo", uid, "MMMMMM", days, selectedRoom, rate);
+    console.log(id, "oo", uid, "MMMMMM", days, selectedRoom, rate,"dded");
 
     try {
       const res = await axios.post(
@@ -119,13 +119,34 @@ export const foodBooking = createAsyncThunk(
   }
 );
 
+export const stayBookingstatus = createAsyncThunk("staystats",async (id) => {
+  try {
+    const res =await axios.get(`http://localhost:3000/api/stayBook/details/${id}`);
+    return res.data.data.stayBookings;
+  } catch (error) {
+    throw new Error(error);
+  }
+})
+
+export const foodBookDetailss=createAsyncThunk("foodbookstats",async(id)=>{
+  try {
+    const res=await axios.get(`http://localhost:3000/api/foodBook/details/${id}`)
+    return res.data.data.foodBookings
+    
+  } catch (error) {
+    
+  }
+
+})
+
 const initialState = {
   locationdata: [],
   stay: [],
   foodSpot: [],
   spotData: [],
-  payData: [],
-
+  // payData: [],
+  stayBookingStat: [],
+  foodBookingStat: [],
   loading: false,
 };
 
@@ -158,9 +179,12 @@ const bookingSlice = createSlice({
     builder.addCase(FoodDataById.fulfilled, (state, action) => {
       state.spotData = action.payload;
     });
-    builder.addCase(pay.fulfilled, (state, action) => {
-      state.payData = action.payload;
+    builder.addCase(stayBookingstatus.fulfilled, (state, action) => {
+      state.stayBookingStat = action.payload;
     });
+    builder.addCase(foodBookDetailss.fulfilled,(state,action)=>{
+      state.foodBookingStat=action.payload
+    })
   },
 });
 
