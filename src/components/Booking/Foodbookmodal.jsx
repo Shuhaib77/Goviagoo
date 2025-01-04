@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { foodBooking, FoodDataById } from "../../../Redux/bookingSlice";
 import { Button, Input } from "@material-tailwind/react";
 
-function Foodbookmodal({ foodid, setBook }) {
+function Foodbookmodal({ foodid, setBook,rid }) {
   const { spotData } = useSelector((state) => state.bookingDatas);
   const dispatch = useDispatch();
   const [type, setType] = useState("lunch");
@@ -119,7 +119,7 @@ function Foodbookmodal({ foodid, setBook }) {
             <Button
               className="bg-blue-900 text-center w-full "
               onClick={() => {
-                dispatch(foodBooking({ fid, uid, rate, date, type, customer }));
+                dispatch(foodBooking({ fid, uid, rate, date, type, customer,rid }));
               }}
             >
               Pay

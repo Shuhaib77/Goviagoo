@@ -32,7 +32,7 @@ function Mapview() {
   const { YourMap } = useSelector((state) => state.destination);
   const { createRoadMap } = useSelector((state) => state.mapSelector);
   const navigate = useNavigate();
-  console.log(YourMap?.destinations, "viewww");
+  console.log(YourMap?.destination, "viewww");
 
   useEffect(() => {
     dispatch(RoadMapData(uid));

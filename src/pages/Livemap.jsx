@@ -32,20 +32,23 @@ const Livemap = () => {
       <div>
         <div>
           <Header />
+         
         </div>
+        <h1
+            onMouseEnter={() => {
+              setMenu(true);
+            }}
+            className="m-5"
+          >
+            Menurfr
+          </h1>
         <div
           className="h-[100vh] w-100%  flex justify-center bg-green-400 items-center  "
           onClick={() => {
             setMenu(false);
           }}
         >
-          <h1
-            onMouseEnter={() => {
-              setMenu(true);
-            }}
-          >
-            Menu
-          </h1>
+          
           <div className="h-full w-full">
             {/* <div className="absolute top-0 left-0 h-full w-64 bg-gray-100 shadow-lg">
           <Mapsidebar />

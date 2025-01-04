@@ -1,60 +1,74 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { destinationById } from "../../../Redux/destinationSlice";
 
-function Liveupdate({ setMenu }) {
+function Liveupdate({ dest }) {
+  const dispatch = useDispatch();
+  const { dataById } = useSelector((state) => state.destination);
+
+  useEffect(() => {
+    if (dest) {
+      dispatch(destinationById(dest));
+    }
+  }, [dest, dispatch]);
+
+  if (!dataById) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <>
-      <div
-        className="w-[100vh] h-[50vh] bg-black  bg-opacity-0 absolute left-0 z-10"
-        onClick={() => {
-          setMenu(false);
-        }}
-      >
-        <div className="flex justify-around items-center w-full h-full  ">
-          <div>
-            <h1>hotel</h1>
-            <div className="w-[200px] h-[200px] border-2 border-black rounded-md bg-white ">
-              <img
-                src="/assets/images/images-8.jpeg"
-                alt=""
-                className="w-full h-1/2 object-cover"
-              />
-              <div className="p-3">
-                <h1>ddwcefcf</h1>
-                <h1>ddwcefcf</h1>
-                <h1>ddwcefcf</h1>
-              </div>
-            </div>
-          </div>
-          <div className="w-[200px] h-[100px]  border-2 border-black rounded-md flex bg-white ">
+    <div
+      className="w-[100vh] h-[50vh] bg-black bg-opacity-0 absolute  bottom-36 z-10"
+      onClick={() => {
+        // Pass setMenu as a prop if needed
+        // setMenu(false);
+      }}
+    >
+      <div className="flex justify-around items-center w-full h-full">
+        <div className="flex flex-col">
+          <h1>Hotel</h1>
+          <div className="w-[250px] h-full border-2 border-black rounded-md bg-white">
             <img
-              src="/assets/images/Food.avif"
-              alt=""
-              className="w-1/2 h-full object-cover"
+              src={dataById.image}
+              alt="Destination"
+              className="w-full h-1/2 object-cover"
             />
-
-            <div className="p-3 flex flex-col">
-              <h1>ddwcefcf</h1>
-              <h1>ddwcefcf</h1>
-              <h1>ddwcefcf</h1>
+            <div className="flex flex-col gap-y-2 p-2 font-bold">
+              <h1></h1>
+              <h1>Name:{dataById.name}</h1>
+              <h1>details:{dataById.description}</h1>
             </div>
-          </div>
-          <div>
-            <h1>journy</h1>
-            <div className="w-[150px] h-[100px] border-2 text-center border-black rounded-md bg-white">
-                <span>24 august</span>
-                <h1>MAD-----LON</h1>
-                <h1>ded</h1>
-                <h1 className="">dw</h1>
-            </div>
-          </div>
-
-          <div className="w-[200px] h-[70px] border-2 text-center border-black rounded-md bg-white">
-          <h1>MAD-----LON</h1>
-          <h1>ded</h1>
           </div>
         </div>
+
+        <div className="w-[200px] h-[100px] border-2 border-black rounded-md flex bg-white">
+          <img
+            src="/assets/images/Food.avif"
+            alt="Food"
+            className="w-1/2 h-full object-cover"
+          />
+          <div className="p-3 flex flex-col">
+            <h1>Food Item 1</h1>
+            <h1>Food Item 2</h1>
+            <h1>Food Item 3</h1>
+          </div>
+        </div>
+
+        <div>
+          <h1>Journey</h1>
+          <div className="w-[150px] h-[100px] border-2 text-center border-black rounded-md bg-white">
+            <span>24 August</span>
+            <h1>MAD-----LON</h1>
+            <h1>Details</h1>
+          </div>
+        </div>
+
+        <div className="w-[200px] h-[70px] border-2 text-center border-black rounded-md bg-white">
+          <h1>MAD-----LON</h1>
+          <h1>Details</h1>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 

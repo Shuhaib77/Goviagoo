@@ -11,8 +11,8 @@ import { useParams } from "react-router-dom";
 function Accommadation() {
 
  
-  const {lat,lng}=useParams()
-  console.log(lat,lng,"rrrrrr");
+  const {lat,lng,rid}=useParams()
+  console.log(lat,lng,rid,"rrrrrr");
   const { locationdata } = useSelector((state) => state.bookingDatas);
   console.log(locationdata, "pppppep");
 
@@ -30,7 +30,7 @@ function Accommadation() {
           />
         </div>
         <div>
-          <Card4 locationdata={locationdata} lat={lat} lng={lng}  />
+          <Card4 locationdata={locationdata} lat={lat} lng={lng} rid={rid}  />
         </div>
         <div>
           <Card3 />

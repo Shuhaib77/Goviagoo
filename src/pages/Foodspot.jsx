@@ -7,8 +7,8 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function Foodspot() {
-  const { lat, lng } = useParams();
-  console.log(lat, lng, "rrrrrr");
+  const { lat, lng,rid } = useParams();
+  console.log(lat, lng,rid, "rrrrrr");
   const { foodSpot } = useSelector((state) => state.bookingDatas);
   // console.log(locationdata, "pppppep");
   return (
@@ -25,7 +25,7 @@ function Foodspot() {
           />
         </div>
         <div>
-          <Stay foodSpot={foodSpot} lat={lat} lng={lng} button={"Book"} />
+          <Stay foodSpot={foodSpot} lat={lat} lng={lng} rid={rid} button={"Book"} />
         </div>
         <div>
           <Footer />

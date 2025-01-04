@@ -63,16 +63,17 @@ export const FoodDataById = createAsyncThunk("foodspotdata/id", async (id) => {
 
 export const pay = createAsyncThunk(
   "pay",
-  async ({ id, uid, days, selectedRoom, rate }) => {
+  async ({ id, uid, days, selectedRoom, rate,rid }) => {
     console.log(id, "oo", uid, "MMMMMM", days, selectedRoom, rate,"dded");
 
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/stay/book/${id}/${uid}`,
+        `http://localhost:3000/api/stay/book/${id}/${uid}/${rid}`,
         {
           rate: rate,
           roomNo: selectedRoom,
           days: days,
+          
         }
       );
       console.log(res.data, "approovel url");
@@ -92,12 +93,12 @@ export const pay = createAsyncThunk(
 
 export const foodBooking = createAsyncThunk(
   "foddspot booking",
-  async ({ fid, uid, rate, date, type, customer }) => {
-    console.log(fid, uid, rate, date, type, customer, "ldedledlede");
+  async ({ fid, uid, rate, date, type, customer,rid }) => {
+    console.log(fid, uid, rate, date, type, customer,rid, "ldedledlede");
 
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/food/book/${fid}/${uid}`,
+        `http://localhost:3000/api/food/book/${fid}/${uid}/${rid}`,
         {
           type: type,
           customer: customer,

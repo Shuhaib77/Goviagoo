@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { FoodDataById, foodSpotData } from "../../../Redux/bookingSlice";
 import Foodbookmodal from "../Booking/Foodbookmodal";
 
-function Stay({ button, foodSpot, lat, lng }) {
+function Stay({ button, foodSpot, lat, lng,rid }) {
   const [book, setBook] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -73,7 +73,7 @@ function Stay({ button, foodSpot, lat, lng }) {
           ))}
         </div>
       )}
-      {book && <Foodbookmodal setBook={setBook} foodid={foodid} />}
+      {book && <Foodbookmodal setBook={setBook} foodid={foodid} rid={rid} />}
     </>
   );
 }

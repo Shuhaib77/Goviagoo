@@ -62,7 +62,11 @@ function Card6() {
   return (
     <>
       <div className=" w-100%  lg:ml-16 lg:mr-16 sm:mb-20  ">
-        <Button className="p-2 w-28">Add more</Button>
+        {
+          YourMap.length===0 ?
+          <h1 className="text-3xl text-red-700 font-bold text-center">Plss add destination to create RoadMap</h1>:
+          <div>
+             <Button className="p-2 w-28">Add more</Button>
         <h1 className="text-xl font-semibold mt-2">Road Map-1</h1>
         <div className=" lg:w-full lg:h-full h-[110vh] grid lg:grid-flow-col sm:grid-flow-row overflow-y-scroll lg:overflow-x-scroll sm:gap-y-5  gap-5 mb-10 shadow-md  ">
           {YourMap?.destinations?.map((item) => {
@@ -116,7 +120,7 @@ function Card6() {
                     
                   >
                     <h1 className="border border-blue-200 font-medium text-sm p-2  " onClick={() => {
-                      navigate(`/stay/${item?.location.latitude }/${item?.location.longitude}`)
+                      navigate(`/stay/${item?.location.latitude }/${item?.location.longitude}/${YourMap._id}`)
                      
                     }}>
                       <i
@@ -128,7 +132,7 @@ function Card6() {
                     <h1
                       className="border border-blue-200 p-2  mt-2 font-medium text-sm"
                       onClick={() => {
-                        navigate(`/food/${item?.location.latitude }/${item?.location.longitude}`)
+                        navigate(`/food/${item?.location.latitude }/${item?.location.longitude}/${YourMap._id}`)
                        
                       }}
                     >
@@ -175,7 +179,11 @@ function Card6() {
           {console.log(createRoadMap, "lll")}
           <Button className="float-end mr-14 p-2 w-24">Edit</Button>
         </div>
-      </div>
+
+          </div>
+
+        }
+             </div>
       {show && <Toast />}
     </>
   );

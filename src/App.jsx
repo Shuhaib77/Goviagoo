@@ -92,9 +92,9 @@ function App() {
         <Route path="/destination" element={<Destinations />}></Route>
         <Route path="/destinationdtil/:id" element={<Destinationdetail />}></Route>
         <Route path="/roadmap" element={<Roadmap />}></Route>
-        <Route path="/stay/:lat/:lng" element={<Accommadation />}></Route>
+        <Route path="/stay/:lat/:lng/:rid" element={<Accommadation />}></Route>
         <Route path="/status" element={<Bookingstatus />}></Route>
-        <Route path="/food/:lat/:lng" element={<Foodspot />}></Route>
+        <Route path="/food/:lat/:lng/:rid" element={<Foodspot />}></Route>
         <Route path="/live" element={<Livemap />}></Route>
         <Route path="/mapselect" element={<Mapselector />}></Route>
         <Route path="/review" element={<Reviews />}></Route>

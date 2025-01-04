@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { stayByyId, stayData } from "../../../Redux/bookingSlice";
 import axios from "axios";
 
-function Card4({ locationdata, lat, lng, dataById }) {
+function Card4({ locationdata, lat, lng, dataById,rid }) {
   console.log(lat, lng, "popopo");
 
   const { stay } = useSelector((state) => state.bookingDatas);
@@ -190,7 +190,7 @@ function Card4({ locationdata, lat, lng, dataById }) {
           </div>
         )}
       </div>
-      {open && <Bookmodal setOpen={setOpen} id={id} />}
+    {open && <Bookmodal setOpen={setOpen} id={id} rid={rid} />}
     </>
   );
 }

@@ -3,8 +3,10 @@ import { Button, Input } from "@material-tailwind/react";
 import { useDispatch, useSelector } from "react-redux";
 import { pay, stayByyId } from "../../../Redux/bookingSlice";
 
-function Bookmodal({ id, setOpen }) {
+function Bookmodal({ id, setOpen,rid }) {
   const { stay, loading, error } = useSelector((state) => state.bookingDatas);
+  console.log(rid,"roadmapid");
+  
   const dispatch = useDispatch();
   const [days, setDays] = useState(1);
   const [selectedRoom, setSelectedRoom] = useState("");
@@ -126,7 +128,7 @@ function Bookmodal({ id, setOpen }) {
               }
               <Button
                 className="bg-blue-900 text-white mt-5"
-                onClick={() => dispatch(pay({id,uid,days,selectedRoom,rate}))}
+                onClick={() => dispatch(pay({id,uid,days,selectedRoom,rate,rid}))}
                 aria-label="Proceed to payment"
               >
                 Pay

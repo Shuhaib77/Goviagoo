@@ -5,6 +5,7 @@ import mapSelctorSlice from './mapSelctorSlice'
 import destinationSlice from './destinationSlice'
 import bookingSlice from './bookingSlice'
 import useSlice from './userSlice'
+import saveSlice from './saveSlice'
 
  const store=configureStore({
     reducer:{
@@ -12,7 +13,8 @@ import useSlice from './userSlice'
         mapSelector:mapSelctorSlice,
         destination:destinationSlice,
         userData:useSlice,
-        bookingDatas:bookingSlice
+        bookingDatas:bookingSlice,
+        savedmaps:saveSlice
 
         
     }
