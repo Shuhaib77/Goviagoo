@@ -24,16 +24,16 @@ function Liveupdate({ dest }) {
         // setMenu(false);
       }}
     >
-      <div className="flex justify-around items-center w-full h-full">
-        <div className="flex flex-col">
+      <div className="flex justify-around items-center w-full h-full  ">
+        <div className="flex flex-col  ">
           <h1>Hotel</h1>
-          <div className="w-[250px] h-full border-2 border-black rounded-md bg-white">
+          <div className="w-[250px] h-[150px] rounded-md border-2 border-black " >
             <img
               src={dataById.image}
               alt="Destination"
-              className="w-full h-1/2 object-cover"
+              className="w-full h-full object-cover"
             />
-            <div className="flex flex-col gap-y-2 p-2 font-bold">
+            <div className="flex flex-col w-full  font-bold border-2  border-black   bg-[#FFFAEC]">
               <h1></h1>
               <h1>Name:{dataById.name}</h1>
               <h1>details:{dataById.description}</h1>

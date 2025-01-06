@@ -57,9 +57,9 @@ function Road() {
               {/* <h1 className="text-center mt-3 text-4xl text-[#3cd367] animate-pulse">RoadTrip-1</h1> */}
               {item.roadmapId.map((item, index) => {
                 return (
-                  <div className="w-full h-screen   flex justify-center items-center     " style={{backgroundImage:`url(${"https://thumbs.dreamstime.com/b/europe-road-map-highly-detailed-vector-countries-main-cities-roads-44159810.jpg"})`}}>
-                    <div className="bg-blue-gray-900 w-[10vh] p-5 flex justify-center items-center rounded-es-full h-[50vh] rounded-se-full  ">
-                      <div className="flex flex-col items-center   justify-between h-96  ">
+                  <div className="w-full h-screen   flex justify-center items-center bg-no-repeat bg-cover mt-10 p-5  " style={{backgroundImage:`url(${"https://images-cdn.ubuy.co.in/633fffb02d9e26314a71b548-great-vintage-world-map-in-1882.jpg"})`}}>
+                    <div className="bg-blue-gray-900 w-[10vh] p-5 flex justify-center items-center rounded-es-full h-[50vh] rounded-se-full   ">
+                      <div className="flex flex-col items-center   justify-between h-96   ">
                         {item.destinations.slice(0, 1).map((item) => {
                           return (
                             <i

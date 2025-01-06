@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { foodBooking, FoodDataById } from "../../../Redux/bookingSlice";
-import { Button, Input } from "@material-tailwind/react";
+import { Button, Input, Option, Select } from "@material-tailwind/react";
 
 function Foodbookmodal({ foodid, setBook,rid }) {
   const { spotData } = useSelector((state) => state.bookingDatas);
@@ -47,15 +47,15 @@ function Foodbookmodal({ foodid, setBook,rid }) {
           Close
         </Button>
 
-        <div className="flex flex-wrap w-[70vh] h-[50vh] items-start rounded-2xl">
+        <div className="flex justify-center items-center  w-full h-full  rounded-2xl">
           <div className="w-1/2 h-full flex flex-col items-center">
-            <h1 className="text-green-400 text-center text-lg font-bold">
+            <h1 className="text-green-400 text-center text-2xl font-bold mb-5">
               {spotData?.name || "Loading..."}
             </h1>
             <img
               src={spotData?.image || ""}
               alt={spotData?.name || "Food Image"}
-              className="w-full h-64 object-cover mt-5 rounded-md"
+              className="w-full min-w-52 h-[40vh] object-cover mt-5 rounded-md"
             />
           </div>
 
@@ -65,7 +65,7 @@ function Foodbookmodal({ foodid, setBook,rid }) {
             <label htmlFor="rooms" className="font-semibold">
               Meal Type:
             </label>
-            <select
+            <Select
               id="rooms"
               value={type}
               onChange={(e) => setType(e.target.value)}
@@ -73,26 +73,26 @@ function Foodbookmodal({ foodid, setBook,rid }) {
             >
               {spotData?.types?.length > 0 ? (
                 spotData.types.map((item, index) => (
-                  <option key={index} value={item}>
+                  <Option key={index} value={item}>
                     {item}
-                  </option>
+                  </Option>
                 ))
               ) : (
-                <option>Loading...</option>
+                <Option>Loading...</Option>
               )}
-            </select>
+            </Select>
 
             <label htmlFor="quantity" className="font-semibold">
               Quantity:
             </label>
-            <select
+            <Select
               id="quantity"
               value={customer}
               onChange={(e) => setCustomer(Number(e.target.value))}
               className="border border-gray-300 rounded p-2"
             >
               {[...Array(10).keys()].map((item) => (
-                <option
+                <Option
                   key={item + 1}
                   value={item + 1}
                   onClick={() => {
@@ -100,9 +100,9 @@ function Foodbookmodal({ foodid, setBook,rid }) {
                   }}
                 >
                   {item + 1}
-                </option>
+                </Option>
               ))}
-            </select>
+            </Select>
             <div className="">
               <Input
                 type="date"
