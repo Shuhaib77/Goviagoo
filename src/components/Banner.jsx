@@ -3,10 +3,10 @@ import React from "react";
 const Banner = ({ image, searchbar }) => {
   return (
     <>
-      <div>
+      <div className="pl-9 pr-9 ">
         <div
           style={{ backgroundImage: `url(${image})` }}
-          className="w-100% h-[55vh] ml-8 mr-8  mt-10 lg:ml-16 lg:mr-16  bg-banner1 bg-center bg-cover bg-no-repeat rounded-2xl   "
+          className="h-[55vh] ml-8 mr-8  mt-10  bg-banner1 bg-center bg-cover bg-no-repeat rounded-2xl   "
         >
           {searchbar && (
             <div className="flex lg:justify-end items-center sm:flex justify-center w-full p-5">

@@ -20,7 +20,7 @@ function Header() {
     { name: "Destination", icon: "", url: "destination" },
     { name: "Dashboard", icon: "", url: "dashboard" },
     { name: "Go to map", icon: "", url: "mapselect" },
-    { name: "Aboutus", icon: "", url: "about" },
+    { name: "ContactUs", icon: "", url: "contact" },
     {
       name: "reviews",
       icon: "",

@@ -41,7 +41,7 @@ function Foodbookmodal({ foodid, setBook,rid }) {
   // console.log(d);
 
   return (
-    <div className="inset-0 backdrop-blur-md fixed flex justify-around items-center w-full h-full">
+    <div className="inset-0 backdrop-blur-md fixed flex justify-around bg-black bg-opacity-80  items-center w-full h-full">
       <div className="bg-white shadow-2xl rounded p-5">
         <Button className="float-right" onClick={() => setBook(false)}>
           Close

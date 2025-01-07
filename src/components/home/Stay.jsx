@@ -36,7 +36,7 @@ function Stay({ button, foodSpot, lat, lng,rid }) {
 
   return (
     <>
-      <div className="text-center mt-16">
+      <div className="text-center mt-8">
         <h1 className="font-bold text-2xl">Budget-Friendly Accommodations</h1>
       </div>
       {!foodSpot || foodSpot.length === 0 ? (
@@ -44,13 +44,13 @@ function Stay({ button, foodSpot, lat, lng,rid }) {
           No accommodations available.
         </div>
       ) : (
-        <div className="grid grid-flow-col overflow-x-scroll gap-x-5 w-full ml-16 mr-16 mt-16 mb-20">
+        <div className="grid grid-flow-col overflow-x-scroll gap-x-12 w-full p-16">
           {foodSpot.map((item, index) => (
-            <div key={index} className="w-[300px] h-full border rounded-md">
+            <div key={index} className="w-[400px] h-full border rounded-md">
               <img
                 src={item.image}
                 alt={item.name || "Accommodation image"}
-                className="object-cover w-full h-[150px] rounded-md"
+                className="object-cover w-full h-[250px] rounded-md"
               />
               <div className="font-bold text-md m-2">
                 <h1>{item.name}</h1>
@@ -61,7 +61,7 @@ function Stay({ button, foodSpot, lat, lng,rid }) {
               <h1 className="m-2">Rating: {item.rating}/10</h1>
               {button && (
                 <Button
-                  className="p-2 w-16 float-end mb-2"
+                  className="p-3 w-28 float-end mb-2 mr-3"
                   onClick={() => {
                     getSpotById(item._id);
                   }}

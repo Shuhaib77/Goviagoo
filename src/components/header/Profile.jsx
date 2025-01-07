@@ -14,7 +14,8 @@ function Profile({ setProfile }) {
 
   return (
     <>
-      <div className=" fixed inset-0 z-10 flex justify-center items-center  backdrop-blur-md">
+    <div className=""></div>
+      <div className=" fixed inset-0 z-10 flex justify-center items-center bg-black bg-opacity-80 backdrop-blur-md">
         <div className=" absolute z-10 w-[70vh]   h-[60vh]  rounded shadow-2xl bg-white ">
           <div className="float-right p-5">
             <Button

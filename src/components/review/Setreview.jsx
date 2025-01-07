@@ -70,7 +70,7 @@ function Setreview({ setadd }) {
 
   return (
     <>
-      <div className="fixed  backdrop-blur-md inset-0 bg-red  ">
+      <div className="fixed  backdrop-blur-md inset-0 bg-red bg-black bg-opacity-80 ">
         <form action=" " onSubmit={handleSubmit}>
           <div className=" absolute left-32 right-32  top-40 flex justify-around  h-[60vh] shadow-lg rounded-md  bg-white">
             <div className="float-end p-2 ">

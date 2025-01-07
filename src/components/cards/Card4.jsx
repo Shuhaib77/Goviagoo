@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { stayByyId, stayData } from "../../../Redux/bookingSlice";
 import axios from "axios";
 
-function Card4({ locationdata, lat, lng, dataById,rid }) {
+function Card4({ locationdata, lat, lng, dataById, rid }) {
   console.log(lat, lng, "popopo");
 
   const { stay } = useSelector((state) => state.bookingDatas);
@@ -37,7 +37,7 @@ function Card4({ locationdata, lat, lng, dataById,rid }) {
 
   return (
     <>
-      <div className="w-100% ml-16 mr-16">
+      <div className="p-10">
         <div className="text-center">
           <h1 className="font-bold text-2xl">Accommadationss</h1>
         </div>
@@ -51,18 +51,18 @@ function Card4({ locationdata, lat, lng, dataById,rid }) {
               locationdata?.map((item, index) => (
                 <div
                   key={index}
-                  className="w-[300px] shadow-md rounded-md pt-1"
+                  className="w-[500px] shadow-md rounded-md pt-1"
                 >
                   <img
                     src={item.image}
                     alt=""
-                    className="w-[270px] h-[180px] rounded-md m-auto"
+                    className="w-[355px] h-[180px] rounded-md m-auto"
                   />
-                  <div className="font-bold text-md p-3">
+                  <div className="font-bold text-md mt-5 pl-9">
                     <h1>{item.name}</h1>
                     <h1>{item.rate}</h1>
                   </div>
-                  <div className="pl-3">
+                  <div className="pl-9">
                     <h1>
                       <img
                         src={
@@ -80,10 +80,10 @@ function Card4({ locationdata, lat, lng, dataById,rid }) {
                     />
                     <h1>{item.link}</h1>
                   </div>
-                  <h1 className="font-bold text-red-400 text-sm pl-3">
-                    {item.price}
-                  </h1>
-                  <h1 className="pl-3">
+                  {/* <h1 className="font-bold text-red-400 text-sm pl-3">
+                    {item.rate}
+                  </h1> */}
+                  <h1 className="pl-9">
                     Rating:
                     <i
                       className="fa-solid fa-star fa-lg"
@@ -102,9 +102,9 @@ function Card4({ locationdata, lat, lng, dataById,rid }) {
                       style={{ color: "#f5ec00" }}
                     ></i>{" "}
                   </h1>
-                  <div className="text-center">
+                  <div className="text-center mt-3  pl-9 pr-9">
                     <Button
-                      className="w-[290px] h-10"
+                      className="w-full h-10"
                       onClick={() => {
                         setOpen(true);
                         fn(item._id);
@@ -190,7 +190,7 @@ function Card4({ locationdata, lat, lng, dataById,rid }) {
           </div>
         )}
       </div>
-    {open && <Bookmodal setOpen={setOpen} id={id} rid={rid} />}
+      {open && <Bookmodal setOpen={setOpen} id={id} rid={rid} />}
     </>
   );
 }

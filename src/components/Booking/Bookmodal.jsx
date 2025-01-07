@@ -44,7 +44,7 @@ function Bookmodal({ id, setOpen, rid }) {
   return (
     <>
       <div
-        className="inset-0 backdrop-blur-md fixed flex justify-center items-center w-full h-full"
+        className="inset-0 backdrop-blur-md fixed flex justify-center items-center w-full h-full bg-black bg-opacity-80 "
         aria-hidden={!id}
       >
         <div className="bg-white shadow-2xl rounded w-[90%] max-w-[800px]">

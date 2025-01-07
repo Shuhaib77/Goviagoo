@@ -12,11 +12,11 @@ function Viewreview() {
 
   return (
     <>
-      <div className="w-100% h-full ml-36 mr-36">
+      <div className=" h-full pl-20 pr-20">
         <div className="">
           {allReview.map((item) => {
             return (
-              <div className=" flex justify-center w-full h-full mb-5">
+              <div className=" flex justify-center w-full h-full mb-16 ">
                 <div className="w-1/2 h-full  ">
                   <img
                     src={item.image}
