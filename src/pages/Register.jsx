@@ -81,10 +81,10 @@ function Register() {
     },
     validationSchema: registerSchema,
     onSubmit: async (values) => {
-      console.log(values);
+      console.log(values,"ewdd");
       
       try {
-        const res = await axios.post("http://localhost:3000/api/register", {
+          await axios.post("http://localhost:3000/api/register", {
           name: values.name,
           email: values.email,
           password: values.password,
@@ -282,7 +282,7 @@ function Register() {
               onSubmit={formikotp.handleSubmit}
             >
               <h1 className="text-white text-4xl font-bold text-center mb-10">
-                Register{" "}
+                Register
               </h1>
 
               <div className=" mt-5 mb-5 w-92">

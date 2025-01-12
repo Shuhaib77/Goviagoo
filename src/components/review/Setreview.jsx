@@ -70,9 +70,9 @@ function Setreview({ setadd }) {
 
   return (
     <>
-      <div className="fixed  backdrop-blur-md inset-0 bg-red bg-black bg-opacity-80 ">
-        <form action=" " onSubmit={handleSubmit}>
-          <div className=" absolute left-32 right-32  top-40 flex justify-around  h-[60vh] shadow-lg rounded-md  bg-white">
+      <div className="fixed backdrop-blur-md w-full   h-[100vh] inset-0 bg-red bg-black bg-opacity-80 ">
+        <form action=" " onSubmit={handleSubmit} className="p-36 h-full">
+          <div className="    flex justify-around ite h-full shadow-lg rounded-md w-full   bg-white">
             <div className="float-end p-2 ">
               <Button
                 className="bg-red-300"
@@ -84,12 +84,13 @@ function Setreview({ setadd }) {
                 close
               </Button>
             </div>
-            <div className=" h-80 w-1/2 mt-16 ml-5">
-              <Input type="file" onChange={handleImage} name="image"></Input>
-              <img src={post} alt="" className="w-full h-full object-cover" />
-            </div>
-            <div className=" w-full h-full">
-              <div className="flex flex-col h-full w-full items-center gap-y-12 justify-center">
+            <div className="flex w-full justify-between gap-x-32 h-full items-center">
+              <div className=" h-80 w-full">
+                <Input type="file" onChange={handleImage} name="image"></Input>
+                <img src={post} alt="" className="w-full h-full object-cover" />
+              </div>
+
+              <div className="grid grid-cols-1 w-full place-content-center gap-y-10 place-items-center  h-full">
                 <div className="w-96">
                   <Input
                     label="Review title"

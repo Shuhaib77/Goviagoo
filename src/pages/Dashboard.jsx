@@ -1,18 +1,29 @@
-import React from 'react'
-import Header from '../components/Header'
-import Sidebar from '../components/dashboard/Sidebar'
+import React from "react";
+import Header from "../components/Header";
+import Sidebar from "../components/dashboard/Sidebar";
+
+import Head from "../components/dashboard/Head";
+import Body from "../components/dashboard/Body";
 
 function Dashboard() {
   return (
-    <div>
-       <div className='bg-n'>
+    <>
+      <div className="bg-n">
         <Header />
-       </div>
-       <div>
-        <Sidebar/>
-       </div>
-    </div>
-  )
+      </div>
+   
+      <div className="flex">
+      <div>
+        <Sidebar />
+      </div>
+     
+      <div>
+        <Body/>
+      </div>
+      </div>
+     
+    </>
+  );
 }
 
-export default Dashboard
+export default Dashboard;
