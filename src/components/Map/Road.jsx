@@ -41,23 +41,32 @@ function Road() {
   //   },
   // ];
 
-  const fn = (ids) => {
+  const savedDestinations = (ids) => {
     setDest(ids), setView(true);
   };
+  // const savedBookings = (ids) => {
+  //   setDest(ids), setView(true);
+  // };
 
   return (
     <>
-      <div  className=" h-[100vh] w-full    border-t-2 border-red-700 oveflow-auto    ">
+      <div className=" h-[100vh] w-full    border-t-2 border-red-700 oveflow-auto    ">
         {data?.data?.savedMap.map((item, index) => {
           return (
             <div className="flex flex-col h-[100vh] justify-center m-5">
               <h1 className="text-center mt-10  text-4xl text-[#3cd367] animate-pulse">
                 roadMap-{index + 1}
               </h1>
+              {view && <Liveupdate dest={dest} />}
               {/* <h1 className="text-center mt-3 text-4xl text-[#3cd367] animate-pulse">RoadTrip-1</h1> */}
               {item.roadmapId.map((item, index) => {
                 return (
-                  <div className="w-full h-screen   flex justify-center items-center bg-no-repeat bg-cover mt-10 p-5  " style={{backgroundImage:`url(${"https://images-cdn.ubuy.co.in/633fffb02d9e26314a71b548-great-vintage-world-map-in-1882.jpg"})`}}>
+                  <div
+                    className="w-full h-screen   flex justify-center items-center bg-no-repeat bg-cover mt-10 p-5  "
+                    style={{
+                      backgroundImage: `url(${"https://images-cdn.ubuy.co.in/633fffb02d9e26314a71b548-great-vintage-world-map-in-1882.jpg"})`,
+                    }}
+                  >
                     <div className="bg-blue-gray-900 w-[10vh] p-5 flex justify-center items-center rounded-es-full h-[50vh] rounded-se-full   ">
                       <div className="flex flex-col items-center   justify-between h-96   ">
                         {item.destinations.slice(0, 1).map((item) => {
@@ -68,7 +77,7 @@ function Road() {
                               onMouseEnter={() => {
                                 console.log(item._id);
 
-                                fn(item._id);
+                                savedDestinations(item._id);
                               }}
                               onMouseLeave={() => {
                                 setView(false);
@@ -89,28 +98,27 @@ function Road() {
                     <div className="flex w-full h-[50vh] justify-center items-end ">
                       <div className="bg-blue-gray-900 flex flex-col justify-center  w-1/3 h-[10vh]  ">
                         <div className="flex justify-between items-center h-full  ">
-                          {item.destinations.slice(1, item.destinations.length - 1).map((item) => {
-                            return (
-                              <div className="flex justify-center">
-                                <i
-                                  class="fa-solid fa-location-dot fa-2xl fa-flip animate-pulse  "
-                                  style={{ color: "#77bb41" }}
-                                  onMouseEnter={() => {
-                                    fn(item._id);
-                                  }}
-                                  onMouseLeave={() => {
-                                    setView(false);
-                                  }}
-                                ></i>
-                              </div>
-                            );
-                          })}
+                          {item.destinations
+                            .slice(1, item.destinations.length - 1)
+                            .map((item) => {
+                              return (
+                                <div className="flex justify-center">
+                                  <i
+                                    class="fa-solid fa-location-dot fa-2xl fa-flip animate-pulse  "
+                                    style={{ color: "#77bb41" }}
+                                    onMouseEnter={() => {
+                                      savedDestinations(item._id);
+                                    }}
+                                    onMouseLeave={() => {
+                                      setView(false);
+                                    }}
+                                  ></i>
+                                </div>
+                              );
+                            })}
                         </div>
                         <div className="flex gap-x-5 justify-center  h-full">
-                          <h1 className="bg-white h-[10px] w-full">
-                            {" "}
-                            {view && <Liveupdate dest={dest} />}
-                          </h1>
+                          <h1 className="bg-white h-[10px] w-full"> </h1>
                           <h1 className="bg-white h-[10px] w-full"></h1>
                           <h1 className="bg-white h-[10px] w-full"></h1>
                         </div>
@@ -162,24 +170,22 @@ function Road() {
                             </div>
                             <div className="bg-blue-gray-900 flex flex-col justify-center    w-[50vh] h-[10vh] rounded-r-full ">
                               <div className="flex justify-between items-center h-full">
-                                {item.destinations
-                                  .slice(-1)
-                                  .map((item) => {
-                                    return (
-                                      <i
-                                        class="fa-solid fa-location-dot fa-2xl fa-flip animate-pulse"
-                                        style={{ color: "#77bb41" }}
-                                        onMouseEnter={() => {
-                                          console.log(item._id);
+                                {item.destinations.slice(-1).map((item) => {
+                                  return (
+                                    <i
+                                      class="fa-solid fa-location-dot fa-2xl fa-flip animate-pulse"
+                                      style={{ color: "#77bb41" }}
+                                      onMouseEnter={() => {
+                                        console.log(item._id);
 
-                                          fn(item._id);
-                                        }}
-                                        onMouseLeave={() => {
-                                          setView(false);
-                                        }}
-                                      ></i>
-                                    );
-                                  })}
+                                        savedDestinations(item._id);
+                                      }}
+                                      onMouseLeave={() => {
+                                        setView(false);
+                                      }}
+                                    ></i>
+                                  );
+                                })}
                               </div>
                               <div className="flex gap-x-5 justify-center  h-full">
                                 <h1 className="bg-white h-[10px] w-full"></h1>

@@ -79,7 +79,53 @@ function Body() {
               </div>
             </div>
           </div>
-          <div className=""></div>
+          <div className="flex flex-col overflow-auto gap-6 w-[460px] justify-center items-center h-[300px] bg-red-500">
+            <div className="min-w-[400px] flex justify-around items-center min-h-[50px] rounded-md bg-blue-300">
+              <div>
+                <h1>dedede</h1>
+              </div>
+              <div>
+                <h1>dewded</h1>
+              </div>
+              <Button></Button>
+            </div>
+            <div className="min-w-[400px] flex justify-around items-center min-h-[50px] rounded-md bg-blue-300">
+              <div>
+                <h1>dedede</h1>
+              </div>
+              <div>
+                <h1>dewded</h1>
+              </div>
+              <Button></Button>
+            </div>
+            <div className="min-w-[400px] flex justify-around items-center min-h-[50px] rounded-md bg-blue-300">
+              <div>
+                <h1>dedede</h1>
+              </div>
+              <div>
+                <h1>dewded</h1>
+              </div>
+              <Button></Button>
+            </div>
+            <div className="min-w-[400px] flex justify-around items-center min-h-[50px] rounded-md bg-blue-300">
+              <div>
+                <h1>dedede</h1>
+              </div>
+              <div>
+                <h1>dewded</h1>
+              </div>
+              <Button></Button>
+            </div>
+            <div className="min-w-[400px] flex justify-around items-center min-h-[50px] rounded-md bg-blue-300">
+              <div>
+                <h1>dedede</h1>
+              </div>
+              <div>
+                <h1>dewded</h1>
+              </div>
+              <Button></Button>
+            </div>
+          </div>
         </div>
       </div>
     </>

@@ -15,15 +15,17 @@ function Liveupdate({ dest }) {
   if (!dataById) {
     return <div>Loading...</div>;
   }
+  
 
   return (
     <div
-      className="w-[100vh] h-[50vh] bg-black bg-opacity-0 absolute  bottom-36 z-10"
+      className="w-full h-[100vh] fixed bg-black bg-opacity-0 backdrop-blur-sm inset-0   z-10"
       onClick={() => {
         // Pass setMenu as a prop if needed
         // setMenu(false);
       }}
     >
+      <div className=" fixed w-full h-full bg-black bg-opacity-20"></div>
       <div className="flex justify-around items-center w-full h-full  ">
         <div className="flex flex-col  ">
           <h1>Hotel</h1>
