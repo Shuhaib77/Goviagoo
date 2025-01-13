@@ -18,6 +18,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Savedmaps from "./pages/Savedmaps";
 import Contact from "./pages/Contact";
+import Body from "./components/dashboard/Body";
 
 function App() {
   const [user, setUser] = useState([]);
@@ -101,9 +102,10 @@ function App() {
         <Route path="/review" element={<Reviews />}></Route>
         <Route path="/" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
-        <Route path="/dashboard" element={<Dashboard />}></Route>
+        <Route path="/dashboard/:url" element={<Dashboard />}></Route>
         <Route path="/savedmap" element={<Savedmaps />}></Route>
         <Route path="/contact" element={<Contact />}></Route>
+        <Route path="/body" element={<Body />}></Route>
       </Routes>
     </>
   );

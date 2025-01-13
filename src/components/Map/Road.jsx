@@ -50,7 +50,7 @@ function Road() {
 
   return (
     <>
-      <div className=" h-[100vh] w-full    border-t-2 border-red-700 oveflow-auto    ">
+      <div className=" h-[100vh] w-full    oveflow-auto    ">
         {data?.data?.savedMap.map((item, index) => {
           return (
             <div className="flex flex-col h-[100vh] justify-center m-5">

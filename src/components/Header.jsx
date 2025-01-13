@@ -18,7 +18,7 @@ function Header() {
     { name: "home", icon: "", url: "home" },
     { name: "Road trip", icon: "", url: "roadmap" },
     { name: "Destination", icon: "", url: "destination" },
-    { name: "Dashboard", icon: "", url: "dashboard" },
+    { name: "Dashboard", icon: "", url: "dashboard/body" },
     { name: "Go to map", icon: "", url: "mapselect" },
     { name: "ContactUs", icon: "", url: "contact" },
     {
