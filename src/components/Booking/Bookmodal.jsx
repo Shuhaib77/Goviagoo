@@ -20,13 +20,14 @@ function Bookmodal({ id, setOpen, rid }) {
     }
   }, [dispatch, id]);
 
-  const handleRoomChange = (e) => {
-    setSelectedRoom(e.target.value);
+  const handleRoomChange = (value) => {
+    setSelectedRoom(value);
   };
 
-  const handleDaysChange = (e) => {
-    setDays(parseInt(e.target.value, 10));
+  const handleDaysChange = (value) => {
+    setDays(parseInt(value, 10));
   };
+  console.log(days);
 
   const calculateRate = () => {
     let total = 0;
@@ -39,7 +40,7 @@ function Bookmodal({ id, setOpen, rid }) {
   };
 
   const rate = calculateRate();
-  console.log(rate);
+  console.log(rate, "ratenweee");
 
   return (
     <>
@@ -92,7 +93,7 @@ function Bookmodal({ id, setOpen, rid }) {
                   >
                     {stay?.rooms?.length > 0 ? (
                       stay.rooms.map((room, index) => (
-                        <Option key={index}  value={room}>
+                        <Option key={index} value={room}>
                           {room}
                         </Option>
                       ))

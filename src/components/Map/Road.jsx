@@ -135,8 +135,8 @@ function Road() {
                           <div className="bg-blue-gray-900  w-full h-[10vh] ">
                             <div className="flex gap-5 justify-center items-center h-full">
                               <h1 className="bg-white h-[10px] w-full"></h1>
-                              <h1 className="bg-white h-[10px] w-full"></h1>
-                              <h1 className="bg-white h-[10px] w-full"></h1>
+                              {/* <h1 className="bg-white h-[10px] w-full"></h1> */}
+                              {/* <h1 className="bg-white h-[10px] w-full"></h1> */}
                             </div>
                           </div>
                           <div className="flex w-full h-[50vh] justify-center items-end">

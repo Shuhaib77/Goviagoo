@@ -11,7 +11,7 @@ function Body() {
           <Head />
         </div>
 
-        <div className="bg-red-400  ml-3 p-4 mt-4">
+        <div className=" ml-3 p-4 mt-4">
           <h1 className="font-bold text-2xl  text-left">RoadTrip-1</h1>
           <h1 className="ml-4">dewdf</h1>
         </div>

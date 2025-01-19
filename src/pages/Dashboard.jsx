@@ -8,8 +8,8 @@ import Bookingstatus from "./Bookingstatus";
 import { useParams } from "react-router-dom";
 
 function Dashboard() {
-  const {url}=useParams()
-  console.log(url,"ur");
+  const { url } = useParams();
+  console.log(url, "ur");
   return (
     <>
       <div className="bg-n">
@@ -18,15 +18,17 @@ function Dashboard() {
 
       <div className="flex">
         <div>
-        
-          
           <Sidebar />
         </div>
 
         <div className="overflow-auto w-full">
-        {
-            url==="savedmap"?<Savedmaps/>:url==="status"?<Bookingstatus/>:<Body/>
-          }
+          {url === "savedmap" ? (
+            <Savedmaps />
+          ) : url === "status" ? (
+            <Bookingstatus />
+          ) : (
+            <Body />
+          )}
         </div>
       </div>
     </>

@@ -8,10 +8,9 @@ import useToast from "../../hooks/useToast";
 import { useNavigate } from "react-router-dom";
 // import { roadMapWithMap } from "../../../Redux/mapSelctorSlice";
 
-
 const Mapsidebar = ({ sidebar }) => {
   const dispatch = useDispatch();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const { image, locationDetails } = useSelector((state) => state.mapSelector);
   const id = localStorage.getItem("id");
   const { show, message, type } = useSelector((state) => state.Toastval);
@@ -54,7 +53,7 @@ const Mapsidebar = ({ sidebar }) => {
       <div className="absolute left-0 top-15 z--2 lg:w-[40vh] w-full lg:h-full h-[45vh] bg-white lg:overflow-hidden overflow-y-scroll p-5 shadow-lg">
         <h1 className="text-2xl font-bold text-center">Destination</h1>
 
-        <div className="flex mt-5">
+        <div className="flex pt-10">
           <Carousel>
             {image?.length > 0 ? (
               image.map((item, index) => (
@@ -113,14 +112,17 @@ const Mapsidebar = ({ sidebar }) => {
           </p>
         </div>
 
-        <div className=" mt-10 flex justify-between">
+        <div className=" mt-10   flex flex-col justify-between">
           <Button className="p-2 w-44" onClick={addtoMap}>
             Add to RoadMap
           </Button>
-          <Button className="p-2 w-37" onClick={()=>{
-            navigate("/roadmap")
-          }}>
-           go toTrip
+          <Button
+            className=" p-2 mt-4 w-24"
+            onClick={() => {
+              navigate("/roadmap");
+            }}
+          >
+            go toTrip
           </Button>
         </div>
       </div>

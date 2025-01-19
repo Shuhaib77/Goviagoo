@@ -103,7 +103,7 @@ function Mapselector() {
 
   return (
     <div className="h-[full] w-full">
-      <div className="">
+      <div className="fixed w-full top-0 z-10">
         <Header />
       </div>
 

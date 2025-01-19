@@ -30,7 +30,7 @@ function Login() {
         message: "google login successfull",
         type: "#5da364",
       });
-
+   
       navigate("/home");
       console.log(res, "iam");
     } catch (error) {

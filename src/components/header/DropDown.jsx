@@ -22,6 +22,7 @@ function DropDown({handler,setProfile}) {
                   }}>Log In</MenuItem>
             <MenuItem onClick={() => {
                     navigate("/register");
+                    localStorage.removeItem("id")
                   }}>Log Out</MenuItem>
           </MenuList>
         </Menu>

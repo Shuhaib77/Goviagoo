@@ -21,7 +21,7 @@ function Card6() {
   const { YourMap } = useSelector((state) => state.destination);
   const { show } = useSelector((state) => state.Toastval);
   const { createRoadMap } = useSelector((state) => state.mapSelector);
-  console.log(YourMap, "kkkk");
+  console.log(YourMap, "kk");
   console.log(createRoadMap, "hhhhh");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ function Card6() {
   // console.log(lat,lng,"useparamss");
   useEffect(() => {
     dispatch(RoadMapData(id));
-  }, []);
+  }, [id]);
 
   const deleteDesination = async (did) => {
     try {

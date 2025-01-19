@@ -1,19 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  useMapEvents,
-  Popup,
-  Polygon,
-} from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, Polygon } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useSelector, useDispatch } from "react-redux";
 import { RoadMapData } from "../../../Redux/destinationSlice";
 import { addToSave } from "../../../Redux/saveSlice";
+import useToast from "../../hooks/useToast";
+import Toast from "../Toast";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -26,69 +21,83 @@ L.Icon.Default.mergeOptions({
 function Mapview() {
   const latitude = 10.1632;
   const longitude = 76.6413;
-  const [markers, setMarkers] = useState([]);
   const dispatch = useDispatch();
   const uid = localStorage.getItem("id");
+  const { show, message, type } = useSelector((state) => state.Toastval);
   const { YourMap } = useSelector((state) => state.destination);
-  const { createRoadMap } = useSelector((state) => state.mapSelector);
   const navigate = useNavigate();
-  console.log(YourMap?.destination, "viewww");
+  const { toast } = useToast();
 
   useEffect(() => {
-    dispatch(RoadMapData(uid));
-  }, []);
-
-  const polyCordinates = YourMap?.destinations?.map((item) => [
-    item?.location?.latitude,
-    item?.location?.longitude,
-  ]);
-
-  const distanceCalculate = () => {
-    console.log(polyCordinates, "pppp");
-    const dist = [];
-    if (!Array.isArray(polyCordinates) || polyCordinates.length < 2) {
-      console.warn("Insufficient or invalid coordinates.");
-      return dist;
+    if (uid) {
+      dispatch(RoadMapData(uid));
     }
+  }, [uid]);
 
+  const polyCordinates =
+    YourMap?.destinations?.map((item) => [
+      item?.location?.latitude,
+      item?.location?.longitude,
+    ]) || [];
+
+  const dist = useMemo(() => {
+    const distances = [];
+    if (polyCordinates.length < 2) return distances;
     for (let i = 0; i < polyCordinates.length - 1; i++) {
-      const point1 = L.latLng(polyCordinates[i][0], polyCordinates[i][1]); // Use lat, lng
-      const point2 = L.latLng(
-        polyCordinates[i + 1][0],
-        polyCordinates[i + 1][1]
-      ); // Use lat, lng
-      const distance = point1.distanceTo(point2) / 1000; // Distance in kilometers
-      dist.push(distance);
+      const point1 = L.latLng(polyCordinates[i]);
+      const point2 = L.latLng(polyCordinates[i + 1]);
+      distances.push(point1.distanceTo(point2) / 1000);
     }
-    return dist;
+    return distances;
+  }, [polyCordinates]);
+
+  const handleSave = async () => {
+    try {
+      const response = await dispatch(
+        addToSave({ rid: YourMap._id, uid })
+      ).unwrap();
+      toast({
+        show: true,
+        message: "Successfully saved!",
+        type: "#28a745",
+      });
+    } catch (error) {
+      toast({
+        show: true,
+        message: error?.response?.data?.error_message || "alredy added to map",
+        type: "#a6354a",
+      });
+    }
   };
 
-  // Calculate distances
-  const dist = distanceCalculate();
-
-  console.log(dist, "Distances between coordinates");
-
-  // const rid = YourMap.map((item)=>item._id);
-  // console.log(rid, "ttttt");
+  const mapCenter = useMemo(() => {
+    if (polyCordinates.length) {
+      const latitudes = polyCordinates.map(([lat]) => lat);
+      const longitudes = polyCordinates.map(([_, lng]) => lng);
+      return [
+        latitudes.reduce((a, b) => a + b, 0) / latitudes.length,
+        longitudes.reduce((a, b) => a + b, 0) / longitudes.length,
+      ];
+    }
+    return [latitude, longitude];
+  }, [polyCordinates]);
 
   return (
     <>
-      {createRoadMap && (
+      {YourMap && (
         <div>
           <div className="w-full px-4 lg:px-16">
             <h1 className="text-2xl mb-10 font-bold text-center">Your Map</h1>
             <div className="rounded-lg lg:w-[90vw] h-[70vh] grid place-items-center">
               <MapContainer
-                center={[latitude, longitude]}
+                center={mapCenter}
                 zoom={13}
                 style={{ height: "600px", width: "100%" }}
-                // className=" "
               >
                 <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   attribution="© OpenStreetMap contributors"
                 />
-                {/* <MapClickHandler /> */}
                 {YourMap?.destinations?.map((marker, index) => (
                   <Marker
                     key={index}
@@ -100,12 +109,16 @@ function Mapview() {
                     <Popup>
                       Latitude: {marker.location.latitude.toFixed(4)},
                       Longitude: {marker.location.longitude.toFixed(4)}
+                      <br />
                       {marker.name}
-                      {index > 0 && ` distence to previouse:${dist[index - 1]}`}
+                      <br />
+                      {index > 0 &&
+                        `Distance to previous: ${dist[index - 1].toFixed(
+                          2
+                        )} km`}
                     </Popup>
                   </Marker>
                 ))}
-                {/* connectionLine */}
                 <Polygon positions={polyCordinates} color="blue" />
               </MapContainer>
             </div>
@@ -117,24 +130,13 @@ function Mapview() {
             >
               Start
             </Button>
-            {console.log(YourMap?._id, "kokok")}
-
-            {/* {YourMap.map((item)=>{
-          return( */}
-
-            <Button
-              className="p-2 w-24 lg:w-32"
-              onClick={() => {
-                dispatch(addToSave({ rid: YourMap._id, uid }));
-              }}
-            >
+            <Button className="p-2 w-24 lg:w-32" onClick={handleSave}>
               Save
             </Button>
-            {/* )
-         })} */}
           </div>
         </div>
       )}
+      {show && <Toast />}
     </>
   );
 }

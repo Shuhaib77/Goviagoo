@@ -123,6 +123,8 @@ export const foodBooking = createAsyncThunk(
 export const stayBookingstatus = createAsyncThunk("staystats",async (id) => {
   try {
     const res =await axios.get(`http://localhost:3000/api/stayBook/details/${id}`);
+    console.log(res.data,'dataddd');
+    
     return res.data.data.stayBookings;
   } catch (error) {
     throw new Error(error);
@@ -132,6 +134,8 @@ export const stayBookingstatus = createAsyncThunk("staystats",async (id) => {
 export const foodBookDetailss=createAsyncThunk("foodbookstats",async(id)=>{
   try {
     const res=await axios.get(`http://localhost:3000/api/foodBook/details/${id}`)
+    console.log(res.data,"dataaaa");
+    
     return res.data.data.foodBookings
     
   } catch (error) {

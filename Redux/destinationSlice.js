@@ -24,14 +24,15 @@ export const destinationById = createAsyncThunk("", async (id) => {
   }
 });
 
-export const RoadMapData = createAsyncThunk("roadmapof/User", async (id) => {
-  console.log(id);
+export const RoadMapData = createAsyncThunk("roadmapof/user", async (id) => {
+  console.log(id,"llll");
 
   const res = await axios.get(
     `http://localhost:3000/api/profile/roadmap/${id}`
   );
-
-  console.log(res.data.data, "rodmapDataaa");
+  console.log(res.data);
+  
+  console.log(res, "rodmapDataaa");
   return res.data.data;
 });
 const initialState = {

@@ -5,7 +5,11 @@ export const addToSave = createAsyncThunk("addsave", async ({ rid, uid }) => {
   console.log(rid, uid, "saveee");
 
   try {
-    await axios.post(`http://localhost:3000/api/save/roadmap/${rid}/${uid}`);
+   const res= await axios.post(`http://localhost:3000/api/save/roadmap/${rid}/${uid}`);
+   console.log(res);
+   
+   return res
+
   } catch (error) {
     throw error;
   }
