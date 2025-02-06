@@ -96,7 +96,7 @@ function Register() {
           },
         }
       );
-        console.log(res,"nfefehb fhfef");
+        
         toast({
           show: true,
           message: "otp send successfully",

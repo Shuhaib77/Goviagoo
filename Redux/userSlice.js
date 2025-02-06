@@ -29,6 +29,8 @@ export const addreview = createAsyncThunk(
 export const viewReviews = createAsyncThunk("allrevieww", async () => {
  try {
     const res = await axios.get("http://localhost:3000/api/user/review/all");
+    console.log(res.data.review);
+    
     return res.data.review;
     
  } catch (error) {

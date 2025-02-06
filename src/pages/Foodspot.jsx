@@ -14,7 +14,7 @@ function Foodspot() {
   return (
     <>
       <div>
-        <div>
+        <div className="sticky top-0">
           <Header />
         </div>
         <div>

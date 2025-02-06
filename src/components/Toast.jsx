@@ -21,7 +21,7 @@ function Toast() {
   return (
     <div
       style={{ backgroundColor: type }}
-      className="fixed top-16 right-5 px-6 py-3 rounded shadow-md text-white z-50 cursor-pointer transition-transform transform hover:scale-105"
+      className="fixed top-16  right-5 px-6 py-3 rounded shadow-md text-white z-[5000] cursor-pointer transition-transform transform hover:scale-105"
       onClick={() => {
         closetoast()
       }}

@@ -23,7 +23,7 @@ function Destinationdetail() {
   
   return (
     <>
-        <div>
+        <div className="sticky top-0">
           <Header/>
         </div>
         <div>

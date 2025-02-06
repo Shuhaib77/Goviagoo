@@ -13,8 +13,7 @@ import Toast from "../Toast";
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-  iconRetinaUrl:
-    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+  iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
   shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
 
@@ -27,11 +26,15 @@ function Mapview() {
   const { YourMap } = useSelector((state) => state.destination);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [loading, setLoading] = useState(true);
+
+  const fetchRoadMap = async () => {
+    await dispatch(RoadMapData({uid}));
+    setLoading(false);
+  };
 
   useEffect(() => {
-    if (uid) {
-      dispatch(RoadMapData(uid));
-    }
+    fetchRoadMap();
   }, [uid]);
 
   const polyCordinates =
@@ -53,18 +56,17 @@ function Mapview() {
 
   const handleSave = async () => {
     try {
-      const response = await dispatch(
-        addToSave({ rid: YourMap._id, uid })
-      ).unwrap();
+      const response = await dispatch(addToSave({ rid: YourMap._id, uid })).unwrap();
       toast({
         show: true,
         message: "Successfully saved!",
         type: "#28a745",
       });
+      fetchRoadMap();
     } catch (error) {
       toast({
         show: true,
-        message: error?.response?.data?.error_message || "alredy added to map",
+        message: error?.response?.data?.error_message || "Already added to map",
         type: "#a6354a",
       });
     }
@@ -72,15 +74,18 @@ function Mapview() {
 
   const mapCenter = useMemo(() => {
     if (polyCordinates.length) {
-      const latitudes = polyCordinates.map(([lat]) => lat);
-      const longitudes = polyCordinates.map(([_, lng]) => lng);
-      return [
-        latitudes.reduce((a, b) => a + b, 0) / latitudes.length,
-        longitudes.reduce((a, b) => a + b, 0) / longitudes.length,
-      ];
+      const [totalLat, totalLng] = polyCordinates.reduce(
+        ([latSum, lngSum], [lat, lng]) => [latSum + lat, lngSum + lng],
+        [0, 0]
+      );
+      return [totalLat / polyCordinates.length, totalLng / polyCordinates.length];
     }
     return [latitude, longitude];
   }, [polyCordinates]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -101,21 +106,14 @@ function Mapview() {
                 {YourMap?.destinations?.map((marker, index) => (
                   <Marker
                     key={index}
-                    position={[
-                      marker.location.latitude,
-                      marker.location.longitude,
-                    ]}
+                    position={[marker.location.latitude, marker.location.longitude]}
                   >
                     <Popup>
-                      Latitude: {marker.location.latitude.toFixed(4)},
-                      Longitude: {marker.location.longitude.toFixed(4)}
+                      Latitude: {marker.location.latitude.toFixed(4)}, Longitude: {marker.location.longitude.toFixed(4)}
                       <br />
                       {marker.name}
                       <br />
-                      {index > 0 &&
-                        `Distance to previous: ${dist[index - 1].toFixed(
-                          2
-                        )} km`}
+                      {index > 0 && `Distance to previous: ${dist[index - 1].toFixed(2)} km`}
                     </Popup>
                   </Marker>
                 ))}
@@ -124,10 +122,7 @@ function Mapview() {
             </div>
           </div>
           <div className="text-center mt-5">
-            <Button
-              className="p-2 w-24 lg:w-32"
-              onClick={() => navigate("/live")}
-            >
+            <Button className="p-2 w-24 lg:w-32" onClick={() => navigate("/live")}>
               Start
             </Button>
             <Button className="p-2 w-24 lg:w-32" onClick={handleSave}>
@@ -136,7 +131,7 @@ function Mapview() {
           </div>
         </div>
       )}
-      {show && <Toast />}
+      {show && <Toast message={message} type={type} />}
     </>
   );
 }

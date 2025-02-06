@@ -24,7 +24,7 @@ function Destinations() {
   return (
     <>
       <div>
-        <div>
+        <div className="sticky top-0">
           <Header />
         </div>
         <div>

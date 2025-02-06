@@ -12,7 +12,7 @@ function Dashboard() {
   console.log(url, "ur");
   return (
     <>
-      <div className="bg-n">
+      <div className="sticky top-0">
         <Header />
       </div>
 

@@ -30,7 +30,7 @@ const Livemap = () => {
   return (
     <>
       <div>
-        <div>
+        <div className="sticky top-0">
           <Header />
          
         </div>

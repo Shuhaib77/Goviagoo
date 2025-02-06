@@ -27,7 +27,7 @@ function Home() {
   
   return (
     <div>
-      <div>
+      <div className="sticky top-0">
         <Header />
       </div>
       <div>
@@ -61,9 +61,9 @@ function Home() {
       <div>
         <Mainview />
       </div>
-      <div>
+      {/* <div>
         <Stay />
-      </div>
+      </div> */}
       <div>
         <Topreviews />
       </div>
