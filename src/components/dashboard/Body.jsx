@@ -1,9 +1,33 @@
-import { Button } from "@material-tailwind/react";
-import React from "react";
+import { Button, Carousel } from "@material-tailwind/react";
+import React, { useEffect } from "react";
 import Calendar from "react-calendar";
 import Head from "./Head";
+import { useDispatch, useSelector } from "react-redux";
+import { savedmapDetails } from "../../../Redux/saveSlice";
 
 function Body() {
+  const dispatch = useDispatch();
+
+  const { data } = useSelector((state) => state.savedmaps);
+  console.log(data);
+  const id = localStorage.getItem("id");
+
+  useEffect(() => {
+    dispatch(savedmapDetails(id));
+  }, []);
+
+  const latData = data?.data?.savedMap
+    ?.slice(-1)
+    ?.map((item) => item.roadmapId.map((item) => item.destinations))
+    ?.flat(Infinity);
+  const RoadData = data?.data?.savedMap
+    ?.slice(-1)
+    ?.map((item) => item.roadmapId)
+    ?.flat(Infinity);
+  console.log(RoadData, "dashboard");
+  console.log(latData, "last");
+
+
   return (
     <>
       <div className="">
@@ -16,24 +40,48 @@ function Body() {
           <h1 className="ml-4">dewdf</h1>
         </div>
         <div className="grid grid-cols-2 place-items-center mt-4    ">
-          <div className="flex ml-10  gap-x-2 ">
-            <div className="w-[250px] h-[250px] rounded-md bg-red-700">
-              <img src="" alt="" className="w-full h-full" />
-              <div className="bg-white border rounded w-full h-[50px]">
-                <h1>dd</h1>
-              </div>
+          <div className="flex  p-5 w-full    ">
+            <div className="w-1/2  rounded-2xl shadow-xl shadow-green-300">
+              <Carousel>
+                {latData?.map((item) => {
+                  return (
+                    <div>
+                      <div className="bg-white w-full    shadow-md rounded border p-1 h-[50px]">
+                        <h1 className="w-full text-sm">{item.name}</h1>
+                      </div>
+
+                      <div className="w-full h-[250px] overflow-x-auto rounded-md ">
+                        <img
+                          src={item.image}
+                          alt=""
+                          className="w-full  h-full object-cover "
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </Carousel>
             </div>
-            <div className="bg-green-700 rounded-md flex flex-col justify-around p-4 w-[350px] h-[300px]">
-              <h1>dewded</h1>
-              <h1>eddwed</h1>
-              <p>dqedqewdeqd</p>
+            <div className=" shadow-md rounded-2xl shadow-green-300 flex flex-col justify-around p-4 w-[350px] h-[300px]">
+              {RoadData?.map((item) => {
+                return (
+                  <div className="pl-4">
+                    <h1>Food Booked :{item?.foodBookings?.length}</h1>
+                    <h1>Stay Booked :{item?.stayBookings?.length}</h1>
+                    <h1>Destination added :{item?.destinations?.length}</h1>
+                    <h1>Date Created :{item?.createdAt}</h1>
+                    <p>dqedqewdeqd</p>
+                  </div>
+                );
+              })}
+
               <div className="text-center">
                 <Button className="w-72 ">Strat roadTrip</Button>
               </div>
             </div>
           </div>
 
-          <Calendar className="border-2 rounded-md h-72 text-center pt-14  border-black" />
+          <Calendar className="border-2 rounded-md h-72 text-center pt-14   border-black" />
 
           <div className="  ">
             <div className="bg-blue-gray-700 flex justify-around   w-[610px] gap-x-10 overflow-auto  items-center h-[300px] mt-5 ml-10">

@@ -26,6 +26,7 @@ function Register() {
       const res = await axios.post("http://localhost:3000/api/googlelogin", {
         idToken: credential,
       });
+      localStorage.setItem("id", res.data.user._id);
       toast({
         show: true,
         message: "google login successfull",

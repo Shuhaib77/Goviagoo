@@ -123,9 +123,13 @@ export const foodBooking = createAsyncThunk(
 export const stayBookingstatus = createAsyncThunk("staystats",async (id) => {
   try {
     const res =await axios.get(`http://localhost:3000/api/stayBook/details/${id}`);
-    console.log(res.data,'dataddd');
+    console.log('dataddddd');
+     const data=res.data.data.savedMap.map((item)=>item.roadmapId.map((item)=>item.stayBookings))
+     const validData=data.flat().filter((item)=>Array.isArray(item)? item.length > 0: item )
+    //  const validData = data.flat().filter(item => Array.isArray(item) ? item.length > 0 
+    console.log(validData);
     
-    return res.data.data.stayBookings;
+    return validData.flat(Infinity);
   } catch (error) {
     throw new Error(error);
   }
@@ -134,9 +138,11 @@ export const stayBookingstatus = createAsyncThunk("staystats",async (id) => {
 export const foodBookDetailss=createAsyncThunk("foodbookstats",async(id)=>{
   try {
     const res=await axios.get(`http://localhost:3000/api/foodBook/details/${id}`)
-    console.log(res.data,"dataaaa");
-    
-    return res.data.data.foodBookings
+
+    const data=res.data.data.savedMap.map((item)=>item.roadmapId.map((item)=>item.foodBookings))
+    const validData=data.flat().filter((item)=>Array.isArray(item)?item.length > 0:item)
+    console.log(validData,"datoooo");
+    return validData.flat(Infinity)
     
   } catch (error) {
     
