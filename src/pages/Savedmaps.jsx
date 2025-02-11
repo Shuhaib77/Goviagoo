@@ -61,7 +61,7 @@ function Savedmaps() {
       {/* <div>
         <Header/>
       </div> */}
-     <div>
+     <div className="">
      <Road/>
      </div>
     </>

@@ -12,12 +12,12 @@ function Dashboard() {
   console.log(url, "ur");
   return (
     <>
-      <div className="sticky top-0">
+      <div className=" ">
         <Header />
       </div>
 
       <div className="flex">
-        <div>
+        <div className=""  >
           <Sidebar />
         </div>
 

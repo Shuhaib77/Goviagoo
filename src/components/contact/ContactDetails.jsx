@@ -42,7 +42,7 @@ function ContactDetails() {
                 Eu id cras morbi consectetur viverra eleifend pellentesque dui.{" "}
               </h1>
             </div>
-            <div className=" grid grid-cols-2 place-content-around w-full gap-y-10 gap-x-5 p-10 ml-10  ">
+            <div className=" grid grid-cols-2 place-content-around w-full gap-y-10 gap-x-5 p-10 ml-10 -z-10  ">
               <Input label="name"></Input>
               <Input label="phone"></Input>
               <Input label="email"></Input>

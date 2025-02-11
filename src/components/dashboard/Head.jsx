@@ -4,13 +4,13 @@ import { Input, Button } from "@material-tailwind/react";
 function Head() {
   return (
     <>
-          <div className=" flex justify-around mt-5 items-center   ">
+          <div className=" flex justify-between mt-5 items-center   ">
           <div className="">
             <h1>shuhaimm</h1>
             <h1>dnndd</h1>
           </div>
-          <div>
-            <Input label="search"></Input>
+          <div className='w-1/3' >
+            <Input  label="search"></Input>
           </div>
           <div>
           <i class="fa-solid fa-circle-user fa-2xl" style={{color: "#0042aa"}}></i>

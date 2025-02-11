@@ -50,7 +50,7 @@ const Mapsidebar = ({ sidebar }) => {
 
   return (
     <>
-      <div className="absolute left-0 top-15 z--2 lg:w-[40vh] w-full lg:h-full h-[45vh] bg-white lg:overflow-hidden overflow-y-scroll p-5 shadow-lg">
+      <div className="absolute left-0 top-15 z--2 lg:w-[39vh] w-full lg:h-full h-[45vh] bg-white lg:overflow-hidden overflow-y-scroll p-5 shadow-lg">
         <h1 className="text-2xl font-bold text-center">Destination</h1>
 
         <div className="flex pt-10">

@@ -54,8 +54,8 @@ function Road() {
         {data?.data?.savedMap.map((item, index) => {
           return (
             <div className="flex flex-col h-[100vh] justify-center m-5">
-              <h1 className="text-center mt-10  text-4xl text-[#3cd367] animate-pulse">
-                roadMap-{index + 1}
+              <h1 className="text-center mt-10 shadow-green-500 shadow-md  p-5  text-4xl text-[#3cd367] animate-pulse">
+                RoadMap-{index + 1}
               </h1>
               {view && <Liveupdate dest={dest} />}
               {/* <h1 className="text-center mt-3 text-4xl text-[#3cd367] animate-pulse">RoadTrip-1</h1> */}

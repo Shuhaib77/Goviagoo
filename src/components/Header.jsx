@@ -88,7 +88,7 @@ function Header() {
           }}
         ></i>
       </div>
-      <div >
+      <div  >
   {profiles && <Profile setProfile={setProfile}/>   }
       </div>
     </>

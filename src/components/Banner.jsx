@@ -3,7 +3,7 @@ import React from "react";
 const Banner = ({ image, searchbar }) => {
   return (
     <>
-      <div className="pl-9 pr-9  ">
+      <div className="pl-9 pr-9   ">
         <div
           style={{ backgroundImage: `url(${image})` }}
           className="h-[55vh] ml-8 mr-8  mt-10  bg-banner1 bg-center bg-cover bg-no-repeat rounded-2xl shadow-xl "
@@ -15,7 +15,8 @@ const Banner = ({ image, searchbar }) => {
             </div>
           )}
         </div>
-        <div className="lg:w-[120vh] sm:w-full h-full lg:p-4  m-auto rounded-3xl shadow-xl  bg-white relative bottom-10 z-1 flex justify-around  items-center ">
+      <div>
+      <div className="lg:w-[120vh] relative   sm:w-full h-[80px] lg:p-4  m-auto rounded-3xl shadow-xl mb-10    bg-white  bottom-10  flex justify-around  items-center ">
           <div className="flex justify-center items-center ml-3">
             <div>
               <h1>
@@ -59,6 +60,7 @@ const Banner = ({ image, searchbar }) => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </>
   );

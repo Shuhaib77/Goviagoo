@@ -4,6 +4,7 @@ import Statusview from '../components/Booking/Statusview'
 function Bookingstatus() {
   return (
     <>
+
      <Statusview/>
     </>
   )

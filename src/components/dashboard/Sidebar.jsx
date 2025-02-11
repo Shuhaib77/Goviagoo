@@ -25,7 +25,7 @@ function Sidebar() {
 
   return (
     <>
-      <div className="h-[100vh] w-[250px] rounded shadow-xl bg-green-400 bg-opacity-90 float-start flex flex-col justify-start  gap-y-14 pt-28">
+      <div className="h-[93vh] w-[250px]   rounded shadow-xl bg-green-300 bg-opacity-90 float-start flex flex-col justify-start  gap-y-14 pt-28">
         {data.map((item) => {
           return (
             <h1

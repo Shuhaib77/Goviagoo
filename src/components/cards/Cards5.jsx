@@ -52,7 +52,7 @@ function Cards5() {
 
   return (
     <>
-      <div className="w-100%  lg:ml-36 lg:mr-36">
+      <div className=" -z-20 pr-36 pl-36">
         {/* {console.log(data.length)} */}
         {onepageData?.map((item, index) => {
           if (index % 2 == 0) {

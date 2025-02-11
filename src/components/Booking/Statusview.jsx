@@ -30,7 +30,7 @@ function Statusview() {
   return (
     <>
      
-      <div className="w-100% ml-20 mr-20 mt-10">
+      <div className="w-full pl-5 pr-5 mt-10 h-[85vh] overflow-auto   ">
         <h1 className="font-bold text-2xl ml-7 ">Accommadation</h1>
         {/* {stayBookingStat.length === 0 ? ( */}
           <h1 className="text-center font-bold text-2xl text-red-700">
@@ -126,7 +126,7 @@ function Statusview() {
           {/* ) : ( */}
             <div>
               {/* {foodBookingStat.map((item) => { */}
-                return (
+            
                   <div className="w-100% h-[35vh] flex justify-around mt-10 ">
                     <div className="w-1/3  bg-red-500 ">
                       {/* {item.foodSpot.map((item)=>{
@@ -181,9 +181,9 @@ function Statusview() {
           {/* )} */}
         </div>
       </div>
-      <div>
+      {/* <div>
         <Footer />
-      </div>
+      </div> */}
     </>
   );
 }
