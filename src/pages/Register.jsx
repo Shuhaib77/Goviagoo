@@ -5,12 +5,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin, googleLogout, GoogleLogin } from "@react-oauth/google";
 import { useSelector, useDispatch } from "react-redux";
-import { ToastView } from "../../Redux/ToastSlice";
+// import { ToastView } from "../../Redux/ToastSlice";
 import Toast from "../components/Toast";
-import tryCatch from "../../../goviagoServer/src/middlewares/tryCatch";
+// import tryCatch from "../../../goviagoServer/src/middlewares/tryCatch";
 import { registerSchema } from "../utils/registerValidation";
 import useToast from "../hooks/useToast";
-import { set } from "mongoose";
+// import { set } from "mongoose";
 function Register() {
   const [otp, setOtp] = useState(false);
   const navigate = useNavigate();

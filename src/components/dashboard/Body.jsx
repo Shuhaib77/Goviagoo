@@ -22,7 +22,7 @@ function Body() {
     ?.flat(Infinity);
   const RoadData = data?.data?.savedMap
     ?.slice(-1)
-    ?.map((item) => item.roadmapId)
+    ?.map((item) => item?.roadmapId)
     ?.flat(Infinity);
   console.log(RoadData, "dashboard");
   console.log(latData, "last");
