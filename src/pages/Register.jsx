@@ -23,7 +23,7 @@ function Register() {
   const handleloginsuccess = async (credentialresponse) => {
     try {
       const { credential } = credentialresponse;
-      const res = await axios.post("http://localhost:3000/api/googlelogin", {
+      const res = await axios.post("https://goviagoo-server.onrender.com/api/googlelogin", {
         idToken: credential,
       });
       localStorage.setItem("id", res.data.user._id);
@@ -85,7 +85,7 @@ function Register() {
       console.log(values,"ewdd");
       
       try {
-          await axios.post("http://localhost:3000/api/register", {
+          await axios.post("https://goviagoo-server.onrender.com/api/register", {
           name: values.name,
           email: values.email,
           password: values.password,
@@ -128,7 +128,7 @@ function Register() {
         formdata.append("image", formikreg.values.image);
         // formdata.append("email",values.email)
         const res = await axios.post(
-          "http://localhost:3000/api/verifyotp",
+          "https://goviagoo-server.onrender.com/api/verifyotp",
           formdata,
           {
             headers: {

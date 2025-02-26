@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const profileUser = createAsyncThunk("useData", async (id) => {
-  const res = await axios.get(`http://localhost:3000/api/profile/${id}`);
+  const res = await axios.get(`https://goviagoo-server.onrender.com/api/profile/${id}`);
   console.log(res.data, "lolollool");
   return res.data;
 });
@@ -11,7 +11,7 @@ export const addreview = createAsyncThunk(
   async ({ id, formdata }) => {
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/user/review/${id}`,
+        `https://goviagoo-server.onrender.com/api/user/review/${id}`,
         formdata,
         {
           headers: {
@@ -28,7 +28,7 @@ export const addreview = createAsyncThunk(
 
 export const viewReviews = createAsyncThunk("allrevieww", async () => {
  try {
-    const res = await axios.get("http://localhost:3000/api/user/review/all");
+    const res = await axios.get("https://goviagoo-server.onrender.com/api/user/review/all");
     console.log(res.data.review);
     
     return res.data.review;

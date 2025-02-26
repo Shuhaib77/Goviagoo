@@ -21,7 +21,7 @@ const Mapsidebar = ({ sidebar }) => {
   const addtoMap = async () => {
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/destination/post/roadmap/${id}/${locationDetails?.display_name}/map`,
+        `https://goviagoo-server.onrender.com/api/destination/post/roadmap/${id}/${locationDetails?.display_name}/map`,
         {
           image: image,
           name: locationDetails?.display_name,

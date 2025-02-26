@@ -21,7 +21,7 @@ function Login() {
   const handleloginsuccess = async (credentialresponse) => {
     try {
       const { credential } = credentialresponse;
-      const res = await axios.post("http://localhost:3000/api/googlelogin", {
+      const res = await axios.post("https://goviagoo-server.onrender.com/api/googlelogin", {
         idToken: credential,
       });
       localStorage.setItem("id", res.data.user._id);
@@ -73,7 +73,7 @@ function Login() {
       validationSchema: loginschema,
       onSubmit: async (values) => {
         try {
-          const res = await axios.post("http://localhost:3000/api/login", {
+          const res = await axios.post("https://goviagoo-server.onrender.com/api/login", {
             email: values.email,
             password: values.password,
           });

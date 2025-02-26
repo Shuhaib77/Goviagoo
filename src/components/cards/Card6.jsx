@@ -43,7 +43,7 @@ function Card6() {
   const deleteDesination = async (did) => {
     try {
       const res = await axios.delete(
-        `http://localhost:3000/api//destination/delete/roadmap/${did}/${id}`
+        `https://goviagoo-server.onrender.com/api/destination/delete/roadmap/${did}/${id}`
       );
       dispatch(RoadMapData(id));
       console.log(data);

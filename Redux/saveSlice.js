@@ -5,7 +5,7 @@ export const addToSave = createAsyncThunk("addsave", async ({ rid, uid }) => {
   console.log(rid, uid, "saveee");
 
   try {
-   const res= await axios.post(`http://localhost:3000/api/save/roadmap/${rid}/${uid}`);
+   const res= await axios.post(`https://goviagoo-server.onrender.com/api/save/roadmap/${rid}/${uid}`);
    console.log(res);
    
    return res
@@ -18,7 +18,7 @@ export const addToSave = createAsyncThunk("addsave", async ({ rid, uid }) => {
 export const savedmapDetails = createAsyncThunk(
   "savedmapdetails",
   async (id) => {
-    const res = await axios.get(`http://localhost:3000/api/save/view/${id}`);
+    const res = await axios.get(`https://goviagoo-server.onrender.com/api/save/view/${id}`);
     console.log(res.data,"savedsleccf");
     return res.data;
   }

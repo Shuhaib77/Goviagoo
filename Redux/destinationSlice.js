@@ -8,7 +8,7 @@ import axios from "axios";
 export const getDestinationData = createAsyncThunk(
   "destination/data",
   async () => {
-    const res = await axios.get("http://localhost:3000/api/destination/gets");
+    const res = await axios.get("https://goviagoo-server.onrender.com/api/destination/gets");
     console.log(res.data, "destinationDataa");
     return res.data.destination;
   }
@@ -16,7 +16,7 @@ export const getDestinationData = createAsyncThunk(
 
 export const destinationById = createAsyncThunk("", async (id) => {
   try {
-    const res = await axios.get(`http://localhost:3000/api/destination/gets/${id}`);
+    const res = await axios.get(`https://goviagoo-server.onrender.com/api/destination/gets/${id}`);
     console.log(res.data, "DAAT BY IDD");
     return res.data.destination
   } catch (error) {
@@ -28,7 +28,7 @@ export const RoadMapData = createAsyncThunk("roadmapof/user", async (id) => {
   console.log(id,"llll");
 
   const res = await axios.get(
-    `http://localhost:3000/api/profile/roadmap/${id}`
+    `https://goviagoo-server.onrender.com/api/profile/roadmap/${id}`
   );
   console.log(res.data);
   

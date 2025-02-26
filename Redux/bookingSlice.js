@@ -9,7 +9,7 @@ export const stayData = createAsyncThunk(
 
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/get/stay/location/${lat}/${lng}`
+        `https://goviagoo-server.onrender.com/api/get/stay/location/${lat}/${lng}`
       );
       console.log(res.data, "lklkll");
 
@@ -23,7 +23,7 @@ export const stayData = createAsyncThunk(
 export const stayByyId = createAsyncThunk("id/data", async (id) => {
   console.log(id, "??????");
   try {
-    const res = await axios.get(`http://localhost:3000/api/get/stay/${id}`);
+    const res = await axios.get(`https://goviagoo-server.onrender.com/api/get/stay/${id}`);
     console.log(res.data.data, "ssss");
 
     return res.data.data;
@@ -40,7 +40,7 @@ export const foodSpotData = createAsyncThunk(
 
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/get/foodspot/location/${lat}/${lng}`
+        `https://goviagoo-server.onrender.com/api/get/foodspot/location/${lat}/${lng}`
       );
       console.log(res.data, "foodspot data");
       return res.data.data;
@@ -53,7 +53,7 @@ export const foodSpotData = createAsyncThunk(
 
 export const FoodDataById = createAsyncThunk("foodspotdata/id", async (id) => {
   try {
-    const res = await axios.get(`http://localhost:3000/api/get/foodspot/${id}`);
+    const res = await axios.get(`https://goviagoo-server.onrender.com/api/get/foodspot/${id}`);
     console.log(res.data, "gdgdgd");
     return res.data.data;
   } catch (error) {
@@ -68,7 +68,7 @@ export const pay = createAsyncThunk(
 
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/stay/book/${id}/${uid}/${rid}`,
+        `https://goviagoo-server.onrender.com/api/stay/book/${id}/${uid}/${rid}`,
         {
           rate: rate,
           roomNo: selectedRoom,
@@ -98,7 +98,7 @@ export const foodBooking = createAsyncThunk(
 
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/food/book/${fid}/${uid}/${rid}`,
+        `https://goviagoo-server.onrender.com/api/food/book/${fid}/${uid}/${rid}`,
         {
           type: type,
           customer: customer,
@@ -122,7 +122,7 @@ export const foodBooking = createAsyncThunk(
 
 export const stayBookingstatus = createAsyncThunk("staystats",async (id) => {
   try {
-    const res =await axios.get(`http://localhost:3000/api/stayBook/details/${id}`);
+    const res =await axios.get(`https://goviagoo-server.onrender.com/api/stayBook/details/${id}`);
     console.log('dataddddd');
      const data=res.data.data.savedMap.map((item)=>item.roadmapId.map((item)=>item.stayBookings))
      const validData=data.flat().filter((item)=>Array.isArray(item)? item.length > 0: item )
@@ -137,7 +137,7 @@ export const stayBookingstatus = createAsyncThunk("staystats",async (id) => {
 
 export const foodBookDetailss=createAsyncThunk("foodbookstats",async(id)=>{
   try {
-    const res=await axios.get(`http://localhost:3000/api/foodBook/details/${id}`)
+    const res=await axios.get(`https://goviagoo-server.onrender.com/api/foodBook/details/${id}`)
 
     const data=res.data.data.savedMap.map((item)=>item.roadmapId.map((item)=>item.foodBookings))
     const validData=data.flat().filter((item)=>Array.isArray(item)?item.length > 0:item)

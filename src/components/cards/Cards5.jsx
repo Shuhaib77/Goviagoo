@@ -30,7 +30,7 @@ function Cards5() {
   const addToMap = async (did) => {
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/destination/post/roadmap/${did}/${id}`
+        `https://goviagoo-server.onrender.com/api/destination/post/roadmap/${did}/${id}`
       );
 
       toast({
