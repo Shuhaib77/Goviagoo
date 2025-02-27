@@ -21,16 +21,19 @@ function Login() {
   const handleloginsuccess = async (credentialresponse) => {
     try {
       const { credential } = credentialresponse;
-      const res = await axios.post("https://goviagoo-server.onrender.com/api/googlelogin", {
-        idToken: credential,
-      });
+      const res = await axios.post(
+        "https://goviagoo-server.onrender.com/api/googlelogin",
+        {
+          idToken: credential,
+        }
+      );
       localStorage.setItem("id", res.data.user._id);
       toast({
         show: true,
         message: "google login successfull",
         type: "#5da364",
       });
-   
+
       navigate("/home");
       console.log(res, "iam");
     } catch (error) {
@@ -73,10 +76,13 @@ function Login() {
       validationSchema: loginschema,
       onSubmit: async (values) => {
         try {
-          const res = await axios.post("https://goviagoo-server.onrender.com/api/login", {
-            email: values.email,
-            password: values.password,
-          });
+          const res = await axios.post(
+            "https://goviagoo-server.onrender.com/api/login",
+            {
+              email: values.email,
+              password: values.password,
+            }
+          );
           console.log(res);
           toast({
             show: true,
@@ -164,10 +170,11 @@ function Login() {
                 </div>
                 {/* ) : ( */}
                 {/* // <button onClick={() => login()}>Sign in with Google 🚀 </button> */}
-                <div className="bg-black text-white mt-5 w-[100%]  rounded-md">
+                <div className="bg-black text-white mt-5 w-full rounded-md">
                   <GoogleLogin
                     onSuccess={handleloginsuccess}
                     onError={handlegooglelogin}
+                    className="w-full"
                   />
                 </div>
                 {/* )} */}
