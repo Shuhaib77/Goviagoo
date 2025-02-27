@@ -271,6 +271,7 @@ function Register() {
                   <GoogleLogin
                     onSuccess={handleloginsuccess}
                     onError={handlegooglelogin}
+                    className="w-full"
                   />
                 </div>
                 {/* )} */}
