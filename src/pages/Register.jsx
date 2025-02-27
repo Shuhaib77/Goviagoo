@@ -33,7 +33,7 @@ function Register() {
         type: "green",
       });
       navigate("/home");
-      console.log(res, "iam");
+      // console.log(res, "iam");
     } catch (error) {
       toast({
         show: true,
