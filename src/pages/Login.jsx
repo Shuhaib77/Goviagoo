@@ -176,7 +176,7 @@ function Login() {
                     onError={handlegooglelogin}
                     width="100%"
                     type="standard"
-                    theme="filled_black"
+                    theme=""
                     size="large"
                     shape="rectangular"
                   />
