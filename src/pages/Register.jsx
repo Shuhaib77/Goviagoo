@@ -267,7 +267,7 @@ function Register() {
                 </div>
                 {/* ) : ( */}
                 {/* // <button onClick={() => login()}>Sign in with Google 🚀 </button> */}
-                <div className=" text-white w-full lex justify-center items-center text-center  rounded-md">
+                <div className=" text-white w-full flex justify-center items-center text-center   rounded-md">
                   <GoogleLogin
                     onSuccess={handleloginsuccess}
                     onError={handlegooglelogin}
