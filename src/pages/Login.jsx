@@ -170,7 +170,7 @@ function Login() {
                 </div>
                 {/* ) : ( */}
                 {/* // <button onClick={() => login()}>Sign in with Google 🚀 </button> */}
-                <div className="bg-black text-white mt-5 w-full rounded-md text-center">
+                <div className="bg-white text-black mt-5 w-full rounded-md flex justify-center items-center text-center">
                   <GoogleLogin
                     onSuccess={handleloginsuccess}
                     onError={handlegooglelogin}
