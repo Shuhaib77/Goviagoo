@@ -175,6 +175,7 @@ function Login() {
                     onSuccess={handleloginsuccess}
                     onError={handlegooglelogin}
                     className="w-full"
+                    width="100%"
                   />
                 </div>
                 {/* )} */}
