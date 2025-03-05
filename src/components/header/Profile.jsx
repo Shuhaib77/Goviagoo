@@ -13,17 +13,8 @@ function Profile({ setProfile }) {
   }, [dispatch, id]);
 
   return (
-    <div className="fixed top-0 left-0 right-0 bottom-0 
-                 z-[9999] 
-                 bg-black bg-opacity-50 
-                 flex justify-center items-center">
-      <div className="relative 
-                   bg-white 
-                   rounded-lg 
-                   z-[10000] 
-                   w-[70vh] 
-                   max-h-[80vh] 
-                   overflow-auto]">
+    <div className="fixed  z-[50000] top-0 left-0 w-full h-[100vh] overflow-hidden  flex justify-center items-center bg-black bg-opacity-80 backdrop-blur-md">
+      <div className="relative w-[70vh] h-[60vh] rounded-lg shadow-2xl bg-white z-[1051]">
         <div className="absolute top-4 right-4">
           <Button className="bg-red-500 text-white" onClick={() => setProfile(false)}>
             Close
