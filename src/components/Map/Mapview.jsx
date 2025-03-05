@@ -93,7 +93,7 @@ function Mapview() {
         <div>
           <div className="w-full  px-4 lg:px-16">
             <h1 className="text-2xl mb-10 font-bold text-center">Your Map</h1>
-            <div className="rounded-lg lg:w-[90vw]   -z-20  h-[70vh] grid place-items-center">
+            <div className="rounded-lg lg:w-[90vw]   z-0  h-[70vh] grid place-items-center">
               <MapContainer
                 center={mapCenter}
                 zoom={13}
