@@ -13,38 +13,33 @@ function Profile({ setProfile }) {
   }, [dispatch, id]);
 
   return (
-    <div 
-      className="fixed inset-0 z-[9999] overflow-hidden flex justify-center items-center 
-                 bg-black bg-opacity-50 backdrop-blur-sm"
-    >
-      <div 
-        className="relative w-[70vh] max-h-[80vh] rounded-lg shadow-2xl 
-                   bg-white z-[10000] overflow-auto"
-      >
+    <div className="fixed top-0 left-0 right-0 bottom-0 
+                 z-[9999] 
+                 bg-black bg-opacity-50 
+                 flex justify-center items-center">
+      <div className="relative 
+                   bg-white 
+                   rounded-lg 
+                   z-[10000] 
+                   w-[70vh] 
+                   max-h-[80vh] 
+                   overflow-auto]">
         <div className="absolute top-4 right-4">
-          <Button 
-            className="bg-red-500 text-white" 
-            onClick={() => setProfile(false)}
-          >
+          <Button className="bg-red-500 text-white" onClick={() => setProfile(false)}>
             Close
           </Button>
         </div>
         <h1 className="text-2xl p-5 font-bold text-center">Profile</h1>
+
         {datas?.user && (
           <div className="flex justify-around items-center w-full gap-5 p-5">
             <div className="w-1/3 h-[250px]">
-              <img 
-                src={datas.user.image} 
-                className="w-full h-full object-cover rounded-lg" 
-                alt="Profile" 
-              />
+              <img src={datas.user.image} className="w-full h-full object-cover rounded-lg" alt="Profile" />
             </div>
             <div className="w-[70%]">
               <h1 className="text-lg font-semibold">{datas.user.name}</h1>
               <h1 className="text-gray-600">{datas.user.email}</h1>
-              <h1 className="text-gray-600">
-                Saved Roadmaps: {datas.user.savedRoadmaps.length}
-              </h1>
+              <h1 className="text-gray-600">Saved Roadmaps: {datas.user.savedRoadmaps.length}</h1>
             </div>
           </div>
         )}
