@@ -110,7 +110,7 @@ function Body() {
           </div> */}
 
           {/* Bookings List */}
-          <div className="w-[450px] p-5 bg-white shadow-lg rounded-xl">
+          <div className="w-[650px] p-5 bg-white shadow-lg rounded-xl">
             {latestRoadmap && (
               <div className="text-gray-700 space-y-2">
                 <h1>
