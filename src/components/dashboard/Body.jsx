@@ -199,7 +199,7 @@ function Body() {
                         className="bg-blue-200 p-2 rounded-md mt-1"
                       >
                         <p className="text-sm font-semibold">
-                            {index + 1}. {item.days} days stay
+                            {index + 1}. {stay.days} days stay
                           </p>
                           <p className="text-xs text-gray-700">
                             Hotel: {stay.name || "Not specified"}
