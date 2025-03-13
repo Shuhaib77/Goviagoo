@@ -58,10 +58,30 @@ function Body() {
           <div className="w-[350px] p-5 bg-white shadow-lg rounded-xl">
             {latestRoadmap && (
               <div className="text-gray-700 space-y-2">
-                <h1>Food Booked: <span className="font-semibold">{latestRoadmap.foodBookings.length}</span></h1>
-                <h1>Stay Booked: <span className="font-semibold">{latestRoadmap.stayBookings.length}</span></h1>
-                <h1>Destinations: <span className="font-semibold">{latestRoadmap.destinations.length}</span></h1>
-                <h1>Date Created: <span className="font-semibold">{new Date(latestRoadmap.createdAt).toLocaleDateString()}</span></h1>
+                <h1>
+                  Food Booked:{" "}
+                  <span className="font-semibold">
+                    {latestRoadmap.foodBookings.length}
+                  </span>
+                </h1>
+                <h1>
+                  Stay Booked:{" "}
+                  <span className="font-semibold">
+                    {latestRoadmap.stayBookings.length}
+                  </span>
+                </h1>
+                <h1>
+                  Destinations:{" "}
+                  <span className="font-semibold">
+                    {latestRoadmap.destinations.length}
+                  </span>
+                </h1>
+                <h1>
+                  Date Created:{" "}
+                  <span className="font-semibold">
+                    {new Date(latestRoadmap.createdAt).toLocaleDateString()}
+                  </span>
+                </h1>
               </div>
             )}
             <div className="text-center mt-4">
@@ -75,7 +95,7 @@ function Body() {
           <Calendar className="border-2 rounded-md shadow-md p-4 border-black w-full" />
 
           {/* Roadmap Highlights */}
-          <div className="w-[610px] flex gap-4 overflow-x-auto items-center p-4 bg-blue-gray-700 rounded-lg shadow-lg">
+          {/* <div className="w-[610px] flex gap-4 overflow-x-auto items-center p-4 bg-blue-gray-700 rounded-lg shadow-lg">
             {latestRoadmap?.destinations?.map((dest, index) => (
               <div key={index} className="min-w-[200px] flex flex-col h-[280px] bg-white rounded-lg shadow-md overflow-hidden">
                 <div className="h-2/3 bg-gray-300 flex justify-center items-center">
@@ -87,17 +107,81 @@ function Body() {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
 
           {/* Bookings List */}
           <div className="w-[460px] bg-red-500 p-4 rounded-lg shadow-md">
-            <div className="flex flex-col gap-4 max-h-[300px] overflow-y-auto">
-              {latestRoadmap?.stayBookings?.map((stay, index) => (
-                <div key={index} className="flex justify-between items-center p-3 rounded-md bg-blue-300">
-                  <div>
-                    <h1 className="text-sm font-semibold">Stay {index + 1}: {stay.days} days</h1>
-                  </div>
-                  <Button className="text-xs">View</Button>
+            <h2 className="text-white font-bold text-lg mb-2">
+              All Saved Map Bookings
+            </h2>
+
+            <div className="flex flex-col gap-4 max-h-[400px] overflow-y-auto">
+              {data?.savedMap?.map((saved, mapIndex) => (
+                <div key={saved._id} className="bg-gray-100 p-3 rounded-md">
+                  <h3 className="font-bold text-md text-gray-800">
+                    Roadmap {mapIndex + 1}
+                  </h3>
+
+                  {/* Loop through each roadmapId in savedMap */}
+                  {saved.roadmapId?.map((roadmap, roadmapIndex) => (
+                    <div
+                      key={roadmap._id}
+                      className="mt-2 bg-white p-3 rounded-md shadow"
+                    >
+                      <h4 className="font-semibold text-gray-700">
+                        Bookings for Roadmap {roadmapIndex + 1}
+                      </h4>
+
+                      {/* Stay Bookings */}
+                      {roadmap?.stayBookings?.length > 0 ? (
+                        roadmap.stayBookings.map((stay, stayIndex) => (
+                          <div
+                            key={`stay-${stayIndex}`}
+                            className="flex justify-between items-center p-3 rounded-md bg-blue-300 mt-1"
+                          >
+                            <div>
+                              <h1 className="text-sm font-semibold">
+                                Stay {stayIndex + 1}: {stay.days} days
+                              </h1>
+                              <p className="text-xs text-gray-700">
+                                Hotel: {stay.hotelName || "Not specified"}
+                              </p>
+                            </div>
+                            <Button className="text-xs">View</Button>
+                          </div>
+                        ))
+                      ) : (
+                        <p className="text-xs text-gray-500">
+                          No Stay Bookings
+                        </p>
+                      )}
+
+                      {/* Food Bookings */}
+                      {roadmap?.foodBookings?.length > 0 ? (
+                        roadmap.foodBookings.map((food, foodIndex) => (
+                          <div
+                            key={`food-${foodIndex}`}
+                            className="flex justify-between items-center p-3 rounded-md bg-green-300 mt-1"
+                          >
+                            <div>
+                              <h1 className="text-sm font-semibold">
+                                Food {foodIndex + 1}: {food.mealType}
+                              </h1>
+                              <p className="text-xs text-gray-700">
+                                Restaurant:{" "}
+                                {food.restaurantName || "Not specified"}
+                              </p>
+                            </div>
+                            <Button className="text-xs">View</Button>
+                          </div>
+                        ))
+                      ) : (
+                        <p className="text-xs text-gray-500">
+                          No Food Bookings
+                        </p>
+                      )}
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
