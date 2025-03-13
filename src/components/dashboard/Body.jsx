@@ -7,176 +7,104 @@ import { savedmapDetails } from "../../../Redux/saveSlice";
 
 function Body() {
   const dispatch = useDispatch();
-
   const { data } = useSelector((state) => state.savedmaps);
-  console.log(data);
   const id = localStorage.getItem("id");
 
   useEffect(() => {
     dispatch(savedmapDetails(id));
   }, []);
 
-  const latData = data?.data?.savedMap
-    ?.slice(-1)
-    ?.map((item) => item.roadmapId.map((item) => item.destinations))
-    ?.flat(Infinity);
-  const RoadData = data?.data?.savedMap
-    ?.slice(-1)
-    ?.map((item) => item?.roadmapId)
-    ?.flat(Infinity);
-  console.log(RoadData, "dashboard");
-  console.log(latData, "last");
-
+  // Extract the latest saved roadmap
+  const latestSavedMap = data?.data?.savedMap?.slice(-1)[0];
+  const latestRoadmap = latestSavedMap?.roadmapId[0];
 
   return (
-    <>
-      <div className="">
-        <div className="ml-3">
-          <Head />
-        </div>
+    <div className="min-h-screen bg-gray-100 p-6">
+      <div className="ml-3">
+        <Head />
+      </div>
 
-        <div className=" ml-3 p-4 mt-4">
-          <h1 className="font-bold text-2xl  text-left">RoadTrip-1</h1>
-          <h1 className="ml-4">dewdf</h1>
-        </div>
-        <div className="grid grid-cols-2 place-items-center mt-4    ">
-          <div className="flex  p-5 w-full    ">
-            <div className="w-1/2  rounded-2xl shadow-xl shadow-green-300">
-              <Carousel>
-                {latData?.map((item) => {
-                  return (
-                    <div>
-                      <div className="bg-white w-full    shadow-md rounded border p-1 h-[50px]">
-                        <h1 className="w-full text-sm">{item.name}</h1>
-                      </div>
+      {/* Road Trip Details */}
+      <div className="ml-3 p-4 mt-4">
+        <h1 className="font-bold text-2xl text-left">RoadTrip-1</h1>
+        <h2 className="ml-4 text-gray-600">Your adventure awaits!</h2>
+      </div>
 
-                      <div className="w-full h-[250px] overflow-x-auto rounded-md ">
-                        <img
-                          src={item.image}
-                          alt=""
-                          className="w-full  h-full object-cover "
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              </Carousel>
-            </div>
-            <div className=" shadow-md rounded-2xl shadow-green-300 flex flex-col justify-around p-4 w-[350px] h-[300px]">
-              {RoadData?.map((item) => {
-                return (
-                  <div className="pl-4">
-                    <h1>Food Booked :{item?.foodBookings?.length}</h1>
-                    <h1>Stay Booked :{item?.stayBookings?.length}</h1>
-                    <h1>Destination added :{item?.destinations?.length}</h1>
-                    <h1>Date Created :{item?.createdAt}</h1>
-                    <p>dqedqewdeqd</p>
+      {/* Main Grid Layout */}
+      <div className="grid grid-cols-2 gap-8 mt-6">
+        {/* Left Section: Carousel & Booking Details */}
+        <div className="flex flex-col items-center gap-6">
+          {/* Carousel Section */}
+          <div className="w-[350px] rounded-2xl shadow-lg bg-white p-4">
+            <Carousel>
+              {latestRoadmap?.destinations?.map((item, index) => (
+                <div key={index} className="text-center">
+                  <div className="bg-gray-200 p-2 rounded-md">
+                    <h1 className="text-sm font-semibold">{item.name}</h1>
                   </div>
-                );
-              })}
-
-              <div className="text-center">
-                <Button className="w-72 ">Strat roadTrip</Button>
-              </div>
-            </div>
+                  <div className="w-full h-[250px] rounded-md overflow-hidden mt-2">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              ))}
+            </Carousel>
           </div>
 
-          <Calendar className="border-2 rounded-md h-72 text-center pt-14   border-black" />
-
-          <div className="  ">
-            <div className="bg-blue-gray-700 flex justify-around   w-[610px] gap-x-10 overflow-auto  items-center h-[300px] mt-5 ml-10">
-              <div className="min-w-[200px] flex flex-col h-[280px]">
-                <div className="bg-red-900 h-full">
-                  <img src="" alt="" />
-                </div>
-                <div className="bg-blue-300 h-full">
-                  <h1>eded</h1>
-                  <h1>eded</h1>
-                </div>
+          {/* Booking Details */}
+          <div className="w-[350px] p-5 bg-white shadow-lg rounded-xl">
+            {latestRoadmap && (
+              <div className="text-gray-700 space-y-2">
+                <h1>Food Booked: <span className="font-semibold">{latestRoadmap.foodBookings.length}</span></h1>
+                <h1>Stay Booked: <span className="font-semibold">{latestRoadmap.stayBookings.length}</span></h1>
+                <h1>Destinations: <span className="font-semibold">{latestRoadmap.destinations.length}</span></h1>
+                <h1>Date Created: <span className="font-semibold">{new Date(latestRoadmap.createdAt).toLocaleDateString()}</span></h1>
               </div>
-              {/* ------ */}
-              <div className="min-w-[200px] flex flex-col h-[280px]">
-                <div className="bg-red-900 h-full">
-                  <img src="" alt="" />
-                </div>
-                <div className="bg-blue-300 h-full">
-                  <h1>eded</h1>
-                  <h1>eded</h1>
-                </div>
-              </div>
-              {/* ---- */}
-              <div className="min-w-[200px] flex flex-col h-[280px]">
-                <div className="bg-red-900 h-full">
-                  <img src="" alt="" />
-                </div>
-                <div className="bg-blue-300 h-full">
-                  <h1>eded</h1>
-                  <h1>eded</h1>
-                </div>
-              </div>
-              {/* ---
-               */}
-              <div className="min-w-[200px] flex flex-col h-[280px]">
-                <div className="bg-red-900 h-full">
-                  <img src="" alt="" />
-                </div>
-                <div className="bg-blue-300 h-full">
-                  <h1>eded</h1>
-                  <h1>eded</h1>
-                </div>
-              </div>
+            )}
+            <div className="text-center mt-4">
+              <Button className="w-full">Start Road Trip</Button>
             </div>
           </div>
-          <div className="flex flex-col overflow-auto gap-6 w-[460px] justify-center items-center h-[300px] bg-red-500">
-            <div className="min-w-[400px] flex justify-around items-center min-h-[50px] rounded-md bg-blue-300">
-              <div>
-                <h1>dedede</h1>
+        </div>
+
+        {/* Right Section: Calendar & Highlights */}
+        <div className="flex flex-col items-center gap-6">
+          <Calendar className="border-2 rounded-md shadow-md p-4 border-black w-full" />
+
+          {/* Roadmap Highlights */}
+          <div className="w-[610px] flex gap-4 overflow-x-auto items-center p-4 bg-blue-gray-700 rounded-lg shadow-lg">
+            {latestRoadmap?.destinations?.map((dest, index) => (
+              <div key={index} className="min-w-[200px] flex flex-col h-[280px] bg-white rounded-lg shadow-md overflow-hidden">
+                <div className="h-2/3 bg-gray-300 flex justify-center items-center">
+                  <img src={dest.image} alt={dest.name} className="w-full h-full object-cover"/>
+                </div>
+                <div className="h-1/3 p-3 bg-gray-100">
+                  <h1 className="font-semibold">{dest.name}</h1>
+                  <p className="text-sm text-gray-600">A beautiful place to explore.</p>
+                </div>
               </div>
-              <div>
-                <h1>dewded</h1>
-              </div>
-              <Button></Button>
-            </div>
-            <div className="min-w-[400px] flex justify-around items-center min-h-[50px] rounded-md bg-blue-300">
-              <div>
-                <h1>dedede</h1>
-              </div>
-              <div>
-                <h1>dewded</h1>
-              </div>
-              <Button></Button>
-            </div>
-            <div className="min-w-[400px] flex justify-around items-center min-h-[50px] rounded-md bg-blue-300">
-              <div>
-                <h1>dedede</h1>
-              </div>
-              <div>
-                <h1>dewded</h1>
-              </div>
-              <Button></Button>
-            </div>
-            <div className="min-w-[400px] flex justify-around items-center min-h-[50px] rounded-md bg-blue-300">
-              <div>
-                <h1>dedede</h1>
-              </div>
-              <div>
-                <h1>dewded</h1>
-              </div>
-              <Button></Button>
-            </div>
-            <div className="min-w-[400px] flex justify-around items-center min-h-[50px] rounded-md bg-blue-300">
-              <div>
-                <h1>dedede</h1>
-              </div>
-              <div>
-                <h1>dewded</h1>
-              </div>
-              <Button></Button>
+            ))}
+          </div>
+
+          {/* Bookings List */}
+          <div className="w-[460px] bg-red-500 p-4 rounded-lg shadow-md">
+            <div className="flex flex-col gap-4 max-h-[300px] overflow-y-auto">
+              {latestRoadmap?.stayBookings?.map((stay, index) => (
+                <div key={index} className="flex justify-between items-center p-3 rounded-md bg-blue-300">
+                  <div>
+                    <h1 className="text-sm font-semibold">Stay {index + 1}: {stay.days} days</h1>
+                  </div>
+                  <Button className="text-xs">View</Button>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
