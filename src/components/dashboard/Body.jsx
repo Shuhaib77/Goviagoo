@@ -31,7 +31,7 @@ function Body() {
       </div>
 
       {/* Main Grid Layout */}
-      <div className="grid grid-cols-2 gap-8 mt-6">
+      <div className="grid grid-cols-2 gap-4 mt-3">
         {/* Left Section: Carousel & Booking Details */}
         <div className="flex flex-col items-center gap-6">
           {/* Carousel Section */}
