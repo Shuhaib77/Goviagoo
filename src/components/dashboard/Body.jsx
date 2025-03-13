@@ -19,35 +19,7 @@ function Body() {
   const latestRoadmap = latestSavedMap?.roadmapId[0];
 
 
-  const [roadmapData, setRoadmapData] = useState({});
-
-  useEffect(() => {
-    const fetchRoadmaps = async () => {
-      if (!data?.savedMap) return;
-
-      // Collect unique roadmap IDs
-      const roadmapIds = data.savedMap.flatMap((saved) =>
-        saved.roadmapId.map((r) => (typeof r === "string" ? r : r._id))
-      );
-      const uniqueIds = [...new Set(roadmapIds)];
-
-      if (uniqueIds.length > 0) {
-        try {
-          const response = await axios.post("/api/getRoadmaps", { ids: uniqueIds });
-          const roadmapMap = response.data.reduce((acc, roadmap) => {
-            acc[roadmap._id] = roadmap;
-            return acc;
-          }, {});
-          setRoadmapData(roadmapMap);
-        } catch (error) {
-          console.error("Error fetching roadmaps:", error);
-        }
-      }
-    };
-
-    fetchRoadmaps();
-  }, [data]);
-
+  
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
