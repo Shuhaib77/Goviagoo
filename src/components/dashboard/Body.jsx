@@ -26,8 +26,8 @@ function Body() {
 
       {/* Road Trip Details */}
       <div className="ml-3 p-4 mt-4">
-        <h1 className="font-bold text-2xl text-left">RoadTrip-1</h1>
-        <h2 className="ml-4 text-gray-600">Your adventure awaits!</h2>
+        <h1 className="font-bold text-2xl text-left">RoadTrip</h1>
+        <h2 className="ml-4 text-gray-600">adventure awaits</h2>
       </div>
 
       {/* Main Grid Layout */}
@@ -92,7 +92,7 @@ function Body() {
 
         {/* Right Section: Calendar & Highlights */}
         <div className="flex flex-col items-center gap-6">
-          <Calendar className="border-2 rounded-md shadow-md p-4 border-black w-full" />
+         
 
           {/* Roadmap Highlights */}
           {/* <div className="w-[610px] flex gap-4 overflow-x-auto items-center p-4 bg-blue-gray-700 rounded-lg shadow-lg">
@@ -153,6 +153,17 @@ function Body() {
                         <p className="text-xs text-gray-700">
                           Restaurant: {food.restaurantName || "Not specified"}
                         </p>
+
+                        {food?.foodSpot?.map((item) => (
+                          <div>
+                            <p className="text-sm font-semibold">
+                              {index + 1}. {item.name} days stay
+                            </p>
+                            <p className="text-xs text-gray-700">
+                              Hotel: {item.rating || "Not specified"}
+                            </p>
+                          </div>
+                        ))}
                       </div>
                     ))
                   ) : latestRoadmap.savedMap?.[3]?.roadmapId?.[0]
@@ -199,22 +210,21 @@ function Body() {
                         className="bg-blue-200 p-2 rounded-md mt-1"
                       >
                         <p className="text-sm font-semibold">
-                            {index + 1}. {stay.days} days stay
-                          </p>
-                          <p className="text-xs text-gray-700">
-                            Hotel: {stay.name || "Not specified"}
-                          </p>
-                        {stay.stay?.map((item) => (
+                          {index + 1}. {stay.days} days stay
+                        </p>
+                        <p className="text-xs text-gray-700">
+                          Hotel: {stay.name || "Not specified"}
+                        </p>
+                        {stay?.stay?.map((item) => (
                           <div>
-                          <p className="text-sm font-semibold">
-                            {index + 1}. {item.name} days stay
-                          </p>
-                          <p className="text-xs text-gray-700">
-                            Hotel: {item.rate || "Not specified"}
-                          </p>
-                        </div>
+                            <p className="text-sm font-semibold">
+                              {index + 1}. {item.name} days stay
+                            </p>
+                            <p className="text-xs text-gray-700">
+                              Hotel: {item.rate || "Not specified"}
+                            </p>
+                          </div>
                         ))}
-                        
                       </div>
                     ))
                   ) : (
@@ -227,6 +237,7 @@ function Body() {
               <Button className="w-full">Start Road Trip</Button>
             </div>
           </div>
+          <Calendar className="border-2 rounded-md shadow-md p-4 border-black w-full" />
         </div>
       </div>
     </div>
