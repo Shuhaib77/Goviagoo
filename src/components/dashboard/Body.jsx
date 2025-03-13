@@ -111,81 +111,93 @@ function Body() {
 
           {/* Bookings List */}
           <div className="w-[460px] bg-red-500 p-4 rounded-lg shadow-md">
-            <h2 className="text-white font-bold text-lg mb-2">
-              All Saved Map Bookings
-            </h2>
+  <h2 className="text-white font-bold text-lg mb-2">
+    All Saved Map Bookings
+  </h2>
 
-            <div className="flex flex-col gap-4 max-h-[400px] overflow-y-auto">
-              {data?.savedMap?.map((saved, mapIndex) => (
-                <div key={saved._id} className="bg-gray-100 p-3 rounded-md">
-                  <h3 className="font-bold text-md text-gray-800">
-                    Roadmap {mapIndex + 1}
-                  </h3>
+  <div className="flex flex-col gap-4 max-h-[400px] overflow-y-auto">
+    {data?.savedMap?.length > 0 ? (
+      data.savedMap.map((saved, mapIndex) => (
+        <div key={saved._id} className="bg-gray-100 p-3 rounded-md">
+          <h3 className="font-bold text-md text-gray-800">
+            Roadmap {mapIndex + 1}
+          </h3>
 
-                  {/* Loop through each roadmapId in savedMap */}
-                  {saved.roadmapId?.map((roadmap, roadmapIndex) => (
+          {/* Check if roadmapId exists */}
+          {saved.roadmapId?.length > 0 ? (
+            saved.roadmapId.map((roadmap, roadmapIndex) => (
+              <div
+                key={roadmap._id}
+                className="mt-2 bg-white p-3 rounded-md shadow"
+              >
+                <h4 className="font-semibold text-gray-700">
+                  Bookings for Roadmap {roadmapIndex + 1}
+                </h4>
+
+                {/* Stay Bookings */}
+                {roadmap?.stayBookings?.length > 0 ? (
+                  roadmap.stayBookings.map((stay, stayIndex) => (
                     <div
-                      key={roadmap._id}
-                      className="mt-2 bg-white p-3 rounded-md shadow"
+                      key={`stay-${stay._id}`}
+                      className="flex justify-between items-center p-3 rounded-md bg-blue-300 mt-1"
                     >
-                      <h4 className="font-semibold text-gray-700">
-                        Bookings for Roadmap {roadmapIndex + 1}
-                      </h4>
-
-                      {/* Stay Bookings */}
-                      {roadmap?.stayBookings?.length > 0 ? (
-                        roadmap.stayBookings.map((stay, stayIndex) => (
-                          <div
-                            key={`stay-${stayIndex}`}
-                            className="flex justify-between items-center p-3 rounded-md bg-blue-300 mt-1"
-                          >
-                            <div>
-                              <h1 className="text-sm font-semibold">
-                                Stay {stayIndex + 1}: {stay.days} days
-                              </h1>
-                              <p className="text-xs text-gray-700">
-                                Hotel: {stay.hotelName || "Not specified"}
-                              </p>
-                            </div>
-                            <Button className="text-xs">View</Button>
-                          </div>
-                        ))
-                      ) : (
-                        <p className="text-xs text-gray-500">
-                          No Stay Bookings
+                      <div>
+                        <h1 className="text-sm font-semibold">
+                          Stay {stayIndex + 1}: {stay.days} days
+                        </h1>
+                        <p className="text-xs text-gray-700">
+                          Hotel: {stay.hotelName || "Not specified"}
                         </p>
-                      )}
-
-                      {/* Food Bookings */}
-                      {roadmap?.foodBookings?.length > 0 ? (
-                        roadmap.foodBookings.map((food, foodIndex) => (
-                          <div
-                            key={`food-${foodIndex}`}
-                            className="flex justify-between items-center p-3 rounded-md bg-green-300 mt-1"
-                          >
-                            <div>
-                              <h1 className="text-sm font-semibold">
-                                Food {foodIndex + 1}: {food.mealType}
-                              </h1>
-                              <p className="text-xs text-gray-700">
-                                Restaurant:{" "}
-                                {food.restaurantName || "Not specified"}
-                              </p>
-                            </div>
-                            <Button className="text-xs">View</Button>
-                          </div>
-                        ))
-                      ) : (
-                        <p className="text-xs text-gray-500">
-                          No Food Bookings
-                        </p>
-                      )}
+                      </div>
+                      <button className="text-xs bg-blue-500 text-white px-2 py-1 rounded">
+                        View
+                      </button>
                     </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
+                  ))
+                ) : (
+                  <p className="text-xs text-gray-500">
+                    No Stay Bookings
+                  </p>
+                )}
+
+                {/* Food Bookings */}
+                {roadmap?.foodBookings?.length > 0 ? (
+                  roadmap.foodBookings.map((food, foodIndex) => (
+                    <div
+                      key={`food-${food._id}`}
+                      className="flex justify-between items-center p-3 rounded-md bg-green-300 mt-1"
+                    >
+                      <div>
+                        <h1 className="text-sm font-semibold">
+                          Food {foodIndex + 1}: {food.mealType}
+                        </h1>
+                        <p className="text-xs text-gray-700">
+                          Restaurant: {food.restaurantName || "Not specified"}
+                        </p>
+                      </div>
+                      <button className="text-xs bg-green-500 text-white px-2 py-1 rounded">
+                        View
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-xs text-gray-500">
+                    No Food Bookings
+                  </p>
+                )}
+              </div>
+            ))
+          ) : (
+            <p className="text-xs text-gray-500">No Roadmap Found</p>
+          )}
+        </div>
+      ))
+    ) : (
+      <p className="text-white text-center">No Saved Maps Found</p>
+    )}
+  </div>
+</div>
+
         </div>
       </div>
     </div>
