@@ -21,11 +21,11 @@ function Road() {
   };
 
   return (
-    <div className="h-screen w-full overflow-auto p-6 bg-gray-100">
+    <div className="h-screen w-full overflow-auto p-6 bg-gray-200">
       {data?.data?.savedMap.map((item, index) => (
         <div key={index} className="flex flex-col items-center">
-          <h1 className="text-center mt-10 shadow-md p-5 text-4xl text-green-500 font-bold animate-pulse">
-            RoadMap - {index + 1}
+          <h1 className="text-center mt-10 shadow-lg p-5 text-3xl text-blue-600 font-semibold">
+            🚗 RoadMap - {index + 1}
           </h1>
 
           {view && <Liveupdate dest={dest} />}
@@ -33,56 +33,57 @@ function Road() {
           {item.roadmapId.map((road, idx) => (
             <div
               key={idx}
-              className="relative flex flex-col items-center justify-center w-full h-screen bg-cover bg-no-repeat mt-10 p-5 rounded-xl shadow-lg"
+              className="relative flex flex-col items-center justify-center w-full h-auto bg-cover bg-center mt-10 p-5 rounded-xl shadow-lg border border-gray-300"
               style={{
                 backgroundImage: `url("https://images-cdn.ubuy.co.in/633fffb02d9e26314a71b548-great-vintage-world-map-in-1882.jpg")`,
               }}
             >
-              {/* Vertical path */}
-              <div className="bg-blue-gray-900 w-20 h-[50vh] flex flex-col items-center rounded-es-full rounded-se-full shadow-lg p-5">
-                {road.destinations.slice(0, 1).map((dest) => (
+              {/* Road Path */}
+              <div className="flex flex-col items-center">
+                {/* Starting Point */}
+                <div className="flex flex-col items-center">
                   <i
-                    key={dest._id}
-                    className="fa-solid fa-location-dot fa-2xl animate-pulse text-green-500 cursor-pointer transition-transform transform hover:scale-125"
-                    onMouseEnter={() => savedDestinations(dest._id)}
+                    className="fa-solid fa-location-dot fa-2xl text-red-500 cursor-pointer transition-transform hover:scale-125"
+                    onMouseEnter={() => savedDestinations(road.destinations[0]?._id)}
                     onMouseLeave={() => setView(false)}
                   ></i>
-                ))}
-                <div className="flex flex-col items-center gap-5 mt-5">
-                  <span className="bg-white h-16 w-[6px] rounded"></span>
-                  <span className="bg-white h-20 w-[6px]"></span>
-                  <span className="bg-white h-10 w-[6px] rounded"></span>
+                  <span className="text-white mt-2 bg-gray-900 px-3 py-1 rounded-full text-sm">
+                    Start
+                  </span>
                 </div>
-              </div>
 
-              {/* Horizontal path */}
-              <div className="flex w-2/3 h-16 bg-blue-gray-900 mt-5 rounded-lg shadow-md">
-                <div className="flex justify-between w-full p-5">
+                {/* Vertical Road Path */}
+                <div className="w-2 bg-blue-500 h-24 my-2 rounded-lg"></div>
+
+                {/* Middle Destinations */}
+                <div className="flex items-center">
                   {road.destinations.slice(1, -1).map((dest) => (
-                    <i
-                      key={dest._id}
-                      className="fa-solid fa-location-dot fa-2xl animate-pulse text-green-500 cursor-pointer transition-transform transform hover:scale-125"
-                      onMouseEnter={() => savedDestinations(dest._id)}
-                      onMouseLeave={() => setView(false)}
-                    ></i>
+                    <div key={dest._id} className="flex flex-col items-center mx-5">
+                      <i
+                        className="fa-solid fa-location-dot fa-2xl text-yellow-500 cursor-pointer transition-transform hover:scale-125"
+                        onMouseEnter={() => savedDestinations(dest._id)}
+                        onMouseLeave={() => setView(false)}
+                      ></i>
+                      <span className="text-white mt-2 bg-gray-800 px-3 py-1 rounded-full text-sm">
+                        {dest.name}
+                      </span>
+                    </div>
                   ))}
                 </div>
-              </div>
 
-              {/* Final destination */}
-              <div className="bg-blue-gray-900 w-20 h-[50vh] flex flex-col items-center justify-end rounded-ss-full rounded-ee-full shadow-lg p-5">
-                {road.destinations.slice(-1).map((dest) => (
+                {/* Vertical Road Path */}
+                <div className="w-2 bg-blue-500 h-24 my-2 rounded-lg"></div>
+
+                {/* Final Destination */}
+                <div className="flex flex-col items-center">
                   <i
-                    key={dest._id}
-                    className="fa-solid fa-location-dot fa-2xl animate-pulse text-green-500 cursor-pointer transition-transform transform hover:scale-125"
-                    onMouseEnter={() => savedDestinations(dest._id)}
+                    className="fa-solid fa-location-dot fa-2xl text-green-500 cursor-pointer transition-transform hover:scale-125"
+                    onMouseEnter={() => savedDestinations(road.destinations.slice(-1)[0]?._id)}
                     onMouseLeave={() => setView(false)}
                   ></i>
-                ))}
-                <div className="flex flex-col items-center gap-5 mt-5">
-                  <span className="bg-white h-16 w-[6px] rounded"></span>
-                  <span className="bg-white h-20 w-[6px]"></span>
-                  <span className="bg-white h-10 w-[6px] rounded"></span>
+                  <span className="text-white mt-2 bg-green-700 px-3 py-1 rounded-full text-sm">
+                    Destination
+                  </span>
                 </div>
               </div>
             </div>
