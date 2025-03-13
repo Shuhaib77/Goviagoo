@@ -159,6 +159,7 @@ function Body() {
                             <p className="text-sm font-semibold">
                               {index + 1}. {item.name} days stay
                             </p>
+                            <img src={item.image} alt="" />
                             <p className="text-xs text-gray-700">
                               Hotel: {item.rating || "Not specified"}
                             </p>
