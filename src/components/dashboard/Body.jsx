@@ -18,6 +18,37 @@ function Body() {
   const latestSavedMap = data?.data?.savedMap?.slice(-1)[0];
   const latestRoadmap = latestSavedMap?.roadmapId[0];
 
+
+  const [roadmapData, setRoadmapData] = useState({});
+
+  useEffect(() => {
+    const fetchRoadmaps = async () => {
+      if (!data?.savedMap) return;
+
+      // Collect unique roadmap IDs
+      const roadmapIds = data.savedMap.flatMap((saved) =>
+        saved.roadmapId.map((r) => (typeof r === "string" ? r : r._id))
+      );
+      const uniqueIds = [...new Set(roadmapIds)];
+
+      if (uniqueIds.length > 0) {
+        try {
+          const response = await axios.post("/api/getRoadmaps", { ids: uniqueIds });
+          const roadmapMap = response.data.reduce((acc, roadmap) => {
+            acc[roadmap._id] = roadmap;
+            return acc;
+          }, {});
+          setRoadmapData(roadmapMap);
+        } catch (error) {
+          console.error("Error fetching roadmaps:", error);
+        }
+      }
+    };
+
+    fetchRoadmaps();
+  }, [data]);
+
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="ml-3">
@@ -111,93 +142,82 @@ function Body() {
 
           {/* Bookings List */}
           <div className="w-[460px] bg-red-500 p-4 rounded-lg shadow-md">
-  <h2 className="text-white font-bold text-lg mb-2">
-    All Saved Map Bookings
-  </h2>
+      <h2 className="text-white font-bold text-lg mb-2">All Saved Map Bookings</h2>
 
-  <div className="flex flex-col gap-4 max-h-[400px] overflow-y-auto">
-    {data?.savedMap?.length > 0 ? (
-      data.savedMap.map((saved, mapIndex) => (
-        <div key={saved._id} className="bg-gray-100 p-3 rounded-md">
-          <h3 className="font-bold text-md text-gray-800">
-            Roadmap {mapIndex + 1}
-          </h3>
+      <div className="flex flex-col gap-4 max-h-[400px] overflow-y-auto">
+        {data?.savedMap?.length > 0 ? (
+          data.savedMap.map((saved, mapIndex) => (
+            <div key={saved._id} className="bg-gray-100 p-3 rounded-md">
+              <h3 className="font-bold text-md text-gray-800">Roadmap {mapIndex + 1}</h3>
 
-          {/* Check if roadmapId exists */}
-          {saved.roadmapId?.length > 0 ? (
-            saved.roadmapId.map((roadmap, roadmapIndex) => (
-              <div
-                key={roadmap._id}
-                className="mt-2 bg-white p-3 rounded-md shadow"
-              >
-                <h4 className="font-semibold text-gray-700">
-                  Bookings for Roadmap {roadmapIndex + 1}
-                </h4>
+              {saved.roadmapId?.length > 0 ? (
+                saved.roadmapId.map((roadmapId, roadmapIndex) => {
+                  const roadmap = typeof roadmapId === "string" ? roadmapData[roadmapId] : roadmapId;
 
-                {/* Stay Bookings */}
-                {roadmap?.stayBookings?.length > 0 ? (
-                  roadmap.stayBookings.map((stay, stayIndex) => (
-                    <div
-                      key={`stay-${stay._id}`}
-                      className="flex justify-between items-center p-3 rounded-md bg-blue-300 mt-1"
-                    >
-                      <div>
-                        <h1 className="text-sm font-semibold">
-                          Stay {stayIndex + 1}: {stay.days} days
-                        </h1>
-                        <p className="text-xs text-gray-700">
-                          Hotel: {stay.hotelName || "Not specified"}
-                        </p>
-                      </div>
-                      <button className="text-xs bg-blue-500 text-white px-2 py-1 rounded">
-                        View
-                      </button>
+                  return roadmap ? (
+                    <div key={roadmap._id} className="mt-2 bg-white p-3 rounded-md shadow">
+                      <h4 className="font-semibold text-gray-700">
+                        Bookings for Roadmap {roadmapIndex + 1}
+                      </h4>
+
+                      {/* Stay Bookings */}
+                      {roadmap?.stayBookings?.length > 0 ? (
+                        roadmap.stayBookings.map((stay, stayIndex) => (
+                          <div key={stay._id} className="flex justify-between items-center p-3 rounded-md bg-blue-300 mt-1">
+                            <div>
+                              <h1 className="text-sm font-semibold">
+                                Stay {stayIndex + 1}: {stay.days} days
+                              </h1>
+                              <p className="text-xs text-gray-700">
+                                Room: {stay.roomNo || "Not specified"}
+                              </p>
+                            </div>
+                            <button className="text-xs bg-blue-500 text-white px-2 py-1 rounded">
+                              View
+                            </button>
+                          </div>
+                        ))
+                      ) : (
+                        <p className="text-xs text-gray-500">No Stay Bookings</p>
+                      )}
+
+                      {/* Food Bookings */}
+                      {roadmap?.foodBookings?.length > 0 ? (
+                        roadmap.foodBookings.map((food, foodIndex) => (
+                          <div key={food._id} className="flex justify-between items-center p-3 rounded-md bg-green-300 mt-1">
+                            <div>
+                              <h1 className="text-sm font-semibold">
+                                Food {foodIndex + 1}: {food.type}
+                              </h1>
+                              <p className="text-xs text-gray-700">
+                                Rate: {food.rate} | Date: {food.date}
+                              </p>
+                            </div>
+                            <button className="text-xs bg-green-500 text-white px-2 py-1 rounded">
+                              View
+                            </button>
+                          </div>
+                        ))
+                      ) : (
+                        <p className="text-xs text-gray-500">No Food Bookings</p>
+                      )}
                     </div>
-                  ))
-                ) : (
-                  <p className="text-xs text-gray-500">
-                    No Stay Bookings
-                  </p>
-                )}
-
-                {/* Food Bookings */}
-                {roadmap?.foodBookings?.length > 0 ? (
-                  roadmap.foodBookings.map((food, foodIndex) => (
-                    <div
-                      key={`food-${food._id}`}
-                      className="flex justify-between items-center p-3 rounded-md bg-green-300 mt-1"
-                    >
-                      <div>
-                        <h1 className="text-sm font-semibold">
-                          Food {foodIndex + 1}: {food.mealType}
-                        </h1>
-                        <p className="text-xs text-gray-700">
-                          Restaurant: {food.restaurantName || "Not specified"}
-                        </p>
-                      </div>
-                      <button className="text-xs bg-green-500 text-white px-2 py-1 rounded">
-                        View
-                      </button>
-                    </div>
-                  ))
-                ) : (
-                  <p className="text-xs text-gray-500">
-                    No Food Bookings
-                  </p>
-                )}
-              </div>
-            ))
-          ) : (
-            <p className="text-xs text-gray-500">No Roadmap Found</p>
-          )}
-        </div>
-      ))
-    ) : (
-      <p className="text-white text-center">No Saved Maps Found</p>
-    )}
-  </div>
-</div>
-
+                  ) : (
+                    <p key={roadmapIndex} className="text-xs text-gray-500">
+                      Loading roadmap details...
+                    </p>
+                  );
+                })
+              ) : (
+                <p className="text-xs text-gray-500">No Roadmap Found</p>
+              )}
+            </div>
+          ))
+        ) : (
+          <p className="text-white text-center">No Saved Maps Found</p>
+        )}
+      </div>
+    </div>
         </div>
       </div>
     </div>
