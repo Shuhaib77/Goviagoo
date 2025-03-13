@@ -1,45 +1,30 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar() {
   const data = [
-    // {
-    //   name: "Home",
-    //   url:"/"
-    // },
-    {
-      name: "SavedMap",
-      url: "savedmap",
-    },
-    {
-      name: "Bookings",
-      url: "status",
-    },
-    {
-      name: "TravelDetails",
-      url: "body",
-    },
+    { name: "Saved Map", url: "savedmap" },
+    { name: "Bookings", url: "status" },
+    { name: "Travel Details", url: "body" },
   ];
 
   const navigate = useNavigate();
 
   return (
-    <>
-      <div className="h-[93vh] w-[250px]   rounded shadow-xl bg-green-300 bg-opacity-90 float-start flex flex-col justify-start  gap-y-14 pt-28">
-        {data.map((item) => {
-          return (
-            <h1
-              className="p-3 h-[50px] ml-4 mr-4  hover:bg-white text-center rounded grid place-content-center hover:scale-105 transition-transform box-border  "
-              onClick={() => {
-                navigate(`/dashboard/${item.url}`);
-              }}
-            >
-              {item.name}
-            </h1>
-          );
-        })}
+    <div className="min-h-screen w-[270px] bg-green-600 bg-opacity-90 shadow-2xl flex flex-col pt-20 px-6">
+      <h2 className="text-white text-2xl font-semibold mb-10 text-center">Dashboard</h2>
+      <div className="flex flex-col gap-6">
+        {data.map((item, index) => (
+          <button
+            key={index}
+            className="text-lg font-medium p-3 rounded-lg text-white text-center transition-all duration-200 hover:bg-white hover:text-green-700 hover:scale-105"
+            onClick={() => navigate(`/dashboard/${item.url}`)}
+          >
+            {item.name}
+          </button>
+        ))}
       </div>
-    </>
+    </div>
   );
 }
 
