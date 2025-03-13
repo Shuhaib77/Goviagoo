@@ -21,72 +21,67 @@ function Road() {
   };
 
   return (
-    <div className="h-screen w-full overflow-auto p-6 bg-gray-200">
-      {data?.data?.savedMap.map((item, index) => (
-        <div key={index} className="flex flex-col items-center">
-          <h1 className="text-center mt-10 shadow-md p-5 text-4xl text-blue-600 font-bold">
-            RoadMap - {index + 1}
-          </h1>
+    <div
+      className="h-screen w-full overflow-auto p-6 flex flex-col items-center bg-cover bg-center"
+      style={{
+        backgroundImage: `url("https://cdn.pixabay.com/photo/2017/01/06/19/15/road-1958388_1280.jpg")`,
+      }}
+    >
+      <h1 className="text-4xl font-bold text-white shadow-md mt-5 p-5 bg-gray-900 bg-opacity-60 rounded-lg">
+        Your RoadMap
+      </h1>
 
+      {data?.data?.savedMap.map((item, index) => (
+        <div key={index} className="relative flex flex-col items-center w-full">
           {view && <Liveupdate dest={dest} />}
 
-          {item.roadmapId.map((road, idx) => (
-            <div
-              key={idx}
-              className="relative flex flex-col items-center justify-center w-full h-[90vh] bg-cover bg-center bg-no-repeat mt-10 p-5 rounded-xl shadow-xl"
-              style={{
-                backgroundImage: `url("https://cdn.pixabay.com/photo/2016/11/29/03/53/map-1866673_1280.jpg")`,
-              }}
-            >
-              {/* Vertical Path (Start) */}
-              <div className="bg-gray-900 w-16 h-[45vh] flex flex-col items-center justify-start rounded-es-full rounded-se-full shadow-lg p-5">
-                {road.destinations.slice(0, 1).map((dest) => (
-                  <i
-                    key={dest._id}
-                    className="fa-solid fa-map-marker-alt fa-2xl animate-pulse text-red-500 cursor-pointer transition-transform hover:scale-125"
-                    onMouseEnter={() => savedDestinations(dest._id)}
-                    onMouseLeave={() => setView(false)}
-                  ></i>
-                ))}
-                <div className="flex flex-col items-center gap-5 mt-5">
-                  <span className="bg-white h-14 w-[5px] rounded"></span>
-                  <span className="bg-white h-16 w-[5px]"></span>
-                  <span className="bg-white h-10 w-[5px] rounded"></span>
-                </div>
-              </div>
+          {/* Road Design */}
+          <div className="relative w-5/6 h-[70vh] flex justify-center items-center">
+            {/* Curved Road Path */}
+            <div className="absolute w-full h-full flex justify-center">
+              <svg width="100%" height="100%">
+                {/* Curved Road Path */}
+                <path
+                  d="M 100 500 Q 400 100, 800 500 T 1500 500"
+                  stroke="black"
+                  strokeWidth="15"
+                  fill="transparent"
+                  strokeDasharray="20,15"
+                />
+              </svg>
+            </div>
 
-              {/* Horizontal Path (Middle) */}
-              <div className="flex w-2/3 h-14 bg-gray-900 mt-5 rounded-lg shadow-md">
-                <div className="flex justify-between w-full p-5">
-                  {road.destinations.slice(1, -1).map((dest) => (
-                    <i
+            {/* Destination Markers with Icons */}
+            {item.roadmapId.map((road, idx) => (
+              <div key={idx} className="absolute">
+                {road.destinations.map((dest, dIdx) => {
+                  const markerPosition = dIdx * 250; // Adjusted for positioning along the curve
+
+                  return (
+                    <div
                       key={dest._id}
-                      className="fa-solid fa-map-marker-alt fa-2xl animate-pulse text-yellow-500 cursor-pointer transition-transform hover:scale-125"
+                      className="absolute text-center transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+                      style={{ left: `${markerPosition}px`, top: "50%" }}
                       onMouseEnter={() => savedDestinations(dest._id)}
                       onMouseLeave={() => setView(false)}
-                    ></i>
-                  ))}
-                </div>
+                    >
+                      <i className="fa-solid fa-map-marker-alt fa-2xl text-red-500 animate-bounce"></i>
+                      <p className="text-white bg-gray-800 p-2 rounded-md mt-1">{dest.name}</p>
+                    </div>
+                  );
+                })}
               </div>
+            ))}
 
-              {/* Vertical Path (End) */}
-              <div className="bg-gray-900 w-16 h-[45vh] flex flex-col items-center justify-end rounded-ss-full rounded-ee-full shadow-lg p-5">
-                {road.destinations.slice(-1).map((dest) => (
-                  <i
-                    key={dest._id}
-                    className="fa-solid fa-map-marker-alt fa-2xl animate-pulse text-green-500 cursor-pointer transition-transform hover:scale-125"
-                    onMouseEnter={() => savedDestinations(dest._id)}
-                    onMouseLeave={() => setView(false)}
-                  ></i>
-                ))}
-                <div className="flex flex-col items-center gap-5 mt-5">
-                  <span className="bg-white h-14 w-[5px] rounded"></span>
-                  <span className="bg-white h-16 w-[5px]"></span>
-                  <span className="bg-white h-10 w-[5px] rounded"></span>
-                </div>
-              </div>
+            {/* Moving Car Animation */}
+            <div className="absolute bottom-16 left-0 animate-carMove">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/1075/1075853.png"
+                alt="Car"
+                className="w-16 h-16"
+              />
             </div>
-          ))}
+          </div>
         </div>
       ))}
     </div>
