@@ -22,68 +22,76 @@ function Road() {
 
   return (
     <div
-      className="h-screen w-full overflow-auto p-6 flex flex-col items-center bg-cover bg-center"
+      className="h-screen w-full overflow-auto flex flex-col items-center justify-center bg-cover bg-center relative"
       style={{
         backgroundImage: `url("https://cdn.pixabay.com/photo/2017/01/06/19/15/road-1958388_1280.jpg")`,
       }}
     >
-      <h1 className="text-4xl font-bold text-white shadow-md mt-5 p-5 bg-gray-900 bg-opacity-60 rounded-lg">
-        Your RoadMap
+      {/* Dark Overlay for Better Contrast */}
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+
+      <h1 className="text-5xl font-bold text-white shadow-md mt-5 p-5 bg-gray-900 bg-opacity-70 rounded-lg relative z-10">
+        🚗 Your Journey RoadMap
       </h1>
 
-      {data?.data?.savedMap.map((item, index) => (
-        <div key={index} className="relative flex flex-col items-center w-full">
-          {view && <Liveupdate dest={dest} />}
+      <div className="relative w-5/6 h-[70vh] flex justify-center items-center z-10">
+        {/* SVG Road Path with Neon Effect */}
+        <svg
+          width="100%"
+          height="100%"
+          viewBox="0 0 1500 500"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute"
+        >
+          {/* Glowing Road Path */}
+          <path
+            d="M 100 400 Q 400 50, 800 400 T 1500 400"
+            stroke="yellow"
+            strokeWidth="20"
+            fill="transparent"
+            strokeLinecap="round"
+            strokeDasharray="20,15"
+            className="animate-glow"
+          />
+        </svg>
 
-          {/* Road Design */}
-          <div className="relative w-5/6 h-[70vh] flex justify-center items-center">
-            {/* Curved Road Path */}
-            <div className="absolute w-full h-full flex justify-center">
-              <svg width="100%" height="100%">
-                {/* Curved Road Path */}
-                <path
-                  d="M 100 500 Q 400 100, 800 500 T 1500 500"
-                  stroke="black"
-                  strokeWidth="15"
-                  fill="transparent"
-                  strokeDasharray="20,15"
-                />
-              </svg>
-            </div>
+        {/* Destination Markers */}
+        {data?.data?.savedMap.map((item, index) => (
+          <div key={index} className="absolute flex w-full justify-between">
+            {item.roadmapId.map((road) =>
+              road.destinations.map((dest, dIdx) => {
+                const markerPosition = `${10 + dIdx * 25}%`;
 
-            {/* Destination Markers with Icons */}
-            {item.roadmapId.map((road, idx) => (
-              <div key={idx} className="absolute">
-                {road.destinations.map((dest, dIdx) => {
-                  const markerPosition = dIdx * 250; // Adjusted for positioning along the curve
-
-                  return (
-                    <div
-                      key={dest._id}
-                      className="absolute text-center transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
-                      style={{ left: `${markerPosition}px`, top: "50%" }}
-                      onMouseEnter={() => savedDestinations(dest._id)}
-                      onMouseLeave={() => setView(false)}
-                    >
-                      <i className="fa-solid fa-map-marker-alt fa-2xl text-red-500 animate-bounce"></i>
-                      <p className="text-white bg-gray-800 p-2 rounded-md mt-1">{dest.name}</p>
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
-
-            {/* Moving Car Animation */}
-            <div className="absolute bottom-16 left-0 animate-carMove">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/1075/1075853.png"
-                alt="Car"
-                className="w-16 h-16"
-              />
-            </div>
+                return (
+                  <div
+                    key={dest._id}
+                    className="absolute text-center transform -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-transform duration-300 hover:scale-125"
+                    style={{ left: markerPosition, top: "50%" }}
+                    onMouseEnter={() => savedDestinations(dest._id)}
+                    onMouseLeave={() => setView(false)}
+                  >
+                    <i className="fa-solid fa-map-marker-alt fa-3x text-red-500 animate-bounce"></i>
+                    <p className="text-white bg-gray-800 bg-opacity-80 p-2 rounded-md mt-1 text-sm">
+                      {dest.name}
+                    </p>
+                  </div>
+                );
+              })
+            )}
           </div>
+        ))}
+
+        {/* Animated Moving Car */}
+        <div className="absolute bottom-20 left-0 animate-carMove transition-transform duration-[10s]">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/1075/1075853.png"
+            alt="Car"
+            className="w-16 h-16"
+          />
         </div>
-      ))}
+      </div>
+
+      {view && <Liveupdate dest={dest} />}
     </div>
   );
 }
