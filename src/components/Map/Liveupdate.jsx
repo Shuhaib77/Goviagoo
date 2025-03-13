@@ -15,78 +15,80 @@ function Liveupdate({ dest }) {
     }
   }, [dest, dispatch]);
 
-  if (!dataById) {
-    return <div>Loading...</div>;
-  }
-
-  console.log(data, "live");
-
   useEffect(() => {
     dispatch(savedmapDetails(id));
-  }, []);
+  }, [dispatch, id]);
+
+  if (!dataById) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-black bg-opacity-50 backdrop-blur-sm">
+        <div className="text-white text-2xl">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div
-      className="w-full h-[100vh] fixed bg-black bg-opacity-0 backdrop-blur-sm inset-0   z-10"
+      className="fixed inset-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-sm z-50 flex justify-center items-center"
       onClick={() => {
-        // Pass setMenu as a prop if needed
-        // setMenu(false);
+        // Handle click outside to close modal if needed
       }}
     >
-      <div className=" fixed w-full h-full bg-black bg-opacity-20"></div>
-      <div className="flex justify-around items-center w-full h-full  ">
-        <div className="flex flex-col  ">
-          <h1 className="text-white">Destinations</h1>
-          <div className="w-[250px] h-[150px] rounded-md border-2 border-black ">
+      <div className="bg-white rounded-lg shadow-2xl w-11/12 max-w-4xl p-6 flex flex-col md:flex-row gap-6">
+        {/* Destination Details Section */}
+        <div className="flex-1">
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">Destination Details</h1>
+          <div className="rounded-lg overflow-hidden shadow-md">
             <img
               src={dataById.image}
               alt="Destination"
-              className="w-full h-full object-cover"
+              className="w-full h-48 object-cover"
             />
-            <div className="flex flex-col w-full  font-bold border-2  border-black   bg-[#FFFAEC]">
-              <h1></h1>
-              <h1>Name:{dataById.name}</h1>
-              <h1>details:{dataById.description}</h1>
+            <div className="p-4 bg-[#FFFAEC]">
+              <h2 className="text-xl font-semibold text-gray-800">{dataById.name}</h2>
+              <p className="text-gray-600 mt-2">{dataById.description}</p>
             </div>
           </div>
         </div>
-        <div className="flex overflow-auto">
-         {data?.data?.savedMap.slice(0,1)?.map((item)=>item.roadmapId.slice(0,1).map((item)=>item.destinations.slice(0,1).map((item)=>{
-            return( 
-              <div className="w-[200px] h-[100px] border-2 border-black rounded-md flex bg-white">
-           
-              <img
-                src={item.image}
-                alt="Food"
-                className="w-1/2 h-full object-cover"
-              />
-              <div className="p-3 flex flex-col">
-                <h1></h1>
-                <h1>Food Item 2</h1>
-                <h1>Food Item 3</h1>
-              </div>
-            </div>
 
-            
-         )})))
-
-} 
-        </div>
-
-
-        <div>
-          <h1>Journey</h1>
-          <div className="w-[150px] h-[100px] border-2 text-center border-black rounded-md bg-white">
-            <span>24 August</span>
-            <h1>MAD-----LON</h1>
-            <h1>Details</h1>
+        {/* Saved Destinations Section */}
+        <div className="flex-1">
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">Saved Destinations</h1>
+          <div className="overflow-y-auto max-h-64 space-y-4">
+            {data?.data?.savedMap.slice(0, 1)?.map((item) =>
+              item.roadmapId.slice(0, 1).map((roadmap) =>
+                roadmap.destinations.slice(0, 1).map((destination) => (
+                  <div
+                    key={destination._id}
+                    className="flex items-center bg-white rounded-lg shadow-md p-3 hover:shadow-lg transition-shadow"
+                  >
+                    <img
+                      src={destination.image}
+                      alt="Destination"
+                      className="w-16 h-16 object-cover rounded-md"
+                    />
+                    <div className="ml-4">
+                      <h2 className="text-lg font-semibold text-gray-800">{destination.name}</h2>
+                      <p className="text-gray-600 text-sm">{destination.description}</p>
+                    </div>
+                  </div>
+                ))
+              )
+            )}
           </div>
         </div>
 
-        {/* <div className="w-[200px] h-[70px] border-2 text-center border-black rounded-md bg-white">
-          <h1>MAD-----LON</h1>
-          <h1>Details</h1>
-        </div> */}
+        {/* Journey Details Section */}
+        <div className="flex-1">
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">Journey</h1>
+          <div className="bg-white rounded-lg shadow-md p-4">
+            <div className="text-center">
+              <span className="text-gray-600 text-sm">24 August</span>
+              <h2 className="text-xl font-semibold text-gray-800 mt-2">MAD → LON</h2>
+              <p className="text-gray-600 mt-2">Flight details and other information.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
