@@ -204,7 +204,7 @@ function Body() {
                           <p className="text-xs text-gray-700">
                             Hotel: {stay.name || "Not specified"}
                           </p>
-                        {stay?.stay?.map((item) => (
+                        {stay.stay?.map((item) => (
                           <div>
                           <p className="text-sm font-semibold">
                             {index + 1}. {item.name} days stay
