@@ -40,6 +40,7 @@ function Setreview({ setadd }) {
 
         const res = dispatch(addreview({ id, formdata: formData }));
         if (res) {
+          dispatch(viewReviews());
           toast({
             show: true,
             message: "review recorded ",
