@@ -31,7 +31,7 @@ function Body() {
       </div>
 
       {/* Main Grid Layout */}
-      <div className="gap-4 mt-3">
+      <div className=" mt-3">
         {/* Left Section: Carousel & Booking Details */}
         <div className="flex w-full  items-center gap-6">
           {/* Carousel Section */}
@@ -90,10 +90,8 @@ function Body() {
           </div>
         </div>
 
-        {/* Right Section: Calendar & Highlights */}
+  
         <div className="flex flex-col items-center gap-6">
-         
-
           {/* Roadmap Highlights */}
           {/* <div className="w-[610px] flex gap-4 overflow-x-auto items-center p-4 bg-blue-gray-700 rounded-lg shadow-lg">
             {latestRoadmap?.destinations?.map((dest, index) => (
@@ -138,102 +136,102 @@ function Body() {
                   </span>
                 </h1>
 
-              <div className="flex">
+                <div className="flex w-full">
                   {/* Food Bookings */}
                   <div className="mt-4">
-                  <h2 className="font-bold">Food Bookings:</h2>
-                  {latestRoadmap.foodBookings?.length > 0 ? (
-                    latestRoadmap.foodBookings.map((food, index) => (
-                      <div
-                        key={food._id}
-                        className="bg-green-200 p-2 rounded-md mt-1"
-                      >
-                        <p className="text-sm font-semibold">
-                          {index + 1}. {food.mealType}
-                        </p>
-                        <p className="text-xs text-gray-700">
-                          Restaurant: {food.restaurantName || "Not specified"}
-                        </p>
+                    <h2 className="font-bold">Food Bookings:</h2>
+                    {latestRoadmap.foodBookings?.length > 0 ? (
+                      latestRoadmap.foodBookings.map((food, index) => (
+                        <div
+                          key={food._id}
+                          className="bg-green-200 p-2 rounded-md mt-1"
+                        >
+                          <p className="text-sm font-semibold">
+                            {index + 1}. {food.mealType}
+                          </p>
+                          <p className="text-xs text-gray-700">
+                            Restaurant: {food.restaurantName || "Not specified"}
+                          </p>
 
-                        {food?.foodSpot?.map((item) => (
-                          <div>
+                          {food?.foodSpot?.map((item) => (
+                            <div>
+                              <p className="text-sm font-semibold">
+                                {index + 1}. {item.name} days stay
+                              </p>
+                              <img src={item.image} alt="" />
+                              <p className="text-xs text-gray-700">
+                                Hotel: {item.rating || "Not specified"}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      ))
+                    ) : latestRoadmap.savedMap?.[3]?.roadmapId?.[0]
+                        ?.foodBookings?.[0]?.foodSpot?.length > 0 ? (
+                      latestRoadmap.savedMap[3].roadmapId[0].foodBookings[0].foodSpot.map(
+                        (spot, index) => (
+                          <div
+                            key={spot._id}
+                            className="bg-blue-200 p-2 rounded-md mt-1"
+                          >
                             <p className="text-sm font-semibold">
-                              {index + 1}. {item.name} days stay
+                              {index + 1}. {spot.name}
                             </p>
-                            <img src={item.image} alt="" />
                             <p className="text-xs text-gray-700">
-                              Hotel: {item.rating || "Not specified"}
+                              Type: {spot.types?.join(", ")}
+                            </p>
+                            <p className="text-xs text-gray-700">
+                              Rating: {spot.rating}
+                            </p>
+                            <p className="text-xs text-gray-700">
+                              Website:{" "}
+                              <a
+                                href={spot.websaite}
+                                className="text-blue-600 underline"
+                              >
+                                {spot.websaite}
+                              </a>
                             </p>
                           </div>
-                        ))}
-                      </div>
-                    ))
-                  ) : latestRoadmap.savedMap?.[3]?.roadmapId?.[0]
-                      ?.foodBookings?.[0]?.foodSpot?.length > 0 ? (
-                    latestRoadmap.savedMap[3].roadmapId[0].foodBookings[0].foodSpot.map(
-                      (spot, index) => (
+                        )
+                      )
+                    ) : (
+                      <p className="text-xs text-gray-500">No Food Bookings</p>
+                    )}
+                  </div>
+
+                  {/* Stay Bookings */}
+                  <div className="mt-4">
+                    <h2 className="font-bold">Stay Bookings:</h2>
+                    {latestRoadmap.stayBookings?.length > 0 ? (
+                      latestRoadmap.stayBookings.map((stay, index) => (
                         <div
-                          key={spot._id}
+                          key={stay._id}
                           className="bg-blue-200 p-2 rounded-md mt-1"
                         >
                           <p className="text-sm font-semibold">
-                            {index + 1}. {spot.name}
+                            {index + 1}. {stay.days} days stay
                           </p>
                           <p className="text-xs text-gray-700">
-                            Type: {spot.types?.join(", ")}
+                            Hotel: {stay.name || "Not specified"}
                           </p>
-                          <p className="text-xs text-gray-700">
-                            Rating: {spot.rating}
-                          </p>
-                          <p className="text-xs text-gray-700">
-                            Website:{" "}
-                            <a
-                              href={spot.websaite}
-                              className="text-blue-600 underline"
-                            >
-                              {spot.websaite}
-                            </a>
-                          </p>
+                          {stay?.stay?.map((item) => (
+                            <div>
+                              <p className="text-sm font-semibold">
+                                {index + 1}. {item.name} days stay
+                              </p>
+                              <p className="text-xs text-gray-700">
+                                Hotel: {item.rate || "Not specified"}
+                              </p>
+                            </div>
+                          ))}
                         </div>
-                      )
-                    )
-                  ) : (
-                    <p className="text-xs text-gray-500">No Food Bookings</p>
-                  )}
+                      ))
+                    ) : (
+                      <p className="text-xs text-gray-500">No Stay Bookings</p>
+                    )}
+                  </div>
                 </div>
-
-                {/* Stay Bookings */}
-                <div className="mt-4">
-                  <h2 className="font-bold">Stay Bookings:</h2>
-                  {latestRoadmap.stayBookings?.length > 0 ? (
-                    latestRoadmap.stayBookings.map((stay, index) => (
-                      <div
-                        key={stay._id}
-                        className="bg-blue-200 p-2 rounded-md mt-1"
-                      >
-                        <p className="text-sm font-semibold">
-                          {index + 1}. {stay.days} days stay
-                        </p>
-                        <p className="text-xs text-gray-700">
-                          Hotel: {stay.name || "Not specified"}
-                        </p>
-                        {stay?.stay?.map((item) => (
-                          <div>
-                            <p className="text-sm font-semibold">
-                              {index + 1}. {item.name} days stay
-                            </p>
-                            <p className="text-xs text-gray-700">
-                              Hotel: {item.rate || "Not specified"}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-xs text-gray-500">No Stay Bookings</p>
-                  )}
-                </div>
-              </div>
               </div>
             )}
             <div className="text-center mt-4">
