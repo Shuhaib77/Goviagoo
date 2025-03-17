@@ -23,18 +23,12 @@ function Body() {
       <div className="ml-3">
         <Head />
       </div>
-
-      {/* Road Trip Details */}
       <div className="ml-3 p-4 mt-4">
         <h1 className="font-bold text-2xl text-left">RoadTrip</h1>
         <h2 className="ml-4 text-gray-600">adventure awaits</h2>
       </div>
-
-      {/* Main Grid Layout */}
-      <div className=" mt-3">
-        {/* Left Section: Carousel & Booking Details */}
-        <div className="flex w-full  items-center gap-6">
-          {/* Carousel Section */}
+      <div className=" mt-3 flex flex-col gap-y-5">
+        <div className="flex w-full  items-center gap-6"> 
           <div className="w-[350px] rounded-2xl shadow-lg bg-white p-4">
             <Carousel>
               {latestRoadmap?.destinations?.map((item, index) => (
@@ -53,8 +47,6 @@ function Body() {
               ))}
             </Carousel>
           </div>
-
-          {/* Booking Details */}
           <div className="w-[350px] p-5 bg-white shadow-lg rounded-xl">
             {latestRoadmap && (
               <div className="text-gray-700 space-y-2">
