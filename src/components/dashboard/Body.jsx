@@ -136,9 +136,9 @@ function Body() {
                   </span>
                 </h1>
 
-                <div className="flex w-full">
+                <div className="flex w-full gap-x-3">
                   {/* Food Bookings */}
-                  <div className="mt-4">
+                  <div className="mt-4 w-full">
                     <h2 className="font-bold">Food Bookings:</h2>
                     {latestRoadmap.foodBookings?.length > 0 ? (
                       latestRoadmap.foodBookings.map((food, index) => (
@@ -201,7 +201,7 @@ function Body() {
                   </div>
 
                   {/* Stay Bookings */}
-                  <div className="mt-4">
+                  <div className="mt-4 w-full">
                     <h2 className="font-bold">Stay Bookings:</h2>
                     {latestRoadmap.stayBookings?.length > 0 ? (
                       latestRoadmap.stayBookings.map((stay, index) => (
@@ -220,6 +220,7 @@ function Body() {
                               <p className="text-sm font-semibold">
                                 {index + 1}. {item.name} days stay
                               </p>
+                              <img src={item.image} alt="" />
                               <p className="text-xs text-gray-700">
                                 Hotel: {item.rate || "Not specified"}
                               </p>
