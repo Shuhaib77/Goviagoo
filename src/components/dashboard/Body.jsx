@@ -110,7 +110,7 @@ function Body() {
           </div> */}
 
           {/* Bookings List */}
-          <div className="w-[80vw] flex p-5 bg-white shadow-lg rounded-xl">
+          <div className="w-[80vw]  p-5 bg-white shadow-lg rounded-xl">
             {latestRoadmap && (
               <div className="text-gray-700 space-y-2">
                 <h1>
@@ -138,8 +138,9 @@ function Body() {
                   </span>
                 </h1>
 
-                {/* Food Bookings */}
-                <div className="mt-4">
+              <div className="flex">
+                  {/* Food Bookings */}
+                  <div className="mt-4">
                   <h2 className="font-bold">Food Bookings:</h2>
                   {latestRoadmap.foodBookings?.length > 0 ? (
                     latestRoadmap.foodBookings.map((food, index) => (
@@ -232,6 +233,7 @@ function Body() {
                     <p className="text-xs text-gray-500">No Stay Bookings</p>
                   )}
                 </div>
+              </div>
               </div>
             )}
             <div className="text-center mt-4">
