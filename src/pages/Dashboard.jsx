@@ -21,7 +21,7 @@ function Dashboard() {
           <Sidebar />
         </div>
 
-        <div className="overflow-auto w-full">
+        <div className="overflow-y-scroll h-[95vh] w-full">
           {url === "savedmap" ? (
             <Savedmaps />
           ) : url === "status" ? (

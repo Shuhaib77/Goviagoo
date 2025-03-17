@@ -19,7 +19,7 @@ function Body() {
   const latestRoadmap = latestSavedMap?.roadmapId[0];
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-gray-100 p-6 overflow-auto">
       <div className="ml-3">
         <Head />
       </div>
