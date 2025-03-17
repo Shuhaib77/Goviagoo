@@ -4,7 +4,6 @@ const Banner = ({ image, searchbar }) => {
   return (
     <>
       <div className="px-9">
-        {/* Banner Section */}
         <div
           style={{ backgroundImage: `url(${image})` }}
           className="h-[55vh] mx-8 mt-10 bg-center bg-cover bg-no-repeat rounded-2xl shadow-xl"
@@ -16,8 +15,6 @@ const Banner = ({ image, searchbar }) => {
             </div>
           )}
         </div>
-
-        {/* Bottom Bar (Fixed Positioning Issue) */}
         <div className="lg:w-[120vh] sm:w-full h-[80px] lg:p-4 m-auto rounded-3xl shadow-xl bg-white -mt-8 flex justify-around items-center">
           <div className="flex justify-center items-center ml-3">
             <i className="fa-solid fa-location-dot fa-xl  text-gray-900"></i>

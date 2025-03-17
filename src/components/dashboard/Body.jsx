@@ -14,7 +14,7 @@ function Body() {
     dispatch(savedmapDetails(id));
   }, []);
 
-  // Extract the latest saved roadmap
+  //latest saved roadmap
   const latestSavedMap = data?.data?.savedMap?.slice(-1)[0];
   const latestRoadmap = latestSavedMap?.roadmapId[0];
 
@@ -28,7 +28,7 @@ function Body() {
         <h2 className="ml-4 text-gray-600">adventure awaits</h2>
       </div>
       <div className=" mt-3 flex flex-col gap-y-5">
-        <div className="flex w-full  items-center gap-6"> 
+        <div className="flex w-full  items-center gap-6">
           <div className="w-[350px] rounded-2xl shadow-lg bg-white p-4">
             <Carousel>
               {latestRoadmap?.destinations?.map((item, index) => (
@@ -82,7 +82,6 @@ function Body() {
           </div>
         </div>
 
-  
         <div className="flex flex-col items-center gap-6">
           {/* Roadmap Highlights */}
           {/* <div className="w-[610px] flex gap-4 overflow-x-auto items-center p-4 bg-blue-gray-700 rounded-lg shadow-lg">
