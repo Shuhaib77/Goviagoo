@@ -16,7 +16,7 @@ function Dashboard() {
         <Header />
       </div>
 
-      <div className="flex h-[90vh]">
+      <div className="flex h-[88vh]">
         <div className=""  >
           <Sidebar />
         </div>
