@@ -11,7 +11,7 @@ function Sidebar() {
   const navigate = useNavigate();
 
   return (
-    <div className="h-[85vh] w-[270px] bg-green-600 bg-opacity-90 shadow-2xl flex flex-col pt-20 px-6">
+    <div className="h-[91vh] w-[270px] bg-green-600 bg-opacity-90 shadow-2xl flex flex-col pt-20 px-6">
       <h2 className="text-white text-2xl font-semibold mb-10 text-center">Dashboard</h2>
       <div className="flex flex-col gap-6">
         {data.map((item, index) => (
